@@ -2,6 +2,18 @@ public class Queries {
   static String createFacultyTable = "CREATE TABLE FACULTY " +
                       "(ID INTEGER PRIMARY KEY     AUTOINCREMENT," +
                       " NAME           TEXT    NOT NULL)"; 
+
+  static String createCourseTable = "CREATE TABLE COURSES " +
+                      "(COURSE_CODE TEXT PRIMARY KEY NOT NULL, " +
+                      "COURSE_NAME TEXT NOT NULL)";
+
+  static String createClassroomTable = "CREATE TABLE CLASSROOM " + 
+                      "(ROOD_ID INT PRIMARY KEY NOT NULL, " +
+                      "ROOM_TYPE TEXT NOT NULL)";
+
+  static String createScheduleTable = "CREATE TABLE SCHEDULE " +
+                      "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + 
+                      "";
   
   public static String insertFaculty(String name) {
     String query = "INSERT INTO FACULTY ( NAME ) " +
