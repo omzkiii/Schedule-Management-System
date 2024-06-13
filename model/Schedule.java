@@ -1,3 +1,5 @@
+package model;
+
 import java.time.LocalDateTime;
 
 public class Schedule{
@@ -9,8 +11,7 @@ public class Schedule{
     private int roomId;
 
 
-    public Schedule(int id, int facultyId, LocalDateTime start, LocalDateTime end, int courseCode, int roomId){
-        this.id = id;
+    public Schedule(int facultyId, LocalDateTime start, LocalDateTime end, int courseCode, int roomId){
         this.facultyId = facultyId;
         this.start = start;
         this.end = end;

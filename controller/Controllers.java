@@ -1,3 +1,4 @@
+package controller;
 import java.sql.*;
 public class Controllers {
   // Query Execution Method
@@ -6,7 +7,9 @@ public class Controllers {
     Connection c = DriverManager.getConnection("jdbc:sqlite:database.db");
     Statement stmt = c.createStatement();
     // TODO Handle exception when sql returns nothing
+    System.out.println("hello");
     ResultSet result = stmt.executeQuery(query);
+    System.out.println("result: " + result);
     return result;
   }
 
