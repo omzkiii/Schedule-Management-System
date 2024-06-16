@@ -16,6 +16,4 @@ public class Course {
     public String getDesc(){
         return desc;
     }
-
-
 }

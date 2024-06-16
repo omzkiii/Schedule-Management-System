@@ -1,0 +1,6 @@
+model/Course.class
+app/controller/Controllers.class
+model/Schedule.class
+app/controller/Queries.class
+app/App.class
+model/Faculty.class

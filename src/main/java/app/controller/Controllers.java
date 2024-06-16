@@ -1,4 +1,4 @@
-package controller;
+package app.controller;
 import java.sql.*;
 public class Controllers {
   // Query Execution Method
@@ -15,16 +15,17 @@ public class Controllers {
 
 
   // Faculty Table Methods
-  public static void getAllFaculty(){
+  public static String getAllFaculty(){
     try {
       ResultSet result = executeQuery(Queries.selectFaculty);
       while (result.next()) {
           String name = result.getString("NAME");
-          System.out.println(name);
+          return name;
       }
     } catch (Exception e) {
       System.out.println("Get All Faculty Failed: " + e.getMessage());
     }
+    return null;
   }
   
   public static void deleteFaculty(String name){
