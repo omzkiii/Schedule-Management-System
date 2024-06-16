@@ -1,4 +1,4 @@
-package controller;
+package app.controller;
 public class Queries {
   static String createFacultyTable = "CREATE TABLE FACULTY " +
                       "(ID INTEGER PRIMARY KEY     AUTOINCREMENT," +
