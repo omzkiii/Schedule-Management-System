@@ -1,6 +1,6 @@
-model/Course.class
+app/model/Schedule.class
 app/controller/Controllers.class
-model/Schedule.class
+app/model/Faculty.class
 app/controller/Queries.class
+app/model/Course.class
 app/App.class
-model/Faculty.class

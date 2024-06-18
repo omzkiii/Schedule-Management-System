@@ -1,4 +1,4 @@
-package model;
+package app.model;
 
 public class Course {
     private String code;
