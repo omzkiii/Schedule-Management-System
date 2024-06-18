@@ -1,7 +1,7 @@
-app\App.class
-app\model\Schedule.class
-app\AppController.class
-app\model\Course.class
-app\controller\Controllers.class
-app\controller\Queries.class
-app\model\Faculty.class
+app/model/Schedule.class
+app/model/Faculty.class
+app/controller/Queries.class
+app/model/Course.class
+app/App.class
+app/controller/Controllers.class
+app/AppController.class
