@@ -11,7 +11,7 @@ public class App extends Application {
   @Override
   public void start(Stage primaryStage) {
     String text = Controllers.getAllFaculty();
-    System.out.println(text);
+    System.out.println("From App.java: " + text);
     Label label = new Label(text);
     StackPane root = new StackPane();
     root.getChildren().add(label);
@@ -22,6 +22,7 @@ public class App extends Application {
     primaryStage.show();
   }
   public static void main(String[] args) {
+    System.out.println(Controllers.removeFaculty(1760));
     launch(args);
   }
 }
