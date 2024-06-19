@@ -1,7 +1,6 @@
 package app.controller;
 
 import java.sql.ResultSet;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
@@ -21,7 +20,7 @@ public class ScheduleController {
         int room_id = result.getInt("ROOM_ID");
         int course = result.getInt("COURSE");
         Schedule schedule = new Schedule(assigned_faculty, day, start, end, course, room_id);
-        
+        schedules.add(schedule);
       }
     } catch (Exception e) {
       // TODO: handle exception
