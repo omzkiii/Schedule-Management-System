@@ -1,7 +1,6 @@
 package app.controller;
 
 import java.time.LocalTime;
-
 import app.model.Schedule;
 
 public class Queries {

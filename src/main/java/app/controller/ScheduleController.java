@@ -1,18 +1,29 @@
 package app.controller;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
 import app.model.Schedule;
 
 public class ScheduleController {
-  public static int createSchedule(int assigned_faculty, String day, LocalTime start, LocalTime end, int room_id, String course){
+  public static int createSchedule(Schedule schedule){
     try {
-    } catch (Exception e) {
-      // TODO: handle exception
+      int rowAffected = Controllers.noresQuery(Queries.insertSchedule(schedule));
+      System.out.println("Inserted " + rowAffected + " row/s for schedule " + schedule.getId());
+      return 0;
+    } catch (SQLException e) {
+      if(e.getErrorCode() == 19){
+        // TODO: Add handle conflicting schedule class or methods
+        return 1;
+      } else {
+        return -1;
+      }
+    } catch (Exception e){
+      System.out.println("Unexpected error");
+      return -1;
     }
-      return 1;
   }
 
   public static ArrayList<Schedule> getAllSchedule(){

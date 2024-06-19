@@ -35,12 +35,11 @@ public class App extends Application {
   public static void main(String[] args) {
     // launch(args);
     // DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_TIME;
-    // DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-    // Schedule schedule = new Schedule(0, 1, "Monday", LocalTime.parse("07:30:00",formatter), LocalTime.parse("09:30:00",formatter), "CITE001", 301);
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+    Schedule schedule = new Schedule(0, 1, "Monday", LocalTime.parse("07:30:00",formatter), LocalTime.parse("09:30:00",formatter), "CITE001", 301);
+    ScheduleController.createSchedule(schedule);
 
     try {
-      // Controllers.noresQuery(Queries.insertSchedule(schedule));
-      // Controllers.noresQuery(Queries.dropTable);
       ArrayList<Schedule> scheds = ScheduleController.getAllSchedule();
       ListIterator<Schedule> iterator = scheds.listIterator();
 
