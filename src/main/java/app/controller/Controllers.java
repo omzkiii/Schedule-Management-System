@@ -3,8 +3,7 @@ import java.sql.*;
 
 public class Controllers {
 
-  // Query Execution Method
-  
+  // Query Execution Methods
   public static ResultSet resQuery(String query) throws ClassNotFoundException, SQLException {
     Class.forName("org.sqlite.JDBC");
     Connection c = DriverManager.getConnection("jdbc:sqlite:database.db");
