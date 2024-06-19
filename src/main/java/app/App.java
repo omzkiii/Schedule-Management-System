@@ -4,10 +4,8 @@ import java.util.ArrayList;
 import java.util.ListIterator;
 
 import app.controller.Controllers;
-import app.controller.CourseControllers;
 import app.controller.FacultyControllers;
 import app.controller.Queries;
-import app.model.Course;
 import app.model.Faculty;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -40,7 +38,6 @@ public class App extends Application {
     // }
     // launch(args);
     try {
-      Controllers.noresQuery(Queries.createScheduleTable);
       
     } catch (Exception e) {
       System.out.println(e);
