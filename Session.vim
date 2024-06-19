@@ -13,11 +13,15 @@ if &shortmess =~ 'A'
 else
   set shortmess=aoO
 endif
-badd +3 src/main/java/app/App.java
+badd +63 ~/Documents/Projects/Class\ Code/Parallel\ Distribution/Schedule\ Management/src/main/java/app/controller/FacultyControllers.java
+badd +39 ~/Documents/Projects/Class\ Code/Parallel\ Distribution/Schedule\ Management/src/main/java/app/App.java
+badd +68 ~/Documents/Projects/Class\ Code/Parallel\ Distribution/Schedule\ Management/src/main/java/app/controller/CourseControllers.java
+badd +8 ~/Documents/Projects/Class\ Code/Parallel\ Distribution/Schedule\ Management/src/main/java/app/model/Faculty.java
 argglobal
 %argdel
-edit src/main/java/app/App.java
+edit ~/Documents/Projects/Class\ Code/Parallel\ Distribution/Schedule\ Management/src/main/java/app/App.java
 argglobal
+balt ~/Documents/Projects/Class\ Code/Parallel\ Distribution/Schedule\ Management/src/main/java/app/controller/CourseControllers.java
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -28,12 +32,12 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 5 - ((4 * winheight(0) + 22) / 44)
+let s:l = 39 - ((38 * winheight(0) + 22) / 44)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 5
-normal! 0
+keepjumps 39
+normal! 05|
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
