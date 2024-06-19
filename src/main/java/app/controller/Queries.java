@@ -1,7 +1,12 @@
 package app.controller;
+
+import java.time.LocalTime;
+
+import app.model.Schedule;
+
 public class Queries {
   public static String createFacultyTable = "CREATE TABLE FACULTY " +
-                      "(ID INTEGER PRIMARY KEY     AUTOINCREMENT," +
+                      "(ID INTEGER PRIMARY KEY," +
                       " NAME           TEXT    NOT NULL)"; 
 
   public static String createCourseTable = "CREATE TABLE COURSES " +
@@ -12,8 +17,9 @@ public class Queries {
   public static String createScheduleTable = "CREATE TABLE SCHEDULES " +
                       "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + 
                       "ASSIGNED_FACULTY INT NOT NULL, " +
-                      "START TIME NOT NULL, " +
-                      "END TIME NOT NULL, " +
+                      "DAY TEXT NOT NULL, " +
+                      "START_TIME TIME NOT NULL, " +
+                      "END_TIME TIME NOT NULL, " +
                       "COURSE TEXT NOT NULL, " +
                       "ROOM_ID INT NOT NULL, " +
                       "FOREIGN KEY(ASSIGNED_FACULTY) REFERENCES FACULTY(ID), " +
@@ -45,6 +51,17 @@ public class Queries {
   public static String deleteCourse(String code){
     return String.format("DELETE FROM COURSES WHERE COURSE_CODE='%s';", code);
   }
+
+  // SCHEDULES QUERIES
+  public static String insertSchedule(Schedule schedule) {
+    int assigned_faculty = schedule.getFacultyId();
+    String day = schedule.getDay();
+    LocalTime start = schedule.getStart();
+    LocalTime end = schedule.getEnd();
+    int room_id = schedule.getRoomId();
+    String course = schedule.getCourseCode();
+    return String.format("INSERT INTO SCHEDULES (ASSIGNED_FACULTY, DAY, START_TIME, END_TIME, ROOM_ID, COURSE) VALUES ('%d', '%s', '%s', '%s', '%d', '%s');", assigned_faculty, day, start, end, room_id, course);
+  }
   
   
   // SELECT ALL QUERY
@@ -57,5 +74,5 @@ public class Queries {
   // TABLE QUERIES
   static String selectFaculty =  "SELECT * FROM FACULTY;";
 
-  public static String dropTable = "DROP TABLE SCHEDULE;";
+  public static String dropTable = "DROP TABLE SCHEDULES;";
 }
