@@ -6,3 +6,4 @@ app/App.class
 app/controller/Controllers.class
 app/controller/CourseControllers.class
 app/controller/FacultyControllers.class
+app/controller/ScheduleController.class

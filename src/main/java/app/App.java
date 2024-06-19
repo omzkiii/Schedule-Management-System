@@ -3,8 +3,10 @@ package app;
 import java.util.ArrayList;
 import java.util.ListIterator;
 
+import app.controller.Controllers;
 import app.controller.CourseControllers;
 import app.controller.FacultyControllers;
+import app.controller.Queries;
 import app.model.Course;
 import app.model.Faculty;
 import javafx.application.Application;
@@ -29,13 +31,19 @@ public class App extends Application {
   }
 
   public static void main(String[] args) {
-    ArrayList<Course> courses = CourseControllers.getAllCourse();
-
-    ListIterator<Course> courseIterator = courses.listIterator();
-
-    while (courseIterator.hasNext()) {
-      System.out.println(courseIterator.next().getCode());
-    }
+    // ArrayList<Course> courses = CourseControllers.getAllCourse();
+    //
+    // ListIterator<Course> courseIterator = courses.listIterator();
+    //
+    // while (courseIterator.hasNext()) {
+    //   System.out.println(courseIterator.next().getCode());
+    // }
     // launch(args);
+    try {
+      Controllers.noresQuery(Queries.createScheduleTable);
+      
+    } catch (Exception e) {
+      System.out.println(e);
+    }
   }
 }

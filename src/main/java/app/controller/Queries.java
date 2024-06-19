@@ -9,9 +9,15 @@ public class Queries {
   //                     "COURSE_NAME TEXT NOT NULL)";
 
 
-  // static String createScheduleTable = "CREATE TABLE SCHEDULE " +
+  // public static String createScheduleTable = "CREATE TABLE SCHEDULE " +
   //                     "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + 
-  //                     "";
+  //                     "ASSIGNED_FACULTY INT NOT NULL, " +
+  //                     "START TIME NOT NULL, " +
+  //                     "END TIME NOT NULL, " +
+  //                     "COURSE TEXT NOT NULL, " +
+  //                     "ROOM_ID INT NOT NULL, " +
+  //                     "FOREIGN KEY(ASSIGNED_FACULTY) REFERENCES FACULTY(ID), " +
+  //                     "FOREIGN KEY(COURSE) REFERENCES COURSES(COURSE_CODE)); ";
   
   // FACULTY QUERIES
   public static String insertFaculty(int id, String name) {
