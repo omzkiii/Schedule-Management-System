@@ -7,10 +7,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
 
 public class App extends Application {
   @Override
@@ -26,6 +28,8 @@ public class App extends Application {
     primaryStage.setScene(scene);
     primaryStage.show();
   }
+
+
   public static void main(String[] args) {
     launch();
   }
