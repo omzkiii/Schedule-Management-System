@@ -8,11 +8,11 @@ public class Schedule{
     private String day;
     private LocalTime start;
     private LocalTime end;
-    private int courseCode;
+    private String courseCode;
     private int roomId;
 
 
-    public Schedule(int id, int facultyId, String day, LocalTime start, LocalTime end, int courseCode, int roomId){
+    public Schedule(int id, int facultyId, String day, LocalTime start, LocalTime end, String courseCode, int roomId){
         this.id = id;
         this.facultyId = facultyId;
         this.day = day;
@@ -46,7 +46,7 @@ public class Schedule{
     }
 
 
-    public int getCourseCode(){
+    public String getCourseCode(){
         return courseCode;
     }
 
