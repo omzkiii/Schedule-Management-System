@@ -1,6 +1,9 @@
-/home/kpes/Desktop/parallel/Schedule-Management-System/src/main/java/app/App.java
-/home/kpes/Desktop/parallel/Schedule-Management-System/src/main/java/app/controller/Controllers.java
-/home/kpes/Desktop/parallel/Schedule-Management-System/src/main/java/app/controller/Queries.java
-/home/kpes/Desktop/parallel/Schedule-Management-System/src/main/java/app/model/Course.java
-/home/kpes/Desktop/parallel/Schedule-Management-System/src/main/java/app/model/Faculty.java
-/home/kpes/Desktop/parallel/Schedule-Management-System/src/main/java/app/model/Schedule.java
+/home/geo/Documents/Projects/Class Code/Parallel Distribution/Schedule Management/src/main/java/app/App.java
+/home/geo/Documents/Projects/Class Code/Parallel Distribution/Schedule Management/src/main/java/app/controller/Controllers.java
+/home/geo/Documents/Projects/Class Code/Parallel Distribution/Schedule Management/src/main/java/app/controller/CourseControllers.java
+/home/geo/Documents/Projects/Class Code/Parallel Distribution/Schedule Management/src/main/java/app/controller/FacultyControllers.java
+/home/geo/Documents/Projects/Class Code/Parallel Distribution/Schedule Management/src/main/java/app/controller/Queries.java
+/home/geo/Documents/Projects/Class Code/Parallel Distribution/Schedule Management/src/main/java/app/model/Course.java
+/home/geo/Documents/Projects/Class Code/Parallel Distribution/Schedule Management/src/main/java/app/model/Faculty.java
+/home/geo/Documents/Projects/Class Code/Parallel Distribution/Schedule Management/src/main/java/app/model/Schedule.java
+/home/geo/Documents/Projects/Class Code/Parallel Distribution/Schedule Management/src/main/java/app/view/ManageFaculty.java
