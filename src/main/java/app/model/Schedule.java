@@ -1,18 +1,20 @@
 package app.model;
 
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public class Schedule{
     private int id;
     private int facultyId;
-    private LocalDateTime start;
-    private LocalDateTime end;
+    private String day;
+    private LocalTime start;
+    private LocalTime end;
     private int courseCode;
     private int roomId;
 
 
-    public Schedule(int facultyId, LocalDateTime start, LocalDateTime end, int courseCode, int roomId){
+    public Schedule(int facultyId, String day, LocalTime start, LocalTime end, int courseCode, int roomId){
         this.facultyId = facultyId;
+        this.day = day;
         this.start = start;
         this.end = end;
         this.courseCode = courseCode;
@@ -29,13 +31,16 @@ public class Schedule{
         return facultyId;
     }
 
+    public String getDay(){
+        return day;
+    }
 
-    public LocalDateTime getStart(){
+    public LocalTime getStart(){
         return start;
     }
 
 
-    public LocalDateTime getEnd(){
+    public LocalTime getEnd(){
         return end;
     }
 

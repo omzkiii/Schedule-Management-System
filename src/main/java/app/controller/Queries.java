@@ -12,6 +12,7 @@ public class Queries {
   public static String createScheduleTable = "CREATE TABLE SCHEDULES " +
                       "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + 
                       "ASSIGNED_FACULTY INT NOT NULL, " +
+                      "DAY TEXT NOT NULL, " +
                       "START TIME NOT NULL, " +
                       "END TIME NOT NULL, " +
                       "COURSE TEXT NOT NULL, " +
@@ -57,5 +58,5 @@ public class Queries {
   // TABLE QUERIES
   static String selectFaculty =  "SELECT * FROM FACULTY;";
 
-  public static String dropTable = "DROP TABLE SCHEDULE;";
+  public static String dropTable = "DROP TABLE SCHEDULES;";
 }
