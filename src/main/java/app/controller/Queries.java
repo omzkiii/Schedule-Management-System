@@ -1,23 +1,23 @@
 package app.controller;
 public class Queries {
-  // static String createFacultyTable = "CREATE TABLE FACULTY " +
-  //                     "(ID INTEGER PRIMARY KEY     AUTOINCREMENT," +
-  //                     " NAME           TEXT    NOT NULL)"; 
+  public static String createFacultyTable = "CREATE TABLE FACULTY " +
+                      "(ID INTEGER PRIMARY KEY     AUTOINCREMENT," +
+                      " NAME           TEXT    NOT NULL)"; 
 
-  // static String createCourseTable = "CREATE TABLE COURSES " +
-  //                     "(COURSE_CODE TEXT PRIMARY KEY NOT NULL, " +
-  //                     "COURSE_NAME TEXT NOT NULL)";
+  public static String createCourseTable = "CREATE TABLE COURSES " +
+                      "(COURSE_CODE TEXT PRIMARY KEY NOT NULL, " +
+                      "COURSE_NAME TEXT NOT NULL)";
 
 
-  // public static String createScheduleTable = "CREATE TABLE SCHEDULE " +
-  //                     "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + 
-  //                     "ASSIGNED_FACULTY INT NOT NULL, " +
-  //                     "START TIME NOT NULL, " +
-  //                     "END TIME NOT NULL, " +
-  //                     "COURSE TEXT NOT NULL, " +
-  //                     "ROOM_ID INT NOT NULL, " +
-  //                     "FOREIGN KEY(ASSIGNED_FACULTY) REFERENCES FACULTY(ID), " +
-  //                     "FOREIGN KEY(COURSE) REFERENCES COURSES(COURSE_CODE)); ";
+  public static String createScheduleTable = "CREATE TABLE SCHEDULES " +
+                      "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + 
+                      "ASSIGNED_FACULTY INT NOT NULL, " +
+                      "START TIME NOT NULL, " +
+                      "END TIME NOT NULL, " +
+                      "COURSE TEXT NOT NULL, " +
+                      "ROOM_ID INT NOT NULL, " +
+                      "FOREIGN KEY(ASSIGNED_FACULTY) REFERENCES FACULTY(ID), " +
+                      "FOREIGN KEY(COURSE) REFERENCES COURSES(COURSE_CODE)); ";
   
   // FACULTY QUERIES
   public static String insertFaculty(int id, String name) {
@@ -57,5 +57,5 @@ public class Queries {
   // TABLE QUERIES
   static String selectFaculty =  "SELECT * FROM FACULTY;";
 
-  static String dropTable = "DROP TABLE FACULTY;";
+  public static String dropTable = "DROP TABLE SCHEDULE;";
 }
