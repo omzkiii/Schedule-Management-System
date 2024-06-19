@@ -26,6 +26,10 @@ public class ScheduleController {
     }
   }
 
+  public static int removeSchedule(Schedule schedule) {
+    return -1;
+  }
+
   public static ArrayList<Schedule> getAllSchedule(){
     try {
       ResultSet result = Controllers.resQuery(Queries.selectAllFrom("SCHEDULES"));

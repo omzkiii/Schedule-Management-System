@@ -59,7 +59,14 @@ public class Queries {
     LocalTime end = schedule.getEnd();
     int room_id = schedule.getRoomId();
     String course = schedule.getCourseCode();
-    return String.format("INSERT INTO SCHEDULES (ASSIGNED_FACULTY, DAY, START_TIME, END_TIME, ROOM_ID, COURSE) VALUES ('%d', '%s', '%s', '%s', '%d', '%s');", assigned_faculty, day, start, end, room_id, course);
+    return String.format("INSERT INTO SCHEDULES " + 
+      "(ASSIGNED_FACULTY, DAY, START_TIME, END_TIME, ROOM_ID, COURSE) VALUES ('%d', '%s', '%s', '%s', '%d', '%s');", 
+      assigned_faculty, day, start, end, room_id, course);
+  }
+
+  public static String deleteSchedule(Schedule schedule){
+    int id = schedule.getId();
+    return String.format("DELETE FROM SCHEDULES WHERE ID='%d';", id);
   }
   
   
