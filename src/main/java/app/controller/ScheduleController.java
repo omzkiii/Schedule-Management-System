@@ -7,9 +7,9 @@ import java.util.ArrayList;
 import app.model.Schedule;
 
 public class ScheduleController {
-  public static int getAllSchedule(){
+  public static ArrayList<Schedule> getAllSchedule(){
     try {
-      ResultSet result = Controllers.resQuery(Queries.selectAllFrom("SCHEDULE"));
+      ResultSet result = Controllers.resQuery(Queries.selectAllFrom("SCHEDULES"));
       ArrayList<Schedule> schedules = new ArrayList<>();
       while (result.next()) {
         int id = result.getInt("ID");
@@ -19,13 +19,15 @@ public class ScheduleController {
         LocalTime end = LocalTime.parse(result.getString("END"));
         int room_id = result.getInt("ROOM_ID");
         int course = result.getInt("COURSE");
-        Schedule schedule = new Schedule(assigned_faculty, day, start, end, course, room_id);
+        Schedule schedule = new Schedule(id, assigned_faculty, day, start, end, course, room_id);
         schedules.add(schedule);
       }
+      return schedules;
     } catch (Exception e) {
-      // TODO: handle exception
+      System.out.println("Get All Schedules Failed: " + e.getMessage());
+      return null;
+
     }
-    return 0;
   }
   
 }

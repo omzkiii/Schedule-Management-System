@@ -18,7 +18,6 @@ public class App extends Application {
     StackPane root = new StackPane();
     root.getChildren().add(label);
     Scene scene = new Scene(root, 300, 200);
-
     primaryStage.setTitle("Hello JavaFX");
     primaryStage.setScene(scene);
     primaryStage.show();

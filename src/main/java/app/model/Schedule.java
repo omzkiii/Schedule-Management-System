@@ -12,7 +12,8 @@ public class Schedule{
     private int roomId;
 
 
-    public Schedule(int facultyId, String day, LocalTime start, LocalTime end, int courseCode, int roomId){
+    public Schedule(int id, int facultyId, String day, LocalTime start, LocalTime end, int courseCode, int roomId){
+        this.id = id;
         this.facultyId = facultyId;
         this.day = day;
         this.start = start;
