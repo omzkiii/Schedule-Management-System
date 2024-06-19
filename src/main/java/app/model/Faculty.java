@@ -4,8 +4,9 @@ public class Faculty{
     private int id;
     private String name;
 
-    public Faculty(String name){
+    public Faculty(String name, int id){
         this.name = name;
+        this.id = id;
     }
 
     public int getId(){

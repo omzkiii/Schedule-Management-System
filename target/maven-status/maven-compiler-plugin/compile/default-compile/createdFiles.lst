@@ -4,4 +4,10 @@ app/controller/Queries.class
 app/model/Course.class
 app/App.class
 app/controller/Controllers.class
+<<<<<<< HEAD
 app/AppController.class
+=======
+app/controller/CourseControllers.class
+app/controller/FacultyControllers.class
+app/controller/ScheduleController.class
+>>>>>>> 62f3c809028b3bdadb7b0659506ac183dafdc92d
