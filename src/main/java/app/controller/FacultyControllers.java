@@ -78,6 +78,7 @@ public class FacultyControllers {
         return -1;
       }
     } catch (Exception e) {
+      System.out.println("Unexpected exception: " + e);
       return -1;
     }
   }

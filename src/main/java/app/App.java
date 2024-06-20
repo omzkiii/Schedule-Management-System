@@ -47,9 +47,7 @@ public class App extends Application {
     /*For Testing */
 
     DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_TIME;
-    // DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-    Schedule schedule = new Schedule(4, 1, "Monday", LocalTime.parse("07:30:00",formatter), LocalTime.parse("09:30:00",formatter), "CITE001", 301);
-    // ScheduleController.createSchedule(schedule);
+
 
     CourseControllers.removeCourse("CS302");
     FacultyControllers.removeFaculty(12121);
