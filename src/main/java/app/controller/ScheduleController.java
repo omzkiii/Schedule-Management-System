@@ -27,7 +27,20 @@ public class ScheduleController {
   }
 
   public static int removeSchedule(Schedule schedule) {
-    return -1;
+    try {
+      int rowAffected = Controllers.noresQuery(Queries.deleteSchedule(schedule));
+      System.out.println("Deleted " +  rowAffected + " row/s for schedule " + schedule.getId());
+      if(rowAffected == 1){
+        return 0;
+      } else if(rowAffected == 0){
+        return 1;
+      } else {
+        return -1;
+      }
+    } catch (Exception e) {
+      System.out.println("Unexpected exception: " + e);
+      return -1;
+    }
   }
 
   public static ArrayList<Schedule> getAllSchedule(){
