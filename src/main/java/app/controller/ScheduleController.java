@@ -1,5 +1,7 @@
 package app.controller;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalTime;
@@ -31,8 +33,8 @@ public class ScheduleController {
   }
 
   public static ArrayList<Schedule> getAllSchedule(){
-    try {
-      ResultSet result = Controllers.resQuery(Queries.selectAllFrom("SCHEDULES"));
+    try (Connection c = DriverManager.getConnection("jdbc:sqlite:database.db")) {
+      ResultSet result = Controllers.resQuery(Queries.selectAllFrom("SCHEDULES"), c);
       ArrayList<Schedule> schedules = new ArrayList<>();
       while (result.next()) {
         int id = result.getInt("ID");

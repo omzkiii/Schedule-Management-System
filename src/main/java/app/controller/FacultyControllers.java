@@ -2,6 +2,8 @@ package app.controller;
 
 import app.model.Faculty;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -82,8 +84,8 @@ public class FacultyControllers {
   
 
   public static ArrayList<Faculty> getAllFaculty(){
-    try {
-      ResultSet result = Controllers.resQuery(Queries.selectFaculty);
+    try (Connection c = DriverManager.getConnection("jdbc:sqlite:database.db")){
+      ResultSet result = Controllers.resQuery(Queries.selectFaculty, c);
       ArrayList<Faculty> faculties = new ArrayList<>();
       while (result.next()) {
         String id = result.getString("ID");

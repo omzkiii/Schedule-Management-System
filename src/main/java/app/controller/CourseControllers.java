@@ -1,5 +1,7 @@
 package app.controller;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -64,8 +66,8 @@ public class CourseControllers {
   
   
   public static ArrayList<Course> getAllCourse(){
-    try {
-      ResultSet result = Controllers.resQuery(Queries.selectAllFrom("COURSES"));
+    try (Connection c = DriverManager.getConnection("jdbc:sqlite:database.db")){
+      ResultSet result = Controllers.resQuery(Queries.selectAllFrom("COURSES"), c);
       ArrayList<Course> courses = new ArrayList<>();
       while (result.next()) {
         String code = result.getString("COURSE_CODE");
