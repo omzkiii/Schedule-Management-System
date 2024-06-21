@@ -10,8 +10,10 @@ import app.controller.Controllers;
 import app.controller.FacultyControllers;
 import app.controller.Queries;
 import app.controller.ScheduleController;
+import app.controller.CourseControllers;
 import app.model.Faculty;
 import app.model.Schedule;
+import app.model.Course;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -42,19 +44,23 @@ public class App extends Application {
 
   public static void main(String[] args) {
 
-    launch(args);
+    /*For Testing */
+
     DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_TIME;
 
 
-    try {
-      ArrayList<Schedule> scheds = ScheduleController.getAllSchedule();
-      ListIterator<Schedule> iterator = scheds.listIterator();
+    CourseControllers.removeCourse("CS302");
+    FacultyControllers.removeFaculty(12121);
+    ArrayList<Course> scheds = CourseControllers.getAllCourse();
+    ListIterator<Course> iterator = scheds.listIterator();
 
-      while (iterator.hasNext()) {
-        System.out.println(iterator.next().getStart());
-      }
-    } catch (Exception e) {
-      System.out.println(e);
+    while (iterator.hasNext()) {
+      System.out.println(iterator.next().getDesc());
     }
+
+    /*For Testing */
+    
+    launch(args);
+  
   }
 }
