@@ -147,6 +147,32 @@ public class ScheduleController {
     }
   }
 
+  public static ArrayList<Schedule> getCourseSchedule(String cor){
+    try (Connection c = DriverManager.getConnection("jdbc:sqlite:database.db")) {
+    ResultSet result = Controllers.resQuery(Queries.selectScheduleFor(cor), c);
+      ArrayList<Schedule> schedules = new ArrayList<>();
+      while (result.next()) {
+        int id = result.getInt("ID");
+        int assigned_faculty = result.getInt("ASSIGNED_FACULTY");
+        String day = result.getString("DAY");
+        LocalTime start = LocalTime.parse(result.getString("START_TIME"));
+        LocalTime end = LocalTime.parse(result.getString("END_TIME"));
+        Duration dur = new Duration(start, end);
+        int room_id = result.getInt("ROOM_ID");
+        String course = result.getString("COURSE");
+        Schedule schedule = new Schedule(id, assigned_faculty, day, dur, course, room_id);
+        schedules.add(schedule);
+      }
+      return schedules;
+
+    } catch (Exception e) {
+      System.out.println("Get All Schedules Failed: " + e.getMessage());
+      return null;
+
+    }
+  }
+
+
 
   public static ArrayList<Schedule> getAllSchedule(){
     try (Connection c = DriverManager.getConnection("jdbc:sqlite:database.db")) {

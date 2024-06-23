@@ -7,11 +7,33 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import app.model.Course;
+import app.utils.CourseChecker;
 
 public class CourseControllers {
-  public static int createCourse(String code, String name){
+  public static int createCourse(Course course){
+    /*
+     * return values:
+     * 0 - creation success
+     * 1 - course code already exist
+     * 2 - faculty max load exceeded
+     * -1 - other exception
+     */
+
+    if(CourseChecker.isMaxLoadExceeded(course)){
+      System.out.println("Max Faculty Load Exceeded");
+      return 2;
+    }
+
+    String code = course.getCode();
+    String name = course.getDesc();
+    int lec = course.getLecUnits();
+    int lab = course .getLabUnits();
+    float hrs = course.getHrsPerWeek();
+    int fac = course. getFacultyId();
+
+
     try {
-      int rowAffected = Controllers.noresQuery(Queries.insertCourse(code, name));
+      int rowAffected = Controllers.noresQuery(Queries.insertCourse(code, name, lec, lab, hrs, fac));
       System.out.println("Inserted " + rowAffected + " row/s for course " + code);
       return 0;
       
@@ -31,9 +53,29 @@ public class CourseControllers {
   }
 
 
-  public static int modifyCourse(String code, String name){
+  public static int modifyCourse(Course course){
+    /*
+     * return values:
+     * 0 - update success
+     * 1 - course code does not exist
+     * 2 - faculty max load exceeded
+     * -1 - other exception
+     */
+
+     if(CourseChecker.isMaxLoadExceeded(course)){
+      System.out.println("Max Faculty Load Exceeded");
+      return 2;
+    }
+
+    String code = course.getCode();
+    String name = course.getDesc();
+    int lec = course.getLecUnits();
+    int lab = course .getLabUnits();
+    float hrs = course.getHrsPerWeek();
+    int fac = course. getFacultyId();
+
     try {
-      int rowAffected = Controllers.noresQuery(Queries.updateCourse(code, name));
+      int rowAffected = Controllers.noresQuery(Queries.updateCourse(code, name, lec, lab, hrs, fac));
       System.out.println("Updated " + rowAffected + " row/s for course " + code);
       if(rowAffected == 1){
         return 0;
@@ -42,7 +84,8 @@ public class CourseControllers {
       } else {
         return -1;
       }
-    } catch (Exception e) {;
+    } catch (Exception e) {
+      System.out.println("Unexpected Exception: " + e.getMessage());
       return -1;
     }
   }
@@ -63,6 +106,28 @@ public class CourseControllers {
       return -1;
     }
   }
+
+
+  public static ArrayList<Course> getCourseFor(int faculty){
+    try (Connection c = DriverManager.getConnection("jdbc:sqlite:database.db")){
+      ResultSet result = Controllers.resQuery(Queries.selectCourseFor(faculty), c);
+      ArrayList<Course> courses = new ArrayList<>();
+      while (result.next()) {
+        String code = result.getString("COURSE_CODE");
+        String desc = result.getString("COURSE_NAME");
+        int lecUnits = result.getInt("LEC_UNITS");
+        int labUnits = result.getInt("LAB_UNITS");
+        int assign_faculty = result.getInt("ASSIGNED_FACULTY");
+        Course course = new Course(code, desc, lecUnits, labUnits, assign_faculty);
+        courses.add(course);
+      }
+      return courses;
+      
+    } catch (Exception e) {
+      System.out.println("Getting Courses Failed: " + e);
+      return null;
+    }
+  }
   
   
   public static ArrayList<Course> getAllCourse(){
@@ -72,7 +137,10 @@ public class CourseControllers {
       while (result.next()) {
         String code = result.getString("COURSE_CODE");
         String desc = result.getString("COURSE_NAME");
-        Course course = new Course(code, desc);
+        int lecUnits = result.getInt("LEC_UNITS");
+        int labUnits = result.getInt("LAB_UNITS");
+        int assign_faculty = result.getInt("ASSIGNED_FACULTY");
+        Course course = new Course(code, desc, lecUnits, labUnits, assign_faculty);
         courses.add(course);
       }
       return courses;

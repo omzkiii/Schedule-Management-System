@@ -4,6 +4,7 @@ import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.ListIterator;
 
@@ -62,21 +63,29 @@ public class App extends Application {
     // }
  
 
-    LocalTime time1 = LocalTime.of(7, 30);
-    LocalTime time2 = LocalTime.of(10, 30);
-    LocalTime time3 = LocalTime.of(10, 30);
-    LocalTime time4 = LocalTime.of(12, 00);
+    // LocalTime time1 = LocalTime.of(7, 30);
+    // LocalTime time2 = LocalTime.of(12, 30);
 
-    Duration d1 = new Duration(time1, time2);
-    Duration d2 = new Duration(time3, time4);
+    // System.out.println("Hours between: " + time1.until(time2, ChronoUnit.HOURS));
 
-    Schedule schedule1 = new Schedule(15523, "Tuesday", d1, "343", 221);
-    // Schedule schedule2 = new Schedule(1213, "Friday", d1, "343", 222);
+    // LocalTime time3 = LocalTime.of(10, 30);
+    // LocalTime time4 = LocalTime.of(12, 00);
 
-    int res = ScheduleController.createSchedule(schedule1);
+    // Duration d1 = new Duration(time1, time2);
+    // Duration d2 = new Duration(time3, time4);
 
-    System.out.println("Adding schedule res: " + res);
+    // Schedule schedule1 = new Schedule(15523, "Tuesday", d1, "343", 221);
+    // // Schedule schedule2 = new Schedule(1213, "Friday", d1, "343", 222);
+
+    // int res = ScheduleController.createSchedule(schedule1);
+
+    // System.out.println("Adding schedule res: " + res);
     
+    ArrayList<Course> cs = CourseControllers.getAllCourse();
+    for(Course c: cs){
+      System.out.println(c);
+    }
+
 
   
     /*For Testing */
