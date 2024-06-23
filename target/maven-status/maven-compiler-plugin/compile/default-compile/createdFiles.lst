@@ -1,8 +1,11 @@
 app\App.class
+app\AppController$3.class
 app\AppController.class
 app\controller\Controllers.class
 app\controller\Queries.class
 app\FxmlLoader.class
+app\AppController$2.class
 app\model\Schedule.class
+app\AppController$1.class
 app\model\Course.class
 app\model\Faculty.class
