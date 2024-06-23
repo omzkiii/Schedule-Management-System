@@ -1,6 +1,5 @@
 package app.model;
 
-import java.time.LocalTime;
 
 public class Schedule{
     private int id;

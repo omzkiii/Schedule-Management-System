@@ -9,7 +9,9 @@ import app.model.Schedule;
 
 public class ScheduleChecker {
 
-
+    /*
+     * utility method to check if durations are overlapping
+     */
     public static Boolean isOverlapping(Duration d1, Duration d2){
         LocalTime d1Start = d1.getStart();
         LocalTime d1End = d1.getEnd();
@@ -32,6 +34,9 @@ public class ScheduleChecker {
         return false;
     }
 
+    /*
+     * To check if faculty has conflicting schedule with the input schedule
+     */
 
     public static Boolean isFacultyScheduled(Schedule schedule){
         int faculty = schedule.getFacultyId();
@@ -52,7 +57,9 @@ public class ScheduleChecker {
 
     }
 
-
+    /*
+     * To check if room has conflicting schedule with the input schedule
+     */
     public static Boolean isRoomOccupied(Schedule schedule){
         int room = schedule.getRoomId();
         String day = schedule.getDay();
@@ -73,6 +80,9 @@ public class ScheduleChecker {
     }
 
 
+    /*
+     * To check if course has conflicting schedule with the input schedule
+     */
     public static Boolean isCourseScheduled(Schedule schedule){
         String course = schedule.getCourseCode();
         String day = schedule.getDay();
@@ -85,6 +95,28 @@ public class ScheduleChecker {
 
         for(Schedule s: scheduleMatch){
             if(isOverlapping(duration, s.getDuration())){
+                return true;
+            }
+        }
+        return false;
+
+    }
+
+
+    /*
+     * To check if course is already assigned to a faculty
+     */
+    public static Boolean isCourseAssigned(Schedule schedule){
+        String course = schedule.getCourseCode();
+        int faculty = schedule.getFacultyId();
+
+        ArrayList<Schedule> scheduleMatch = ScheduleController.getCourseSchedule(course);
+        if(scheduleMatch == null){
+            return false;
+        }
+
+        for(Schedule s: scheduleMatch){
+            if(s.getFacultyId() != faculty){
                 return true;
             }
         }
