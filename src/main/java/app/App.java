@@ -1,6 +1,7 @@
 package app;
 
 import java.time.DateTimeException;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -13,7 +14,9 @@ import app.controller.ScheduleController;
 import app.controller.CourseControllers;
 import app.model.Faculty;
 import app.model.Schedule;
+import app.utils.ScheduleChecker;
 import app.model.Course;
+import app.model.Duration;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -46,18 +49,36 @@ public class App extends Application {
 
     /*For Testing */
 
-    DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_TIME;
+    // DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_TIME;
 
 
-    CourseControllers.removeCourse("CS302");
-    FacultyControllers.removeFaculty(12121);
-    ArrayList<Course> scheds = CourseControllers.getAllCourse();
-    ListIterator<Course> iterator = scheds.listIterator();
+    // CourseControllers.removeCourse("CS302");
+    // FacultyControllers.removeFaculty(12121);
+    // ArrayList<Course> scheds = CourseControllers.getAllCourse();
+    // ListIterator<Course> iterator = scheds.listIterator();
 
-    while (iterator.hasNext()) {
-      System.out.println(iterator.next().getDesc());
-    }
+    // while (iterator.hasNext()) {
+    //   System.out.println(iterator.next().getDesc());
+    // }
+ 
 
+    LocalTime time1 = LocalTime.of(7, 30);
+    LocalTime time2 = LocalTime.of(10, 30);
+    LocalTime time3 = LocalTime.of(10, 30);
+    LocalTime time4 = LocalTime.of(12, 00);
+
+    Duration d1 = new Duration(time1, time2);
+    Duration d2 = new Duration(time3, time4);
+
+    Schedule schedule1 = new Schedule(15523, "Tuesday", d1, "343", 221);
+    // Schedule schedule2 = new Schedule(1213, "Friday", d1, "343", 222);
+
+    int res = ScheduleController.createSchedule(schedule1);
+
+    System.out.println("Adding schedule res: " + res);
+    
+
+  
     /*For Testing */
     
     launch(args);

@@ -6,18 +6,25 @@ public class Schedule{
     private int id;
     private int facultyId;
     private String day;
-    private LocalTime start;
-    private LocalTime end;
+    private Duration duration;
     private String courseCode;
     private int roomId;
 
 
-    public Schedule(int id, int facultyId, String day, LocalTime start, LocalTime end, String courseCode, int roomId){
+    public Schedule(int id, int facultyId, String day, Duration duration, String courseCode, int roomId){
         this.id = id;
         this.facultyId = facultyId;
         this.day = day;
-        this.start = start;
-        this.end = end;
+        this.duration = duration;
+        this.courseCode = courseCode;
+        this.roomId = roomId;
+    }
+
+    public Schedule(int facultyId, String day, Duration duration, String courseCode, int roomId){
+        this.id = 0;
+        this.facultyId = facultyId;
+        this.day = day;
+        this.duration = duration;
         this.courseCode = courseCode;
         this.roomId = roomId;
     }
@@ -36,13 +43,8 @@ public class Schedule{
         return day;
     }
 
-    public LocalTime getStart(){
-        return start;
-    }
-
-
-    public LocalTime getEnd(){
-        return end;
+    public Duration getDuration() {
+        return duration;
     }
 
 
