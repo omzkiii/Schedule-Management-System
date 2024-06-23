@@ -1,6 +1,8 @@
 package app.controller;
 
 import java.time.LocalTime;
+
+import app.model.Duration;
 import app.model.Schedule;
 
 public class Queries {
@@ -55,8 +57,9 @@ public class Queries {
   public static String insertSchedule(Schedule schedule) {
     int assigned_faculty = schedule.getFacultyId();
     String day = schedule.getDay();
-    LocalTime start = schedule.getStart();
-    LocalTime end = schedule.getEnd();
+    Duration dur = schedule.getDuration();
+    LocalTime start = dur.getStart();
+    LocalTime end = dur.getEnd();
     int room_id = schedule.getRoomId();
     String course = schedule.getCourseCode();
     return String.format("INSERT INTO SCHEDULES " + 
@@ -68,7 +71,23 @@ public class Queries {
     int id = schedule.getId();
     return String.format("DELETE FROM SCHEDULES WHERE ID='%d';", id);
   }
-  
+
+
+  public static String selectScheduleFor(int faculty, String day){
+    return String.format("SELECT * FROM SCHEDULES WHERE ASSIGNED_FACULTY=%d AND DAY='%s';", faculty, day);
+  }
+
+
+  public static String selectScheduleFor(String day, int room){
+    return String.format("SELECT * FROM SCHEDULES WHERE ROOM_ID=%d AND DAY='%s';", room, day);
+  }
+
+
+  public static String selectScheduleFor(String day, String course){
+    return String.format("SELECT * FROM SCHEDULES WHERE COURSE='%s' AND DAY='%s';", course, day);
+  }
+
+
   
   // SELECT ALL QUERY
   public static String selectAllFrom(String table){
