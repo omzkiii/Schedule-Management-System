@@ -71,6 +71,10 @@ public class Queries {
     return String.format("SELECT * FROM COURSES WHERE ASSIGNED_FACULTY='%d';", faculty);
   }
 
+  public static String selectCourse(String courseCode){
+    return String.format("SELECT * FROM COURSES WHERE COURSE_CODE='%s';", courseCode);
+  }
+
 
 
 
@@ -88,9 +92,24 @@ public class Queries {
       assigned_faculty, day, start, end, room_id, course);
   }
 
-  public static String deleteSchedule(Schedule schedule){
+
+  public static String updateSchedule(Schedule schedule) {
     int id = schedule.getId();
-    return String.format("DELETE FROM SCHEDULES WHERE ID='%d';", id);
+    int assigned_faculty = schedule.getFacultyId();
+    String day = schedule.getDay();
+    Duration dur = schedule.getDuration();
+    LocalTime start = dur.getStart();
+    LocalTime end = dur.getEnd();
+    int room_id = schedule.getRoomId();
+    String course = schedule.getCourseCode();
+    return String.format("UPDATE SCHEDULES SET " + 
+      "ASSIGNED_FACULTY = %d, DAY = '%s', START_TIME = '%s', END_TIME = '%s', ROOM_ID = %d, COURSE = '%s' WHERE ID = %d;", 
+      assigned_faculty, day, start, end, room_id, course, id);
+  }
+
+
+  public static String deleteSchedule(int schedId){
+    return String.format("DELETE FROM SCHEDULES WHERE ID='%d';", schedId);
   }
 
 
@@ -103,10 +122,6 @@ public class Queries {
     return String.format("SELECT * FROM SCHEDULES WHERE ROOM_ID=%d AND DAY='%s';", room, day);
   }
 
-
-  public static String selectScheduleFor(String day, String course){
-    return String.format("SELECT * FROM SCHEDULES WHERE COURSE='%s' AND DAY='%s';", course, day);
-  }
 
   public static String selectScheduleFor(String course){
     return String.format("SELECT * FROM SCHEDULES WHERE COURSE='%s'", course);

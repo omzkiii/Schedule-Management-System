@@ -158,7 +158,6 @@ public class FacultyControllers {
         int id = result.getInt("ID");
         String name = result.getString("NAME");
         int maxLoad = result.getInt("MAX_LOAD");
-        System.out.println(maxLoad);
         Faculty faculty = new Faculty(id, name, maxLoad); 
         faculties.add(faculty);
       }

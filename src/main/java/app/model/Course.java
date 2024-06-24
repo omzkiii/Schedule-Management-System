@@ -1,5 +1,7 @@
 package app.model;
 
+import app.controller.FacultyControllers;
+
 public class Course {
     private String code;
     private String desc;
@@ -10,8 +12,7 @@ public class Course {
 
 
     public Course(String code, String desc, int lecUnits, int labUnits, int facultyId){
-        this.code = code;
-        this.desc = desc;
+        
         if(lecUnits+labUnits == 0){
             throw new IllegalArgumentException("No units specified");
         }
@@ -27,7 +28,16 @@ public class Course {
         } else {
             throw new IllegalArgumentException("Invalid lab units. Valid values: 0, 1, 3");
         }
+
+        Faculty faculty = FacultyControllers.getFaculty(facultyId);
         
+        if(faculty == null){
+            throw new IllegalArgumentException("Faculty ID does not exist");
+        }
+
+
+        this.code = code;
+        this.desc = desc;
         this.hrsPerWeek = lecUnits + (labUnits*3);
         this.facultyId = facultyId;        
     }
@@ -40,12 +50,45 @@ public class Course {
         return desc;
     }
 
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
+
     public int getLabUnits() {
         return labUnits;
     }
 
+    public void setLabUnits(int labUnits) {
+        if(this.lecUnits+labUnits == 0){
+            throw new IllegalArgumentException("No units specified");
+        }
+
+        if(labUnits == 3 || labUnits == 1 || labUnits == 0){
+            hrsPerWeek -= this.labUnits*3;
+            this.labUnits = labUnits;
+            hrsPerWeek += this.labUnits*3;
+        } else {
+            throw new IllegalArgumentException("Invalid lab units. Valid values: 0, 1, 3");
+        }
+
+    }
+
     public int getLecUnits() {
         return lecUnits;
+    }
+
+    public void setLecUnits(int lecUnits) {
+        if(this.labUnits+lecUnits == 0){
+            throw new IllegalArgumentException("No units specified");
+        }
+
+        if(5 > lecUnits && lecUnits >= 0 && lecUnits != 1){
+            hrsPerWeek -= this.lecUnits;
+            this.lecUnits = lecUnits;
+            hrsPerWeek += this.lecUnits;
+        } else {
+            throw new IllegalArgumentException("Invalid lecture units. Valid values: 0, 2-4");
+        }   
     }
 
     public float getHrsPerWeek() {
@@ -54,6 +97,16 @@ public class Course {
 
     public int getFacultyId() {
         return facultyId;
+    }
+
+    public void setFacultyId(int facultyId) {
+        Faculty faculty = FacultyControllers.getFaculty(facultyId);
+        
+        if(faculty == null){
+            throw new IllegalArgumentException("Faculty ID does not exist");
+        }
+
+        this.facultyId = facultyId;
     }
 
     @Override

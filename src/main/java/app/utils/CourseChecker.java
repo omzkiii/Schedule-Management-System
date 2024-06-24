@@ -12,12 +12,8 @@ public class CourseChecker {
     /*
      * checks if adding course will result to faculty exceeding max load
      */
-    public static Boolean isMaxLoadExceeded(Course course){
+    public static Boolean willExceedMaxLoad(Course course){
         Faculty faculty = FacultyControllers.getFaculty(course.getFacultyId());
-        
-        if(faculty == null){
-            throw new IllegalArgumentException("Faculty ID does not exist");
-        }
 
         ArrayList<Course> courses = CourseControllers.getCourseFor(faculty.getId());
 
