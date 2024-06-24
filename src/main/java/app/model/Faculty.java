@@ -10,8 +10,8 @@ public class Faculty{
     private int maxLoad;
 
     public Faculty(int id, String name, int maxLoad){
-        this.name = name;
         this.id = id;
+        this.name = name;
         if(maxLoad == MAX_HRS_LOAD_FULL || maxLoad == MAX_HRS_LOAD_PART){
             this.maxLoad = maxLoad;
         } else {
@@ -24,10 +24,6 @@ public class Faculty{
         return id;
     }
 
-    public void setId(int id){
-        this.id = id;
-    }
-
     public String getName(){
         return name;
     }
@@ -38,6 +34,14 @@ public class Faculty{
 
     public int getMaxLoad() {
         return maxLoad;
+    }
+
+    public void setMaxLoad(int maxLoad) {
+        if(maxLoad == MAX_HRS_LOAD_FULL || maxLoad == MAX_HRS_LOAD_PART){
+            this.maxLoad = maxLoad;
+        } else {
+            throw new IllegalArgumentException("Invalid Max Load Value. Acceptable values: 30, 15");
+        }
     }
 
     @Override

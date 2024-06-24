@@ -19,7 +19,7 @@ public class CourseControllers {
      * -1 - other exception
      */
 
-    if(CourseChecker.isMaxLoadExceeded(course)){
+    if(CourseChecker.willExceedMaxLoad(course)){
       System.out.println("Max Faculty Load Exceeded");
       return 2;
     }
@@ -62,7 +62,7 @@ public class CourseControllers {
      * -1 - other exception
      */
 
-     if(CourseChecker.isMaxLoadExceeded(course)){
+     if(CourseChecker.willExceedMaxLoad(course)){
       System.out.println("Max Faculty Load Exceeded");
       return 2;
     }
@@ -92,6 +92,12 @@ public class CourseControllers {
   
   
   public static int removeCourse(String code) {
+    /*
+     returns the following:
+        0 if update success
+        1 if course code does not exist
+        -1 for other exceptions
+     */
     try {
       int rowAffected = Controllers.noresQuery(Queries.deleteCourse(code));
       System.out.println("Deleted " + rowAffected + " row/s for courses " + code);
@@ -104,6 +110,26 @@ public class CourseControllers {
       }
     } catch (Exception e) {
       return -1;
+    }
+  }
+
+  public static Course getCourse(String courseCode){
+    try (Connection c = DriverManager.getConnection("jdbc:sqlite:database.db")){
+      ResultSet result = Controllers.resQuery(Queries.selectCourse(courseCode), c);
+      while (result.next()) {
+        String code = result.getString("COURSE_CODE");
+        String desc = result.getString("COURSE_NAME");
+        int lecUnits = result.getInt("LEC_UNITS");
+        int labUnits = result.getInt("LAB_UNITS");
+        int assign_faculty = result.getInt("ASSIGNED_FACULTY");
+        Course course = new Course(code, desc, lecUnits, labUnits, assign_faculty);
+        return course;
+      }
+      return null;
+      
+    } catch (Exception e) {
+      System.out.println("Getting Courses Failed: " + e);
+      return null;
     }
   }
 
