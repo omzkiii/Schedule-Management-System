@@ -67,8 +67,19 @@ public class Schedule{
         return day;
     }
 
+    public void setDay(String day) {
+        if(!DAYS.contains(day.toUpperCase())){
+            throw new IllegalArgumentException("Invalid day");
+        }
+        this.day = day.toUpperCase();
+    }
+
     public Duration getDuration() {
         return duration;
+    }
+
+    public void setDuration(Duration duration) {
+        this.duration = duration;
     }
 
 
@@ -76,9 +87,23 @@ public class Schedule{
         return courseCode;
     }
 
+    public void setCourseCode(String courseCode) {
+        Course course = CourseControllers.getCourse(courseCode);
+        if (course == null){
+            throw new IllegalArgumentException("Course code does not exist");
+        }
+
+        this.courseCode = courseCode;
+        this.facultyId = course.getFacultyId();
+    }
+
 
     public int getRoomId(){
         return roomId;
+    }
+
+    public void setRoomId(int roomId) {
+        this.roomId = roomId;
     }
 
     @Override
