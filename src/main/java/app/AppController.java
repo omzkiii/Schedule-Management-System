@@ -1,5 +1,6 @@
 package app;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -7,6 +8,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -31,13 +33,72 @@ public class AppController {
         stage.setScene(scene);
         stage.show();
     }
-    public void switchToScene2(ActionEvent event) throws IOException {
+    public void switchToScene2Faculty(ActionEvent event) throws IOException {
+        // Load the main scene
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("simulate-management.fxml"));
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene((Parent) fxmlLoader.load());
+        Parent mainPane = fxmlLoader.load();
+
+        // Get the current stage and set the scene
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(mainPane);
         stage.setScene(scene);
         stage.show();
+
+        final BorderPane subPane = (BorderPane) mainPane.lookup("#subPane");
+        // Asynchronously load additional components into subPane
+        Platform.runLater(new Runnable() {
+            public void run() {
+                FxmlLoader object = new FxmlLoader();
+                Pane view = object.getPage("faculty");
+                subPane.setCenter(view);
+            }
+        });
     }
+
+    public void switchToScene2Course(ActionEvent event) throws IOException {
+        // Load the main scene
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("simulate-management.fxml"));
+        Parent mainPane = fxmlLoader.load();
+
+        // Get the current stage and set the scene
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(mainPane);
+        stage.setScene(scene);
+        stage.show();
+
+        final BorderPane subPane = (BorderPane) mainPane.lookup("#subPane");
+        // Asynchronously load additional components into subPane
+        Platform.runLater(new Runnable() {
+            public void run() {
+                FxmlLoader object = new FxmlLoader();
+                Pane view = object.getPage("course");
+                subPane.setCenter(view);
+            }
+        });
+    }
+
+    public void switchToScene2Schedules(ActionEvent event) throws IOException {
+        // Load the main scene
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("simulate-management.fxml"));
+        Parent mainPane = fxmlLoader.load();
+
+        // Get the current stage and set the scene
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(mainPane);
+        stage.setScene(scene);
+        stage.show();
+
+        final BorderPane subPane = (BorderPane) mainPane.lookup("#subPane");
+        // Asynchronously load additional components into subPane
+        Platform.runLater(new Runnable() {
+            public void run() {
+                FxmlLoader object = new FxmlLoader();
+                Pane view = object.getPage("schedules");
+                subPane.setCenter(view);
+            }
+        });
+    }
+
 
     public void facultyScene(ActionEvent event) {
         System.out.println("You clicked me! faculty");
