@@ -7,7 +7,6 @@ import java.net.URL;
 
 public class FxmlLoader {
     private Pane view;
-
     public Pane getPage(String fileName) {
         try {
             URL fileUrl = App.class.getResource(fileName + ".fxml");

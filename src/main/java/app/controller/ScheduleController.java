@@ -17,23 +17,24 @@ public class ScheduleController {
   public static int createSchedule(Schedule schedule){
     /*
      returns the following:
-        0 if update success
-        1 if faculty is already scheduled for given time
-        2 if room is occupied for the given time
-        3 if course is already scheduled for given time
+        0 if creation success
+        1 schedule already exist
+        2 if adding schedule will exceed course hrs per week
+        3 if faculty is already scheduled for given time
+        4 if room is occupied for the given time
         -1 for other exceptions
-     */  
+     */
+    
+     if(ScheduleChecker.willCourseExceedHrs(schedule)){
+      return 2;
+     }
 
     if(ScheduleChecker.isFacultyScheduled(schedule)){
-      return 1;
+      return 3;
     }
 
     if(ScheduleChecker.isRoomOccupied(schedule)){
-      return 2;
-    }
-
-    if(ScheduleChecker.isCourseScheduled(schedule)){
-      return 3;
+      return 4;
     }
 
 
@@ -53,10 +54,59 @@ public class ScheduleController {
     }
   }
 
-  public static int removeSchedule(Schedule schedule) {
+
+  public static int modifySchedule(Schedule schedule){
+    /*
+     returns the following:
+        0 if update success
+        1 if schedule does not exist
+        2 if modifying schedule will exceed course hrs per week
+        3 if faculty is already scheduled for modified time
+        4 if room is occupied for the modified time
+        -1 for other exceptions
+     */
+    
+     if(ScheduleChecker.willCourseExceedHrs(schedule)){
+      return 2;
+     }
+
+    if(ScheduleChecker.isFacultyScheduled(schedule)){
+      return 3;
+    }
+
+    if(ScheduleChecker.isRoomOccupied(schedule)){
+      return 4;
+    }
+
     try {
-      int rowAffected = Controllers.noresQuery(Queries.deleteSchedule(schedule));
-      System.out.println("Deleted " +  rowAffected + " row/s for schedule " + schedule.getId());
+      int rowAffected = Controllers.noresQuery(Queries.updateSchedule(schedule));
+      System.out.println("Updated " + rowAffected + " row/s for schedule " + schedule.getId());
+      if(rowAffected == 1){
+        return 0;
+      } else if(rowAffected == 0){
+        return 1;
+      } else {
+        return -1;
+      }
+    } catch (Exception e) {
+      System.out.println("Unexpected Exception: " + e.getMessage());
+      return -1;
+    }
+
+  }
+
+
+  public static int removeSchedule(Schedule schedule) {
+    /*
+     returns the following:
+        0 if update success
+        1 if schedule does not exist
+        -1 for other exceptions
+     */
+    int id = schedule.getId();
+    try {
+      int rowAffected = Controllers.noresQuery(Queries.deleteSchedule(id));
+      System.out.println("Deleted " +  rowAffected + " row/s for schedule " + id);
       if(rowAffected == 1){
         return 0;
       } else if(rowAffected == 0){
@@ -122,9 +172,10 @@ public class ScheduleController {
     }
   }
 
-  public static ArrayList<Schedule> getCourseSchedule(String d, String cor){
+
+  public static ArrayList<Schedule> getCourseSchedule(String cor){
     try (Connection c = DriverManager.getConnection("jdbc:sqlite:database.db")) {
-    ResultSet result = Controllers.resQuery(Queries.selectScheduleFor(d, cor), c);
+    ResultSet result = Controllers.resQuery(Queries.selectScheduleFor(cor), c);
       ArrayList<Schedule> schedules = new ArrayList<>();
       while (result.next()) {
         int id = result.getInt("ID");
@@ -146,6 +197,7 @@ public class ScheduleController {
 
     }
   }
+
 
 
   public static ArrayList<Schedule> getAllSchedule(){
