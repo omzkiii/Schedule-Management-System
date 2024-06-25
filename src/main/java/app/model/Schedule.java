@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import app.controller.CourseControllers;
+import app.controller.FacultyControllers;
 
 public class Schedule{
     private int id;
@@ -12,6 +13,7 @@ public class Schedule{
     private Duration duration;
     private String courseCode;
     private int roomId;
+    private Faculty faculty;
     public static final List<String> DAYS = Arrays.asList("SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY");
 
 
@@ -30,12 +32,14 @@ public class Schedule{
             throw new IllegalArgumentException("Invalid day");
         }
         
-
         this.facultyId = course.getFacultyId();
         this.day = day.toUpperCase();
         this.duration = duration;
         this.courseCode = courseCode;
         this.roomId = roomId;
+
+        this.faculty = FacultyControllers.getFaculty(this.facultyId);
+
     }
 
 
@@ -49,6 +53,7 @@ public class Schedule{
         this.duration = duration;
         this.courseCode = courseCode;
         this.roomId = roomId;
+        this.faculty = FacultyControllers.getFaculty(facultyId);
     }
 
 
@@ -95,6 +100,7 @@ public class Schedule{
 
         this.courseCode = courseCode;
         this.facultyId = course.getFacultyId();
+        this.faculty = FacultyControllers.getFaculty(this.facultyId);
     }
 
 
@@ -104,6 +110,10 @@ public class Schedule{
 
     public void setRoomId(int roomId) {
         this.roomId = roomId;
+    }
+
+    public Faculty getFaculty() {
+        return faculty;
     }
 
     @Override
