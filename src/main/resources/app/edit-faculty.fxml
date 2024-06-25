@@ -52,7 +52,7 @@
       <ButtonType fx:constant="CANCEL" />
    </buttonTypes>
    <header>
-      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="27.0" prefWidth="221.0" text="Add Faculty">
+      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="27.0" prefWidth="221.0" text="Edit Faculty">
          <font>
             <Font size="15.0" />
          </font>
