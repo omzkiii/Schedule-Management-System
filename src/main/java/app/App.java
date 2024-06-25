@@ -34,11 +34,13 @@ public class App extends Application {
   @Override
   public void start(Stage primaryStage) throws IOException {
     FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("schedule-management.fxml"));
+    // AppController appController = fxmlLoader.load();
 //    String text = Controllers.getAllFaculty();
 //    System.out.println(text);
 //    Label label = new Label(text);
 //    StackPane root = new StackPane();
 //    root.getChildren().add(label);
+    AppController appController = new AppController();
     Scene scene = new Scene(fxmlLoader.<Parent>load(), 600, 400);
     primaryStage.setTitle("Hello JavaFX");
     primaryStage.setScene(scene);
