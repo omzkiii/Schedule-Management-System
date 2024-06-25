@@ -112,7 +112,7 @@ public class AppController {
     hpweekCol.setCellValueFactory(new PropertyValueFactory<>("hrsPerWeek"));
     
     TableColumn<Course, String> facultyCol = (TableColumn<Course, String>) courseTable.getColumns().get(5);
-    facultyCol.setCellValueFactory(new PropertyValueFactory<>("facultyId"));
+    facultyCol.setCellValueFactory(new PropertyValueFactory<>("faculty"));
 
     for (Course course : CourseControllers.getAllCourse()) {
       courseTable.getItems().add(course);
