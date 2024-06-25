@@ -223,6 +223,8 @@ public class AppController {
         System.out.println("You clicked me! faculty");
         FxmlLoader object = new FxmlLoader();
         Pane view = object.getPage("faculty");
+        setFacCols(view);
+        loadFacData(view);
         subPane.setCenter(view);
     }
 
@@ -252,6 +254,32 @@ public class AppController {
     private Label welcomeText;
     @FXML
     protected void onClickButtonTest() {welcomeText.setText("Button_Test_Clicked");}
+
+
+    // Dialog boxes
+    @FXML
+    private void openAddDialog(ActionEvent event){
+        event.consume();
+        try{
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("dialog-faculty.fxml"));
+            DialogPane dialogPane = loader.load();
+
+            Stage dialogStage = new Stage();
+            dialogStage.initModality(Modality.APPLICATION_MODAL);
+            dialogStage.initOwner(stage);
+
+            Scene scene = new Scene(dialogPane);
+            dialogStage.setScene(scene);
+            dialogStage.showAndWait();
+
+    
+        } catch(Exception e) {
+
+        }
+
+        
+
+    }
 
 
 
