@@ -13,6 +13,7 @@ app\AppController$3.class
 app\AppController.class
 app\model\Schedule.class
 app\AppController$1.class
+app\utils\CourseChecker.class
 app\controller\ScheduleController.class
 app\controller\CourseControllers.class
 app\model\Faculty.class

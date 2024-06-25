@@ -7,12 +7,16 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.DialogPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 
@@ -21,6 +25,9 @@ public class AppController {
     private Stage stage;
     private Scene scene;
     private Parent root;
+
+    @FXML
+    private Button addFacultyButton;
 
     @FXML
     private BorderPane subPane;
@@ -132,5 +139,10 @@ public class AppController {
     @FXML
     private Label welcomeText;
     @FXML
-    protected void onClickButtonTest() {welcomeText.setText("Button_Test_Clicked"); }
+    protected void onClickButtonTest() {welcomeText.setText("Button_Test_Clicked");}
+
+
+
+
+
 }
