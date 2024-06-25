@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="458.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.AppController" fx:controller="app.AppController">
+<AnchorPane prefHeight="400.0" prefWidth="458.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.AppController">
    <children>
       <Button fx:id="" layoutX="11.0" layoutY="81.0" mnemonicParsing="false" onAction="#facultyScene" prefHeight="30.0" prefWidth="110.0" text="Add Faculty" />
       <TextField layoutX="11.0" layoutY="119.0" prefHeight="26.0" prefWidth="346.0" />
