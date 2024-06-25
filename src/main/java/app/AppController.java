@@ -131,17 +131,16 @@ public class AppController {
       @Override
       public TableCell<Course, Void> call(TableColumn<Course, Void> param) {
         return new TableCell<Course, Void>() {
-          private final Button button1 = new Button("Button 1");
-          private final Button button2 = new Button("Button 2");
-          private final HBox hbox = new HBox(button1, button2);
+          private final Button editButton = new Button("Edit");
+          private final Button deleteButton = new Button("Delete");
+          private final HBox hbox = new HBox(editButton, deleteButton);
         {
-            button1.setOnAction(event -> {
-              Course course = getTableView().getItems().get(getIndex());
-              System.out.println("Button 1 clicked for course: " + course);
+            editButton.setOnAction(event -> {
+              // TODO: display edit pane
             });
-            button2.setOnAction(event -> {
-              Course course = getTableView().getItems().get(getIndex());
-              System.out.println("Button 2 clicked for course: " + course);
+            deleteButton.setOnAction(event -> {
+              String course = getTableView().getItems().get(getIndex()).getCode();
+              CourseControllers.removeCourse(course);
             });
           }
 
