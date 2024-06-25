@@ -37,7 +37,6 @@
                   <Font size="13.0" />
                </font>
             </Label>
-            <TextField GridPane.columnIndex="1" />
             <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label text="Lecture Units" GridPane.rowIndex="2">
                <font>
@@ -59,6 +58,11 @@
             <Spinner prefHeight="26.0" prefWidth="166.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <Label text="Faculty ID" GridPane.rowIndex="5" />
             <ComboBox prefHeight="26.0" prefWidth="166.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <Label text="ex. code" GridPane.columnIndex="1">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
          </children>
       </GridPane>
    </content>
@@ -67,7 +71,7 @@
       <ButtonType fx:constant="CANCEL" />
    </buttonTypes>
    <header>
-      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="37.0" prefWidth="353.0" text="Add Course">
+      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="37.0" prefWidth="353.0" text="Edit Course">
          <font>
             <Font size="15.0" />
          </font>
