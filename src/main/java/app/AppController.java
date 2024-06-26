@@ -8,29 +8,19 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableView;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.DialogPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Alert;
 
 import java.awt.*;
 import java.io.IOException;
 
-import app.controller.FacultyControllers;
-import app.controller.ScheduleController;
 import app.model.Faculty;
 import app.model.Schedule;
 import app.view.CourseView;
 import app.view.FacultyView;
 import app.view.SchedView;
-import app.controller.CourseControllers;
 import app.model.Course;
 
 public class AppController {
@@ -181,39 +171,8 @@ public class AppController {
 
   // Dialog boxes
   @FXML
-  private void openAddDialog(ActionEvent event){
-    try{
-      Dialog<ButtonType> dialog = new Dialog<>();
-      FXMLLoader loader = new FXMLLoader(getClass().getResource("dialog-faculty.fxml"));
-      DialogPane dp = loader.load();
-      dialog.setDialogPane(dp);
-      dialog.initModality(Modality.APPLICATION_MODAL);
-      dialog.initOwner(stage);
-      TextField addFacId = (TextField) dp.lookup("#addFacId");
-      TextField addFacName = (TextField) dp.lookup("#addFacName");
-      TextField addFacLoad = (TextField) dp.lookup("#addFacLoad");
-
-      dialog.showAndWait().ifPresent((btnType) -> {
-        if(btnType ==ButtonType.OK){
-          int id = Integer.parseInt(addFacId.getText());
-          String name = addFacName.getText();
-          int load = Integer.parseInt(addFacLoad.getText());
-
-          if(load != 30 && load != 15){
-            Alert a = new Alert(AlertType.ERROR);
-            a.setContentText("Invalid max load. Acceptable values: 30, 15");
-            a.show();
-          }
-
-          try{
-            Faculty fac = new Faculty(id, name, load);
-            System.out.println(fac);
-          } catch(IllegalArgumentException e) {
-
-          }
-        }
-      });
-    } catch(Exception e) {
-    }
+  private void openAddFacultyDialog(ActionEvent event){
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("dialog-faculty.fxml"));
+    FacultyView.openAddDialog(event, stage, loader);
   }
 }
