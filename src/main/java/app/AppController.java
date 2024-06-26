@@ -19,6 +19,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -34,6 +35,10 @@ import app.controller.ScheduleController;
 import app.model.Faculty;
 import app.model.Schedule;
 
+
+import app.controller.CourseControllers;
+import app.model.Course;
+
 public class AppController {
 
     private Stage stage;
@@ -43,8 +48,16 @@ public class AppController {
     @FXML
     private Button addFacultyButton;
 
-    @FXML
-    private BorderPane subPane;
+  @FXML
+  private BorderPane subPane;
+  @FXML
+  private TableView<Course> courseTable;
+  
+  @FXML
+  private TableView<Faculty> facultyTbl;
+
+  @FXML
+  private TableView<Schedule> schedTbl;
 
     @FXML
     private TableView<Faculty> facultyTbl;
@@ -53,23 +66,23 @@ public class AppController {
     private TableView<Schedule> schedTbl;
 
 
-    public void switchToScene1(ActionEvent event) throws IOException{
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("schedule-management.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene((Parent) fxmlLoader.load());
-        stage.setScene(scene);
-        stage.show();
-    }
-    public void switchToScene2Faculty(ActionEvent event) throws IOException {
-        // Load the main scene
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("simulate-management.fxml"));
-        Parent mainPane = fxmlLoader.load();
+  public void switchToScene1(ActionEvent event) throws IOException{
+    FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("schedule-management.fxml"));
+    stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+    scene = new Scene((Parent) fxmlLoader.load());
+    stage.setScene(scene);
+    stage.show();
+  }
+  public void switchToScene2Faculty(ActionEvent event) throws IOException {
+    // Load the main scene
+    FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("simulate-management.fxml"));
+    Parent mainPane = fxmlLoader.load();
 
-        // Get the current stage and set the scene
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(mainPane);
-        stage.setScene(scene);
-        stage.show();
+    // Get the current stage and set the scene
+    stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+    scene = new Scene(mainPane);
+    stage.setScene(scene);
+    stage.show();
 
         final BorderPane subPane = (BorderPane) mainPane.lookup("#subPane");
         // Asynchronously load additional components into subPane
@@ -145,38 +158,97 @@ public class AppController {
         
     }
 
-    public void switchToScene2Course(ActionEvent event) throws IOException {
-        // Load the main scene
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("simulate-management.fxml"));
-        Parent mainPane = fxmlLoader.load();
+  public void switchToScene2Course(ActionEvent event) throws IOException {
+    // Load the main scene
+    FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("simulate-management.fxml"));
+    Parent mainPane = fxmlLoader.load();
 
-        // Get the current stage and set the scene
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(mainPane);
-        stage.setScene(scene);
-        stage.show();
+    // Get the current stage and set the scene
+    stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+    scene = new Scene(mainPane);
+    stage.setScene(scene);
+    stage.show();
 
-        final BorderPane subPane = (BorderPane) mainPane.lookup("#subPane");
-        // Asynchronously load additional components into subPane
-        Platform.runLater(new Runnable() {
-            public void run() {
-                FxmlLoader object = new FxmlLoader();
-                Pane view = object.getPage("course");
-                subPane.setCenter(view);
-            }
-        });
+    final BorderPane subPane = (BorderPane) mainPane.lookup("#subPane");
+    // Asynchronously load additional components into subPane
+    Platform.runLater(new Runnable() {
+      public void run() {
+        FxmlLoader object = new FxmlLoader();
+        Pane view = object.getPage("course");
+        setCourseCols(view);
+        subPane.setCenter(view);
+      }
+    });
+  }
+
+
+  public void setCourseCols(Pane view){
+    courseTable = (TableView<Course>) view.lookup("#courseTable");
+    TableColumn<Course, String> codeCol = (TableColumn<Course, String>) courseTable.getColumns().get(0);
+    codeCol.setCellValueFactory(new PropertyValueFactory<>("code"));
+    
+    TableColumn<Course, String> desCol = (TableColumn<Course, String>) courseTable.getColumns().get(1);
+    desCol.setCellValueFactory(new PropertyValueFactory<>("desc"));
+    
+    TableColumn<Course, String> lecUnitsCol = (TableColumn<Course, String>) courseTable.getColumns().get(2);
+    lecUnitsCol.setCellValueFactory(new PropertyValueFactory<>("lecUnits"));
+    
+    TableColumn<Course, String> labUnitsCol = (TableColumn<Course, String>) courseTable.getColumns().get(3);
+    labUnitsCol.setCellValueFactory(new PropertyValueFactory<>("labUnits"));
+
+
+    TableColumn<Course, String> hpweekCol = (TableColumn<Course, String>) courseTable.getColumns().get(4);
+    hpweekCol.setCellValueFactory(new PropertyValueFactory<>("hrsPerWeek"));
+    
+    TableColumn<Course, String> facultyCol = (TableColumn<Course, String>) courseTable.getColumns().get(5);
+    facultyCol.setCellValueFactory(new PropertyValueFactory<>("faculty"));
+
+    TableColumn<Course, Void> actionCol = (TableColumn<Course, Void>) courseTable.getColumns().get(6);
+    actionCol.setCellFactory(setCourseButton());
+
+    for (Course course : CourseControllers.getAllCourse()) {
+      courseTable.getItems().add(course);
     }
+  }
 
-    public void switchToScene2Schedules(ActionEvent event) throws IOException {
-        // Load the main scene
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("simulate-management.fxml"));
-        Parent mainPane = fxmlLoader.load();
+  private Callback<TableColumn<Course, Void>, TableCell<Course, Void>> setCourseButton() {
+    return new Callback<TableColumn<Course, Void>, TableCell<Course, Void>>() {
+      @Override
+      public TableCell<Course, Void> call(TableColumn<Course, Void> param) {
+        return new TableCell<Course, Void>() {
+          private final Button editButton = new Button("Edit");
+          private final Button deleteButton = new Button("Delete");
+          private final HBox hbox = new HBox(editButton, deleteButton);
+        {
+            editButton.setOnAction(event -> {
+              // TODO: display edit pane
+            });
+            deleteButton.setOnAction(event -> {
+              String course = getTableView().getItems().get(getIndex()).getCode();
+              CourseControllers.removeCourse(course);
+            });
+          }
 
-        // Get the current stage and set the scene
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(mainPane);
-        stage.setScene(scene);
-        stage.show();
+          @Override
+          protected void updateItem(Void item, boolean empty) {
+            super.updateItem(item, empty);
+            setGraphic(empty ? null : hbox);
+          }
+        };
+      }
+    };
+  }
+
+  public void switchToScene2Schedules(ActionEvent event) throws IOException {
+    // Load the main scene
+    FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("simulate-management.fxml"));
+    Parent mainPane = fxmlLoader.load();
+
+    // Get the current stage and set the scene
+    stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+    scene = new Scene(mainPane);
+    stage.setScene(scene);
+    stage.show();
 
         final BorderPane subPane = (BorderPane) mainPane.lookup("#subPane");
         // Asynchronously load additional components into subPane
@@ -228,26 +300,32 @@ public class AppController {
         subPane.setCenter(view);
     }
 
-    public void courseScene(ActionEvent event) {
-        System.out.println("You clicked me! course");
-        FxmlLoader object = new FxmlLoader();
-        Pane view = object.getPage("course");
-        subPane.setCenter(view);
-    }
+  public void courseScene(ActionEvent event) {
+    System.out.println("You clicked me! course");
+    FxmlLoader object = new FxmlLoader();
+    Pane view = object.getPage("course");
+    subPane.setCenter(view);
+  }
 
-    public void scheduleScene(ActionEvent event) {
-        System.out.println("You clicked me!");
-        FxmlLoader object = new FxmlLoader();
-        Pane view = object.getPage("schedules");
-        subPane.setCenter(view);
-    }
+  public void scheduleScene(ActionEvent event) {
+    System.out.println("You clicked me!");
+    FxmlLoader object = new FxmlLoader();
+    Pane view = object.getPage("schedules");
+    subPane.setCenter(view);
+  }
 
-    public void simulateScene(ActionEvent event) {
-        System.out.println("You clicked me!");
-        FxmlLoader object = new FxmlLoader();
-        Pane view = object.getPage("simulate");
-        subPane.setCenter(view);
-    }
+  public void simulateScene(ActionEvent event) {
+    System.out.println("You clicked me!");
+    FxmlLoader object = new FxmlLoader();
+    Pane view = object.getPage("simulate");
+    subPane.setCenter(view);
+  }
+
+  public void populateCourseTable(){
+    FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("course"));
+    System.out.println(fxmlLoader.getResources());
+    
+  }
 
 
     @FXML

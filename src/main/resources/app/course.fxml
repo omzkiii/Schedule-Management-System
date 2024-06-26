@@ -13,10 +13,14 @@
       <Button layoutX="11.0" layoutY="81.0" mnemonicParsing="false" onAction="#courseScene" prefHeight="30.0" prefWidth="110.0" text="Add Course" />
       <TextField layoutX="11.0" layoutY="119.0" prefHeight="26.0" prefWidth="346.0" />
       <Button layoutX="364.0" layoutY="119.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="80.0" text="Search" />
-      <TableView layoutX="12.0" layoutY="155.0" prefHeight="230.0" prefWidth="434.0">
+      <TableView fx:id="courseTable" layoutX="12.0" layoutY="155.0" prefHeight="230.0" prefWidth="434.0">
          <columns>
-            <TableColumn prefWidth="75.0" text="Code" />
-            <TableColumn prefWidth="75.0" text="Description" />
+            <TableColumn prefWidth="75.0" fx:id="codeColumn" text="Code" />
+            <TableColumn prefWidth="75.0" fx:id="descColumn" text="Description" />
+            <TableColumn prefWidth="75.0" fx:id="lecUnitsColumn" text="Lecutre Units" />
+            <TableColumn prefWidth="75.0" fx:id="labUnitsColumn" text="Laboratory Units" />
+            <TableColumn prefWidth="75.0" fx:id="hrsPerWeekColumn" text="Hours per Week" />
+            <TableColumn prefWidth="75.0" fx:id="facultyColumn" text="Assigned Faculty" />
             <TableColumn prefWidth="75.0" text="Actions" />
          </columns>
          <columnResizePolicy>
