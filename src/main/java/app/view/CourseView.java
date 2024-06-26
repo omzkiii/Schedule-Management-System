@@ -90,8 +90,7 @@ public static void setCourseCols(Pane view, TableView<Course> courseTbl ){
       dialog.initOwner(stage);
       TextField addCourseCode = (TextField) dp.lookup("#addCourseCode");
       TextField addCourseDesc = (TextField) dp.lookup("#addCourseDesc");
-      Spinner<Integer> addLecUnits = (Spinner<Integer>) dp.lookup("#addLecUnits");
-      Spinner<Integer> addLabUnits = (Spinner<Integer>) dp.lookup("#addLabUnits");
+      Spinner<Integer> addLecUnits = (Spinner<Integer>) dp.lookup("#addLecUnits"); Spinner<Integer> addLabUnits = (Spinner<Integer>) dp.lookup("#addLabUnits");
       Spinner<Integer> addHPWeek = (Spinner<Integer>) dp.lookup("#addHPWeek");
       ComboBox<String> addFaculty = (ComboBox<String>) dp.lookup("#addFaculty");
 
