@@ -175,4 +175,16 @@ public class AppController {
     FXMLLoader loader = new FXMLLoader(getClass().getResource("dialog-faculty.fxml"));
     FacultyView.openAddDialog(event, stage, loader);
   }
+
+  @FXML
+  private void openAddCourseDialog(ActionEvent event){
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("dialog-course.fxml"));
+    
+  }
+
+  @FXML
+  private void openAddSchedDialog(ActionEvent event){
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("dialog-schedule.fxml"));
+
+  }
 }
