@@ -40,6 +40,7 @@ import app.model.Faculty;
 import app.model.Schedule;
 import app.view.CourseView;
 import app.view.FacultyView;
+import app.view.SchedView;
 import app.controller.CourseControllers;
 import app.model.Course;
 
@@ -137,40 +138,12 @@ public class AppController {
       public void run() {
         FxmlLoader object = new FxmlLoader();
         Pane view = object.getPage("schedules");
-        setSchedCols(view);
-        loadSchedData(view);
+        SchedView.setSchedCols(view, schedTbl);
+        // loadSchedData(view);
         subPane.setCenter(view);
       }
     });
   }
-
-  private void setSchedCols(Pane view){
-    schedTbl = (TableView<Schedule>) view.lookup("#schedList");
-    TableColumn<Schedule, String> day = (TableColumn<Schedule, String>) schedTbl.getColumns().get(0);
-    TableColumn<Schedule, String> time = (TableColumn<Schedule, String>) schedTbl.getColumns().get(1);
-    TableColumn<Schedule, String> course = (TableColumn<Schedule, String>) schedTbl.getColumns().get(2);
-    TableColumn<Schedule, String> faculty =  (TableColumn<Schedule, String>) schedTbl.getColumns().get(3);
-    TableColumn<Schedule, Integer> room =  (TableColumn<Schedule, Integer>) schedTbl.getColumns().get(4);
-    TableColumn<Schedule, Void> actions =  (TableColumn<Schedule, Void>) schedTbl.getColumns().get(5);
-
-    day.setCellValueFactory(new PropertyValueFactory<>("day"));
-    time.setCellValueFactory(new PropertyValueFactory<>("duration"));
-    course.setCellValueFactory(new PropertyValueFactory<>("courseCode"));
-    faculty.setCellValueFactory(new PropertyValueFactory<>("faculty"));
-    room.setCellValueFactory(new PropertyValueFactory<>("roomId"));
-    // actions.setCellFactory((setSchedBtn()));
-
-  }
-
-  private void loadSchedData(Pane view){
-    ObservableList<Schedule> data = FXCollections.observableArrayList();
-    for(Schedule s: ScheduleController.getAllSchedule()){
-      data.add(s);
-    }
-    schedTbl.getItems().addAll(data);
-
-  }    
-
 
   public void facultyScene(ActionEvent event) {
     System.out.println("You clicked me! faculty");
@@ -193,6 +166,7 @@ public class AppController {
     System.out.println("You clicked me!");
     FxmlLoader object = new FxmlLoader();
     Pane view = object.getPage("schedules");
+    SchedView.setSchedCols(view, schedTbl);
     subPane.setCenter(view);
   }
 
