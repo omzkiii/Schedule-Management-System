@@ -31,8 +31,6 @@ public class FacultyView {
     for(Faculty faculty: FacultyControllers.getAllFaculty()){
       facultyTbl.getItems().add(faculty);
     }
-
-
   }
 
   public static Callback<TableColumn<Faculty, Void>, TableCell<Faculty, Void>> setFacBtn() {

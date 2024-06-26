@@ -4,10 +4,14 @@ import app.controller.ScheduleController;
 import app.model.Schedule;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.util.Callback;
 
 public class SchedView {
   public static void setSchedCols(Pane view, TableView<Schedule> schedTbl){
@@ -24,7 +28,7 @@ public class SchedView {
     course.setCellValueFactory(new PropertyValueFactory<>("courseCode"));
     faculty.setCellValueFactory(new PropertyValueFactory<>("faculty"));
     room.setCellValueFactory(new PropertyValueFactory<>("roomId"));
-    // actions.setCellFactory((setSchedBtn()));
+    actions.setCellFactory((setSchedBtn()));
     
     for(Schedule schedule: ScheduleController.getAllSchedule()){
       schedTbl.getItems().add(schedule);
@@ -32,6 +36,44 @@ public class SchedView {
 
   }
 
+
+  public static Callback<TableColumn<Schedule, Void>, TableCell<Schedule, Void>> setSchedBtn() {
+    return new Callback<TableColumn<Schedule, Void>, TableCell<Schedule, Void>>() {
+      @Override
+      public TableCell<Schedule, Void> call(TableColumn<Schedule, Void> param) {
+        return new TableCell<Schedule, Void>() {
+          private final Button editBtn = new Button("Edit");
+          private final Button delBtn = new Button("Delete");
+          private final HBox buttonsBox = new HBox(editBtn, delBtn);
+
+        {
+            editBtn.setOnAction(event -> {
+              Schedule schedule = getTableView().getItems().get(getIndex());
+              System.out.println("Edit button for: " + schedule.getId() + " " + schedule.getId());
+            });
+
+            delBtn.setOnAction(event -> {
+              Schedule schedule = getTableView().getItems().get(getIndex());
+              System.out.println("Delete button for: " + schedule.getId() + " " + schedule.getId());
+            });
+          }
+
+          @Override
+          protected void updateItem(Void item, boolean empty) {
+            super.updateItem(item, empty);
+            if (empty) {
+              setGraphic(null);
+            } else {
+              setGraphic(buttonsBox);
+            }
+          }
+        };
+      }
+    };
+  }
+
+
+  
   public static void loadSchedData(Pane view, TableView<Schedule> schedTbl){
     ObservableList<Schedule> data = FXCollections.observableArrayList();
     for(Schedule s: ScheduleController.getAllSchedule()){
