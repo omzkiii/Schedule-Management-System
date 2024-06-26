@@ -2,13 +2,25 @@ package app.view;
 
 import app.controller.CourseControllers;
 import app.model.Course;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.DialogPane;
+import javafx.scene.control.Spinner;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 
 public class CourseView {
@@ -69,5 +81,40 @@ public static void setCourseCols(Pane view, TableView<Course> courseTbl ){
     };
   }
 
+  public static void openAddDialog(ActionEvent event, Stage stage, FXMLLoader loader){
+    try{
+      Dialog<ButtonType> dialog = new Dialog<>();
+      DialogPane dp = loader.load();
+      dialog.setDialogPane(dp);
+      dialog.initModality(Modality.APPLICATION_MODAL);
+      dialog.initOwner(stage);
+      TextField addCourseCode = (TextField) dp.lookup("#addCourseCode");
+      TextField addCourseDesc = (TextField) dp.lookup("#addCourseDesc");
+      Spinner<Integer> addLecUnits = (Spinner<Integer>) dp.lookup("#addLecUnits");
+      Spinner<Integer> addLabUnits = (Spinner<Integer>) dp.lookup("#addLabUnits");
+      Spinner<Integer> addHPWeek = (Spinner<Integer>) dp.lookup("#addHPWeek");
+      ComboBox<String> addFaculty = (ComboBox<String>) dp.lookup("#addFaculty");
+
+      dialog.showAndWait().ifPresent((btnType) -> {
+        if(btnType ==ButtonType.OK){
+          String code = addCourseCode.getText();
+          String desc = addCourseDesc.getText();
+          int lecUnits = addLecUnits.getValue();
+          int labUnits = addLabUnits.getValue();
+          String faculty = addFaculty.getValue();
+          int facultyId = Integer.parseInt(faculty.strip().replaceAll("^\\D*(\\d+).*", "$1"));
+          
+          try{
+            Course course = new Course(code, desc, lecUnits, labUnits, facultyId);
+            System.out.println(course);
+          } catch(IllegalArgumentException e) {
+
+          }
+        }
+      });
+    } catch(Exception e) {
+    }
+    
+  }
   
 }

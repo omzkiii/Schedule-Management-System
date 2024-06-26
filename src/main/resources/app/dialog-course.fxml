@@ -37,8 +37,8 @@
                   <Font size="13.0" />
                </font>
             </Label>
-            <TextField GridPane.columnIndex="1" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="addCourseCode" GridPane.columnIndex="1" />
+            <TextField fx:id="addCourseDesc" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label text="Lecture Units" GridPane.rowIndex="2">
                <font>
                   <Font size="13.0" />
@@ -54,11 +54,11 @@
                   <Font size="13.0" />
                </font>
             </Label>
-            <Spinner prefHeight="26.0" prefWidth="168.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Spinner prefHeight="26.0" prefWidth="168.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <Spinner prefHeight="26.0" prefWidth="166.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Spinner fx:id="addLecUnits" prefHeight="26.0" prefWidth="168.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Spinner fx:id="addLabUnits" prefHeight="26.0" prefWidth="168.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Spinner fx:id="addHPWeek" prefHeight="26.0" prefWidth="166.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <Label text="Faculty ID" GridPane.rowIndex="5" />
-            <ComboBox prefHeight="26.0" prefWidth="166.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <ComboBox fx:id="addFaculty" prefHeight="26.0" prefWidth="166.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
          </children>
       </GridPane>
    </content>

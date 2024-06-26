@@ -82,6 +82,4 @@ public class SchedView {
     schedTbl.getItems().addAll(data);
 
   }    
-
-  
 }
