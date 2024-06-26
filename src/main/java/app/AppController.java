@@ -39,23 +39,24 @@ import app.controller.ScheduleController;
 import app.model.Faculty;
 import app.model.Schedule;
 import app.view.CourseView;
+import app.view.FacultyView;
 import app.controller.CourseControllers;
 import app.model.Course;
 
 public class AppController {
 
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
+  private Stage stage;
+  private Scene scene;
+  private Parent root;
 
-    @FXML
-    private Button addFacultyButton;
+  @FXML
+  private Button addFacultyButton;
 
   @FXML
   private BorderPane subPane;
   @FXML
   private TableView<Course> courseTbl;
-  
+
   @FXML
   private TableView<Faculty> facultyTbl;
 
@@ -81,79 +82,20 @@ public class AppController {
     stage.setScene(scene);
     stage.show();
 
-        final BorderPane subPane = (BorderPane) mainPane.lookup("#subPane");
-        // Asynchronously load additional components into subPane
-        Platform.runLater(new Runnable() {
-            public void run() {
-                FxmlLoader object = new FxmlLoader();
-                Pane view = object.getPage("faculty");
-                setFacCols(view);
-                loadFacData(view);
-                
-                subPane.setCenter(view);
-            }
-        });
-    }
+    final BorderPane subPane = (BorderPane) mainPane.lookup("#subPane");
+    // Asynchronously load additional components into subPane
+    Platform.runLater(new Runnable() {
+      public void run() {
+        FxmlLoader object = new FxmlLoader();
+        Pane view = object.getPage("faculty");
+        FacultyView.setFacCols(view, facultyTbl);
+        // FacultyView.loadFacData(view, facultyTbl);
 
-    private void setFacCols(Pane view){
-        facultyTbl = (TableView<Faculty>) view.lookup("#facList");
-        TableColumn<Faculty, Integer> id = (TableColumn<Faculty, Integer>) facultyTbl.getColumns().get(0);
-        TableColumn<Faculty, String> name = (TableColumn<Faculty, String>) facultyTbl.getColumns().get(1);
-        TableColumn<Faculty, Integer> maxLoad = (TableColumn<Faculty, Integer>) facultyTbl.getColumns().get(2);
-        TableColumn<Faculty, Void> actions =  (TableColumn<Faculty, Void>) facultyTbl.getColumns().get(3);
+        subPane.setCenter(view);
+      }
+    });
+  }
 
-        id.setCellValueFactory(new PropertyValueFactory<>("id"));
-        name.setCellValueFactory(new PropertyValueFactory<>("name"));
-        maxLoad.setCellValueFactory(new PropertyValueFactory<>("maxLoad"));
-        actions.setCellFactory((setFacBtn()));
-
-
-    }
-
-    private Callback<TableColumn<Faculty, Void>, TableCell<Faculty, Void>> setFacBtn() {
-        return new Callback<TableColumn<Faculty, Void>, TableCell<Faculty, Void>>() {
-            @Override
-            public TableCell<Faculty, Void> call(TableColumn<Faculty, Void> param) {
-                return new TableCell<Faculty, Void>() {
-                    private final Button editBtn = new Button("Edit");
-                    private final Button delBtn = new Button("Delete");
-                    private final HBox buttonsBox = new HBox(editBtn, delBtn);
-
-                    {
-                        editBtn.setOnAction(event -> {
-                            Faculty faculty = getTableView().getItems().get(getIndex());
-                            System.out.println("Edit button for: " + faculty.getId() + " " + faculty.getName());
-                        });
-
-                        delBtn.setOnAction(event -> {
-                            Faculty faculty = getTableView().getItems().get(getIndex());
-                            System.out.println("Delete button for: " + faculty.getId() + " " + faculty.getName());
-                        });
-                    }
-
-                    @Override
-                    protected void updateItem(Void item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (empty) {
-                            setGraphic(null);
-                        } else {
-                            setGraphic(buttonsBox);
-                        }
-                    }
-                };
-            }
-        };
-    }
-
-
-    private void loadFacData(Pane view){
-        ObservableList<Faculty> data = FXCollections.observableArrayList();
-        for(Faculty f: FacultyControllers.getAllFaculty()){
-            data.add(f);
-        }
-        facultyTbl.getItems().addAll(data);
-        
-    }
 
   public void switchToScene2Course(ActionEvent event) throws IOException {
     // Load the main scene
@@ -178,8 +120,6 @@ public class AppController {
     });
   }
 
-
-
   public void switchToScene2Schedules(ActionEvent event) throws IOException {
     // Load the main scene
     FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("simulate-management.fxml"));
@@ -191,60 +131,61 @@ public class AppController {
     stage.setScene(scene);
     stage.show();
 
-        final BorderPane subPane = (BorderPane) mainPane.lookup("#subPane");
-        // Asynchronously load additional components into subPane
-        Platform.runLater(new Runnable() {
-            public void run() {
-                FxmlLoader object = new FxmlLoader();
-                Pane view = object.getPage("schedules");
-                setSchedCols(view);
-                loadSchedData(view);
-                subPane.setCenter(view);
-            }
-        });
-    }
-
-    private void setSchedCols(Pane view){
-        schedTbl = (TableView<Schedule>) view.lookup("#schedList");
-        TableColumn<Schedule, String> day = (TableColumn<Schedule, String>) schedTbl.getColumns().get(0);
-        TableColumn<Schedule, String> time = (TableColumn<Schedule, String>) schedTbl.getColumns().get(1);
-        TableColumn<Schedule, String> course = (TableColumn<Schedule, String>) schedTbl.getColumns().get(2);
-        TableColumn<Schedule, String> faculty =  (TableColumn<Schedule, String>) schedTbl.getColumns().get(3);
-        TableColumn<Schedule, Integer> room =  (TableColumn<Schedule, Integer>) schedTbl.getColumns().get(4);
-        TableColumn<Schedule, Void> actions =  (TableColumn<Schedule, Void>) schedTbl.getColumns().get(5);
-
-        day.setCellValueFactory(new PropertyValueFactory<>("day"));
-        time.setCellValueFactory(new PropertyValueFactory<>("duration"));
-        course.setCellValueFactory(new PropertyValueFactory<>("courseCode"));
-        faculty.setCellValueFactory(new PropertyValueFactory<>("faculty"));
-        room.setCellValueFactory(new PropertyValueFactory<>("roomId"));
-        // actions.setCellFactory((setSchedBtn()));
-
-    }
-
-    private void loadSchedData(Pane view){
-        ObservableList<Schedule> data = FXCollections.observableArrayList();
-        for(Schedule s: ScheduleController.getAllSchedule()){
-            data.add(s);
-        }
-        schedTbl.getItems().addAll(data);
-        
-    }    
-
-
-    public void facultyScene(ActionEvent event) {
-        System.out.println("You clicked me! faculty");
+    final BorderPane subPane = (BorderPane) mainPane.lookup("#subPane");
+    // Asynchronously load additional components into subPane
+    Platform.runLater(new Runnable() {
+      public void run() {
         FxmlLoader object = new FxmlLoader();
-        Pane view = object.getPage("faculty");
-        setFacCols(view);
-        loadFacData(view);
+        Pane view = object.getPage("schedules");
+        setSchedCols(view);
+        loadSchedData(view);
         subPane.setCenter(view);
+      }
+    });
+  }
+
+  private void setSchedCols(Pane view){
+    schedTbl = (TableView<Schedule>) view.lookup("#schedList");
+    TableColumn<Schedule, String> day = (TableColumn<Schedule, String>) schedTbl.getColumns().get(0);
+    TableColumn<Schedule, String> time = (TableColumn<Schedule, String>) schedTbl.getColumns().get(1);
+    TableColumn<Schedule, String> course = (TableColumn<Schedule, String>) schedTbl.getColumns().get(2);
+    TableColumn<Schedule, String> faculty =  (TableColumn<Schedule, String>) schedTbl.getColumns().get(3);
+    TableColumn<Schedule, Integer> room =  (TableColumn<Schedule, Integer>) schedTbl.getColumns().get(4);
+    TableColumn<Schedule, Void> actions =  (TableColumn<Schedule, Void>) schedTbl.getColumns().get(5);
+
+    day.setCellValueFactory(new PropertyValueFactory<>("day"));
+    time.setCellValueFactory(new PropertyValueFactory<>("duration"));
+    course.setCellValueFactory(new PropertyValueFactory<>("courseCode"));
+    faculty.setCellValueFactory(new PropertyValueFactory<>("faculty"));
+    room.setCellValueFactory(new PropertyValueFactory<>("roomId"));
+    // actions.setCellFactory((setSchedBtn()));
+
+  }
+
+  private void loadSchedData(Pane view){
+    ObservableList<Schedule> data = FXCollections.observableArrayList();
+    for(Schedule s: ScheduleController.getAllSchedule()){
+      data.add(s);
     }
+    schedTbl.getItems().addAll(data);
+
+  }    
+
+
+  public void facultyScene(ActionEvent event) {
+    System.out.println("You clicked me! faculty");
+    FxmlLoader object = new FxmlLoader();
+    Pane view = object.getPage("faculty");
+    FacultyView.setFacCols(view, facultyTbl);
+    // FacultyView.loadFacData(view, facultyTbl);
+    subPane.setCenter(view);
+  }
 
   public void courseScene(ActionEvent event) {
     System.out.println("You clicked me! course");
     FxmlLoader object = new FxmlLoader();
     Pane view = object.getPage("course");
+    CourseView.setCourseCols(view, courseTbl);
     subPane.setCenter(view);
   }
 
@@ -265,64 +206,51 @@ public class AppController {
   public void populateCourseTable(){
     FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("course"));
     System.out.println(fxmlLoader.getResources());
-    
+
   }
 
 
-    @FXML
-    private Label welcomeText;
-    @FXML
-    protected void onClickButtonTest() {welcomeText.setText("Button_Test_Clicked");}
+  @FXML
+  private Label welcomeText;
+  @FXML
+  protected void onClickButtonTest() {welcomeText.setText("Button_Test_Clicked");}
 
 
-    // Dialog boxes
-    @FXML
-    private void openAddDialog(ActionEvent event){
-      try{
-        Dialog<ButtonType> dialog = new Dialog<>();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("dialog-faculty.fxml"));
-        DialogPane dp = loader.load();
-        dialog.setDialogPane(dp);
-        dialog.initModality(Modality.APPLICATION_MODAL);
-        dialog.initOwner(stage);
-        TextField addFacId = (TextField) dp.lookup("#addFacId");
-        TextField addFacName = (TextField) dp.lookup("#addFacName");
-        TextField addFacLoad = (TextField) dp.lookup("#addFacLoad");
+  // Dialog boxes
+  @FXML
+  private void openAddDialog(ActionEvent event){
+    try{
+      Dialog<ButtonType> dialog = new Dialog<>();
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("dialog-faculty.fxml"));
+      DialogPane dp = loader.load();
+      dialog.setDialogPane(dp);
+      dialog.initModality(Modality.APPLICATION_MODAL);
+      dialog.initOwner(stage);
+      TextField addFacId = (TextField) dp.lookup("#addFacId");
+      TextField addFacName = (TextField) dp.lookup("#addFacName");
+      TextField addFacLoad = (TextField) dp.lookup("#addFacLoad");
 
-        dialog.showAndWait().ifPresent((btnType) -> {
-            if(btnType ==ButtonType.OK){
-                int id = Integer.parseInt(addFacId.getText());
-                String name = addFacName.getText();
-                int load = Integer.parseInt(addFacLoad.getText());
+      dialog.showAndWait().ifPresent((btnType) -> {
+        if(btnType ==ButtonType.OK){
+          int id = Integer.parseInt(addFacId.getText());
+          String name = addFacName.getText();
+          int load = Integer.parseInt(addFacLoad.getText());
 
-                if(load != 30 && load != 15){
-                    Alert a = new Alert(AlertType.ERROR);
-                    a.setContentText("Invalid max load. Acceptable values: 30, 15");
-                    a.show();
-                }
+          if(load != 30 && load != 15){
+            Alert a = new Alert(AlertType.ERROR);
+            a.setContentText("Invalid max load. Acceptable values: 30, 15");
+            a.show();
+          }
 
-                try{
-                    Faculty fac = new Faculty(id, name, load);
-                    System.out.println(fac);
-                } catch(IllegalArgumentException e) {
+          try{
+            Faculty fac = new Faculty(id, name, load);
+            System.out.println(fac);
+          } catch(IllegalArgumentException e) {
 
-                }
-
-
-            }
-        });
-
-
+          }
+        }
+      });
     } catch(Exception e) {
-
     }
-
-        
-
-    }
-
-
-
-
-
+  }
 }
