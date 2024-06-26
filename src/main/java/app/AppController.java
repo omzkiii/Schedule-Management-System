@@ -24,6 +24,10 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.scene.control.Button;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Alert;
 
 import javax.swing.*;
 import java.awt.*;
@@ -258,19 +262,41 @@ public class AppController {
 
     // Dialog boxes
     @FXML
-    private void openAddDialog(ActionEvent event){
-        event.consume();
+    private void openAddDialog(ActionEvent event) {
+               
         try{
+            Dialog<ButtonType> dialog = new Dialog<>();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("dialog-faculty.fxml"));
-            DialogPane dialogPane = loader.load();
+            DialogPane dp = loader.load();
+            dialog.setDialogPane(dp);
+            dialog.initModality(Modality.APPLICATION_MODAL);
+            dialog.initOwner(stage);
+            TextField addFacId = (TextField) dp.lookup("#addFacId");
+            TextField addFacName = (TextField) dp.lookup("#addFacName");
+            TextField addFacLoad = (TextField) dp.lookup("#addFacLoad");
 
-            Stage dialogStage = new Stage();
-            dialogStage.initModality(Modality.APPLICATION_MODAL);
-            dialogStage.initOwner(stage);
+            dialog.showAndWait().ifPresent((btnType) -> {
+                if(btnType ==ButtonType.OK){
+                    int id = Integer.parseInt(addFacId.getText());
+                    String name = addFacName.getText();
+                    int load = Integer.parseInt(addFacLoad.getText());
 
-            Scene scene = new Scene(dialogPane);
-            dialogStage.setScene(scene);
-            dialogStage.showAndWait();
+                    if(load != 30 && load != 15){
+                        Alert a = new Alert(AlertType.ERROR);
+                        a.setContentText("Invalid max load. Acceptable values: 30, 15");
+                        a.show();
+                    }
+
+                    try{
+                        Faculty fac = new Faculty(id, name, load);
+                        System.out.println(fac);
+                    } catch(IllegalArgumentException e) {
+
+                    }
+
+
+                }
+            });
 
     
         } catch(Exception e) {

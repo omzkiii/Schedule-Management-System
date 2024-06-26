@@ -37,9 +37,9 @@
                   <Font size="13.0" />
                </font>
             </Label>
-            <TextField GridPane.columnIndex="1" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="addFacId" GridPane.columnIndex="1" text="2410000"/>
+            <TextField fx:id="addFacName" GridPane.columnIndex="1" GridPane.rowIndex="1" text="Leni"/>
+            <TextField fx:id="addFacLoad" GridPane.columnIndex="1" GridPane.rowIndex="2" text="30"/>
          </children>
       </GridPane>
    </content>
