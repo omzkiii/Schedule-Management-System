@@ -34,11 +34,13 @@ public class App extends Application {
   @Override
   public void start(Stage primaryStage) throws IOException {
     FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("schedule-management.fxml"));
+    // AppController appController = fxmlLoader.load();
 //    String text = Controllers.getAllFaculty();
 //    System.out.println(text);
 //    Label label = new Label(text);
 //    StackPane root = new StackPane();
 //    root.getChildren().add(label);
+    AppController appController = new AppController();
     Scene scene = new Scene(fxmlLoader.<Parent>load(), 600, 400);
     primaryStage.setTitle("Hello JavaFX");
     primaryStage.setScene(scene);
@@ -127,23 +129,23 @@ public class App extends Application {
 
 
     // Checking Duration
-    LocalTime time1 = LocalTime.of(8, 30);
-    LocalTime time2 = LocalTime.of(9, 30);
+    // LocalTime time1 = LocalTime.of(8, 30);
+    // LocalTime time2 = LocalTime.of(9, 30);
 
     // LocalTime time3 = LocalTime.of(12, 00);
     // LocalTime time4 = LocalTime.of(13, 30);
 
-    Duration d1 = new Duration(time1, time2);
+    // Duration d1 = new Duration(time1, time2);
     // Duration d2 = new Duration(time3, time4);
 
     // Creating
-    Schedule schedule1 = new Schedule("friday", d1, "CCS301", 312);
+    // Schedule schedule1 = new Schedule("tuesday", d1, "CCS314", 221);
     // System.out.println(schedule1);
     // Schedule schedule2 = new Schedule(Schedule.DAYS.get(2), d2, "CCS303", 221);
     // System.out.println(schedule2);
     // Schedule schedule3 = new Schedule(Schedule.DAYS.get(2), d2, "CCS310", 221);
 
-    System.out.println("Adding schedule res: " + ScheduleController.createSchedule(schedule1));
+    // System.out.println("Adding schedule res: " + ScheduleController.createSchedule(schedule3));
 
     // Modifying
     // Schedule schedule = new Schedule(5, 1213, "MONDAY", d2, "CCS305", 221);

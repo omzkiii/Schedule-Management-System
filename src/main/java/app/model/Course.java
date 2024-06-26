@@ -9,6 +9,7 @@ public class Course {
     private int labUnits;
     private float hrsPerWeek;
     private int facultyId;
+    private Faculty faculty;
 
 
     public Course(String code, String desc, int lecUnits, int labUnits, int facultyId){
@@ -40,6 +41,7 @@ public class Course {
         this.desc = desc;
         this.hrsPerWeek = lecUnits + (labUnits*3);
         this.facultyId = facultyId;        
+        this.faculty = FacultyControllers.getFaculty(facultyId);
     }
 
     public String getCode(){
@@ -99,6 +101,10 @@ public class Course {
         return facultyId;
     }
 
+    public Faculty getFaculty() {
+        return faculty;
+    }
+
     public void setFacultyId(int facultyId) {
         Faculty faculty = FacultyControllers.getFaculty(facultyId);
         
@@ -107,6 +113,9 @@ public class Course {
         }
 
         this.facultyId = facultyId;
+        this.faculty = faculty;
+    
+    
     }
 
     @Override
