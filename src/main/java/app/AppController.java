@@ -186,6 +186,6 @@ public class AppController {
   @FXML
   private void openAddSchedDialog(ActionEvent event){
     FXMLLoader loader = new FXMLLoader(getClass().getResource("dialog-schedule.fxml"));
-
+    SchedView.openAddDialog(event, stage, loader);
   }
 }
