@@ -1,5 +1,6 @@
 package app.view;
 
+import app.App;
 import app.FxmlLoader;
 import app.controller.FacultyControllers;
 import app.model.Faculty;
@@ -11,8 +12,10 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -37,7 +40,7 @@ public class FacultyView {
     name.setCellValueFactory(new PropertyValueFactory<>("name"));
     maxLoad.setCellValueFactory(new PropertyValueFactory<>("maxLoad"));
     actions.setCellFactory(setFacBtn());
-
+    
 
     for(Faculty faculty: FacultyControllers.getAllFaculty()){
       facultyTbl.getItems().add(faculty);
@@ -57,11 +60,43 @@ public class FacultyView {
             editBtn.setOnAction(event -> {
               Faculty faculty = getTableView().getItems().get(getIndex());
               System.out.println("Edit button for: " + faculty.getId() + " " + faculty.getName());
+              openEditDialog(event, faculty);
             });
 
             delBtn.setOnAction(event -> {
               Faculty faculty = getTableView().getItems().get(getIndex());
               System.out.println("Delete button for: " + faculty.getId() + " " + faculty.getName());
+              Alert a = new Alert(AlertType.CONFIRMATION);
+              a.setContentText("Are you sure you want to delete faculty " + faculty);
+              a.showAndWait().ifPresent((btnType) -> {
+                if(btnType ==ButtonType.OK){
+                  try{
+                    int res = FacultyControllers.removeFaculty(faculty.getId());
+        
+                    if (res == 0){
+                      Alert inf = new Alert(AlertType.INFORMATION);
+                      inf.setContentText("Faculty successfully deleted");
+                      inf.show();
+                    } else if(res == 1){
+                      Alert inf = new Alert(AlertType.ERROR);
+                      inf.setContentText("Faculty ID does not exist");
+                      inf.show();
+                    } else if(res == -1){
+                      Alert inf = new Alert(AlertType.ERROR);
+                      inf.setContentText("Some error occured. Faculty not deleted");
+                      inf.show();
+                    }
+        
+                    
+                  } catch(IllegalArgumentException e) {
+        
+                  }
+                  
+                  
+                }
+
+              });
+
             });
           }
 
@@ -80,13 +115,82 @@ public class FacultyView {
   }
 
 
-  public static void loadFacData(Pane view, TableView<Faculty> facultyTbl){
+  public static void loadFacData(TableView<Faculty> facultyTbl){
     ObservableList<Faculty> data = FXCollections.observableArrayList();
     for(Faculty f: FacultyControllers.getAllFaculty()){
       data.add(f);
     }
     facultyTbl.getItems().addAll(data);
   }
+
+
+  public static void openEditDialog(ActionEvent event, Faculty faculty){
+    FXMLLoader loader = new FXMLLoader(App.class.getResource("edit-faculty.fxml"));
+
+    try{
+      Dialog<ButtonType> dialog = new Dialog<>();
+      DialogPane dp = loader.load();
+      dialog.setDialogPane(dp);
+      dialog.initModality(Modality.APPLICATION_MODAL);
+      Button btn = (Button) event.getSource();
+      dialog.initOwner(btn.getScene().getWindow());
+      Label facId = (Label) dp.lookup("#editFacId");
+      TextField facName = (TextField) dp.lookup("#editFacName");
+      ComboBox<String> facLoad = (ComboBox<String>) dp.lookup("#editFacLoad");
+
+      facId.setText(String.valueOf(faculty.getId()));
+      facName.setText(faculty.getName());
+      facLoad.setValue(String.valueOf(faculty.getMaxLoad()));
+
+      facLoad.getItems().addAll("30", "15");
+      
+
+      dialog.showAndWait().ifPresent((btnType) -> {
+        if(btnType ==ButtonType.OK){
+          if (facName.getText().isEmpty() || facLoad.getValue().isEmpty()){
+            Alert a = new Alert(AlertType.ERROR);
+            a.setContentText("All fields are required");
+            a.show();
+            return;
+          }
+
+          String name = facName.getText();
+          int load = Integer.parseInt(facLoad.getValue());
+
+
+          try{
+            faculty.setName(name);
+            faculty.setMaxLoad(load);
+            int res = FacultyControllers.modifyFaculty(faculty);
+
+            if (res == 0){
+              Alert a = new Alert(AlertType.INFORMATION);
+              a.setContentText("Faculty successfully modified");
+              a.show();
+            } else if(res == 1){
+              Alert a = new Alert(AlertType.ERROR);
+              a.setContentText("Faculty ID does not exist");
+              a.show();
+            } else if(res == -1){
+              Alert a = new Alert(AlertType.ERROR);
+              a.setContentText("Some error occured. Faculty not modified");
+              a.show();
+            }
+
+            
+          } catch(IllegalArgumentException e) {
+
+          }
+        }
+      });
+        
+
+    } catch (Exception e) {
+
+    }
+
+  }
+
 
   public static void openAddDialog(ActionEvent event, Stage stage, FXMLLoader loader){
     try{
@@ -97,23 +201,43 @@ public class FacultyView {
       dialog.initOwner(stage);
       TextField addFacId = (TextField) dp.lookup("#addFacId");
       TextField addFacName = (TextField) dp.lookup("#addFacName");
-      TextField addFacLoad = (TextField) dp.lookup("#addFacLoad");
+      ComboBox<String> addFacLoad = (ComboBox<String>) dp.lookup("#addFacLoad");
+
+      addFacLoad.getItems().addAll("30", "15");
 
       dialog.showAndWait().ifPresent((btnType) -> {
         if(btnType ==ButtonType.OK){
-          int id = Integer.parseInt(addFacId.getText());
-          String name = addFacName.getText();
-          int load = Integer.parseInt(addFacLoad.getText());
-
-          if(load != 30 && load != 15){
+          if (addFacId.getText().isEmpty() || addFacName.getText().isEmpty() || addFacLoad.getValue().isEmpty()){
             Alert a = new Alert(AlertType.ERROR);
-            a.setContentText("Invalid max load. Acceptable values: 30, 15");
-            a.show();
+              a.setContentText("All fields are required");
+              a.show();
+              return;
           }
 
+          int facid = Integer.parseInt(addFacId.getText());
+          String facname = addFacName.getText();
+          int load = Integer.parseInt(addFacLoad.getValue());
+
+
           try{
-            Faculty fac = new Faculty(id, name, load);
-            System.out.println(fac);
+            Faculty fac = new Faculty(facid, facname, load);
+            int res = FacultyControllers.createFaculty(fac);
+
+            if (res == 0){
+              Alert a = new Alert(AlertType.INFORMATION);
+              a.setContentText("Faculty successfully added");
+              a.show();
+            } else if(res == 1){
+              Alert a = new Alert(AlertType.ERROR);
+              a.setContentText("Faculty ID already exist");
+              a.show();
+            } else if(res == -1){
+              Alert a = new Alert(AlertType.ERROR);
+              a.setContentText("Some error occured. Faculty not added to database");
+              a.show();
+            }
+
+            
           } catch(IllegalArgumentException e) {
 
           }
