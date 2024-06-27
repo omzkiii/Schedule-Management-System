@@ -15,6 +15,9 @@ import javafx.scene.control.Button;
 
 import java.awt.*;
 import java.io.IOException;
+import java.time.LocalTime;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 
 import app.model.Faculty;
 import app.model.Schedule;
@@ -23,6 +26,8 @@ import app.view.FacultyView;
 import app.view.SchedView;
 import app.view.SimulateView;
 import app.model.Course;
+import app.model.Duration;
+import app.controller.ScheduleController;
 
 public class AppController {
 
@@ -44,8 +49,8 @@ public class AppController {
   @FXML
   private TableView<Schedule> schedTbl;
 
-  @FXML
-  private TableView<Schedule> simTbl;
+  // @FXML
+  // private TableView<Schedule> simTbl;
 
   public void switchToScene1(ActionEvent event) throws IOException{
     FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("schedule-management.fxml"));
@@ -152,15 +157,71 @@ public class AppController {
     subPane.setCenter(view);
   }
 
-  public void simulateScene(ActionEvent event) {
-    System.out.println("You clicked me!");
-    FxmlLoader object = new FxmlLoader();
-    Pane view = object.getPage("simulate");
-    SimulateView.setSimCols(view, simTbl);
-    // SimulateView.Simulate();
-    subPane.setCenter(view);
-  }
 
+  public void simulateScene(ActionEvent event) {
+
+    LocalTime time1 = LocalTime.of(11, 30);
+    LocalTime time2 = LocalTime.of(12, 30);
+
+    LocalTime time3 = LocalTime.of(11, 30);
+    LocalTime time4 = LocalTime.of(13, 30);
+
+    Duration d1 = new Duration(time1, time2);
+    Duration d2 = new Duration(time3, time4);
+
+    Schedule schedule1 = new Schedule("THURSDAY", d2, "CCS301", 212);
+    Schedule schedule2 = new Schedule("THURSDAY", d1, "CCS311", 300);
+    Schedule schedule3 = new Schedule("THURSDAY", d2, "CCS303", 212);
+
+    System.out.println("SIMULATION!!!!!!!!!!!!!!!!!");
+
+    Thread simulateDatabaseChange = new Thread(() -> {
+      System.out.println("SIMULATION!!!!!!!!!!!!!!!!!");
+      try {
+        while (true) {
+          ScheduleController.createSchedule(schedule1);
+          ScheduleController.createSchedule(schedule2);
+          ScheduleController.createSchedule(schedule3);
+          System.out.println("THIS FEELS LIKE MOLLY!!!!!!!!!!!!!!!!!");
+          Thread.sleep(3000);
+          ScheduleController.removeSchedule(ScheduleController.getAllSchedule().getLast());
+          Thread.sleep(3000);
+        }
+      } catch (Exception e) {
+        System.out.println(e);
+      }
+
+    });
+
+    
+    final TableView<Schedule> simTbl = new TableView<Schedule>();
+    // FxmlLoader object = new FxmlLoader();
+    // Pane view = object.getPage("simulate");
+    // SimulateView.setSimCols(view, simTbl);
+    // subPane.setCenter(view);
+   
+    SimulateView.startDatabaseChecking(simTbl, subPane);
+    simulateDatabaseChange.start();
+
+    // Platform.runLater(new Runnable() {
+    //   public void run() {
+    //     try {
+    //       while (true) {
+    //         ScheduleController.createSchedule(schedule3);
+    //         System.out.println("THIS FEELS LIKE MOLLY!!!!!!!!!!!!!!!!!");
+    //         simTbl.refresh();
+    //         Thread.sleep(3000);
+    //         ScheduleController.removeSchedule(ScheduleController.getAllSchedule().getLast());
+    //         simTbl.refresh();
+    //         Thread.sleep(3000);
+    //       }
+    //     } catch (Exception e) {
+    //       System.out.println(e);
+    //     }
+    //   }
+    // });
+    //
+  }
 
   @FXML
   private Label welcomeText;
