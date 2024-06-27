@@ -40,6 +40,7 @@ public class SchedView {
     faculty.setCellValueFactory(new PropertyValueFactory<>("faculty"));
     room.setCellValueFactory(new PropertyValueFactory<>("roomId"));
     actions.setCellFactory((setSchedBtn()));
+
     
     for(Schedule schedule: ScheduleController.getAllSchedule()){
       schedTbl.getItems().add(schedule);
