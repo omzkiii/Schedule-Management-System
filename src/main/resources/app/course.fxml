@@ -10,14 +10,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <VBox prefHeight="360.0" prefWidth="631.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.AppController">
    <children>
       <VBox alignment="CENTER" prefHeight="57.0" prefWidth="458.0">
          <children>
             <Label text="Course" textAlignment="CENTER">
                <font>
-                  <Font size="25.0" />
+                  <Font name="Kristen ITC" size="25.0" />
                </font>
             </Label>
          </children>
@@ -28,6 +27,9 @@
                <VBox.margin>
                   <Insets left="10.0" />
                </VBox.margin>
+               <font>
+                  <Font name="Kristen ITC" size="12.0" />
+               </font>
             </Button>
          </children>
          <VBox.margin>
@@ -45,12 +47,15 @@
                <HBox.margin>
                   <Insets left="5.0" />
                </HBox.margin>
+               <font>
+                  <Font name="Kristen ITC" size="12.0" />
+               </font>
             </Button>
          </children>
       </HBox>
       <VBox prefHeight="237.0" prefWidth="315.0">
          <children>
-            <TableView fx:id="courseTable" prefHeight="292.0" prefWidth="622.0">
+            <TableView fx:id="courseTable" prefHeight="292.0" prefWidth="622.0" stylesheets="@../../java/app/style.css">
                <columns>
                   <TableColumn fx:id="codeColumn" prefWidth="75.0" text="Code" />
                   <TableColumn fx:id="descColumn" prefWidth="75.0" text="Description" />
