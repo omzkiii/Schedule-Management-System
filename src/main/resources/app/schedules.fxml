@@ -5,7 +5,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -21,16 +20,8 @@
             </Label>
          </children>
       </VBox>
-      <HBox alignment="CENTER" prefHeight="38.0" prefWidth="386.0">
+      <HBox alignment="CENTER_LEFT" prefHeight="38.0" prefWidth="386.0">
          <children>
-            <TextField prefHeight="26.0" prefWidth="314.0" text="Monday">
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
-               <font>
-                  <Font name="Kristen ITC" size="12.0" />
-               </font>
-            </TextField>
             <Button mnemonicParsing="false" onAction="#openAddSchedDialog" prefHeight="26.0" prefWidth="111.0" text="Add Schedule">
                <HBox.margin>
                   <Insets left="10.0" />

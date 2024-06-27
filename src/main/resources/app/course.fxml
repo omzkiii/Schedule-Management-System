@@ -5,8 +5,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -21,7 +19,7 @@
             </Label>
          </children>
       </VBox>
-      <VBox prefHeight="0.0" prefWidth="458.0">
+      <VBox prefHeight="0.0" prefWidth="631.0">
          <children>
             <Button mnemonicParsing="false" onAction="#openAddCourseDialog" prefHeight="30.0" prefWidth="110.0" text="Add Course">
                <VBox.margin>
@@ -36,26 +34,9 @@
             <Insets bottom="10.0" />
          </VBox.margin>
       </VBox>
-      <HBox alignment="CENTER" prefHeight="22.0" prefWidth="458.0">
+      <VBox prefHeight="250.0" prefWidth="622.0">
          <children>
-            <TextField prefHeight="26.0" prefWidth="346.0">
-               <HBox.margin>
-                  <Insets left="-7.0" />
-               </HBox.margin>
-            </TextField>
-            <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="80.0" text="Search">
-               <HBox.margin>
-                  <Insets left="5.0" />
-               </HBox.margin>
-               <font>
-                  <Font name="Kristen ITC" size="12.0" />
-               </font>
-            </Button>
-         </children>
-      </HBox>
-      <VBox prefHeight="237.0" prefWidth="315.0">
-         <children>
-            <TableView fx:id="courseTable" prefHeight="292.0" prefWidth="622.0" stylesheets="@../../java/app/style.css">
+            <TableView fx:id="courseTable" prefHeight="250.0" prefWidth="622.0" stylesheets="@../../java/app/style.css">
                <columns>
                   <TableColumn fx:id="codeColumn" prefWidth="75.0" text="Code" />
                   <TableColumn fx:id="descColumn" prefWidth="75.0" text="Description" />
@@ -71,7 +52,7 @@
             </TableView>
          </children>
          <VBox.margin>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="10.0" />
+            <Insets bottom="5.0" left="5.0" right="5.0" />
          </VBox.margin>
       </VBox>
    </children>
