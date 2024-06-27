@@ -120,5 +120,4 @@ public class Schedule{
     public String toString(){
         return String.format("%s, %tR - %tR - %s (Room %d, Faculty: %d)", day, duration.getStart(), duration.getEnd(), courseCode, roomId, facultyId);
     }
-
 }

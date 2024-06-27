@@ -127,6 +127,11 @@ public class Queries {
     return String.format("SELECT * FROM SCHEDULES WHERE COURSE='%s'", course);
   }
 
+  
+  public static String selectScheduleForThisDay(String day){
+    return String.format("SELECT * FROM SCHEDULES WHERE DAY='%s'", day);
+  }
+
 
   
   // SELECT ALL QUERY

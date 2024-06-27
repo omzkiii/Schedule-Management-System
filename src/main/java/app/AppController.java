@@ -21,6 +21,7 @@ import app.model.Schedule;
 import app.view.CourseView;
 import app.view.FacultyView;
 import app.view.SchedView;
+import app.view.SimulateView;
 import app.model.Course;
 
 public class AppController {
@@ -43,6 +44,8 @@ public class AppController {
   @FXML
   private TableView<Schedule> schedTbl;
 
+  @FXML
+  private TableView<Schedule> simTbl;
 
   public void switchToScene1(ActionEvent event) throws IOException{
     FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("schedule-management.fxml"));
@@ -153,13 +156,9 @@ public class AppController {
     System.out.println("You clicked me!");
     FxmlLoader object = new FxmlLoader();
     Pane view = object.getPage("simulate");
+    SimulateView.setSimCols(view, simTbl);
+    // SimulateView.Simulate();
     subPane.setCenter(view);
-  }
-
-  public void populateCourseTable(){
-    FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("course"));
-    System.out.println(fxmlLoader.getResources());
-
   }
 
 
@@ -179,12 +178,13 @@ public class AppController {
   @FXML
   private void openAddCourseDialog(ActionEvent event){
     FXMLLoader loader = new FXMLLoader(getClass().getResource("dialog-course.fxml"));
+    CourseView.openAddDialog(event, stage, loader);
     
   }
 
   @FXML
   private void openAddSchedDialog(ActionEvent event){
     FXMLLoader loader = new FXMLLoader(getClass().getResource("dialog-schedule.fxml"));
-
+    SchedView.openAddDialog(event, stage, loader);
   }
 }
