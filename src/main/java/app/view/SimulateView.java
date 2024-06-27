@@ -1,7 +1,4 @@
-package app.view;
-
-import java.time.DayOfWeek;
-import java.time.LocalDate;
+package app.view; import java.time.DayOfWeek; import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
