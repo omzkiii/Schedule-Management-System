@@ -48,17 +48,11 @@
                   <Font size="13.0" />
                </font>
             </Label>
-            <Label text="Hours Per Week" GridPane.rowIndex="4">
-               <font>
-                  <Font size="13.0" />
-               </font>
-            </Label>
             <Spinner fx:id="editLecUnits" prefHeight="26.0" prefWidth="168.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Spinner fx:id="editLabUnits" prefHeight="26.0" prefWidth="168.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <Spinner fx:id="editHPWeek" prefHeight="26.0" prefWidth="166.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <Label text="Faculty ID" GridPane.rowIndex="5" />
-            <ComboBox fx:id="editFacID" prefHeight="26.0" prefWidth="166.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <Label text="ex. code" GridPane.columnIndex="1">
+            <Label text="Faculty ID" GridPane.rowIndex="4" />
+            <ComboBox fx:id="editFacID" prefHeight="26.0" prefWidth="166.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label fx:id="editCourseCode" text="ex. code" GridPane.columnIndex="1">
                <font>
                   <Font size="13.0" />
                </font>
