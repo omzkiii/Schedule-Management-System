@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<DialogPane prefHeight="270.0" prefWidth="353.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.AppController">
+<DialogPane prefHeight="230.0" prefWidth="353.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.AppController">
    <content>
       <GridPane alignment="CENTER" prefHeight="180.0" prefWidth="353.0" vgap="25.0">
          <columnConstraints>
@@ -18,7 +18,6 @@
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
          </columnConstraints>
          <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -41,18 +40,12 @@
                   <Font size="13.0" />
                </font>
             </Label>
-            <!-- <ComboBox fx:id="addSchedFacID" prefHeight="26.0" prefWidth="167.0" GridPane.columnIndex="1" GridPane.rowIndex="5" /> -->
-            <!-- <Label text="Faculty ID" GridPane.rowIndex="5">
-               <font>
-                  <Font size="13.0" />
-               </font>
-            </Label> -->
             <ComboBox fx:id="addSchedDay" prefHeight="26.0" prefWidth="166.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <ComboBox fx:id="addSchedRoomID" prefHeight="26.0" prefWidth="167.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Label text="Course Code" />
             <ComboBox fx:id="addSchedCourseCode" prefHeight="26.0" prefWidth="170.0" GridPane.columnIndex="1" />
-            <TextField fx:id="addSchedStart" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField fx:id="addSchedEnd" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="addSchedStart" promptText="00:00 AM/PM" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="addSchedEnd" promptText="00:00 AM/PM" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <Label text="End" GridPane.rowIndex="4">
                <font>
                   <Font size="13.0" />
