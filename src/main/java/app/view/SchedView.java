@@ -1,12 +1,21 @@
 package app.view;
 
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.regex.Pattern;
+
+import app.App;
+import app.controller.CourseControllers;
 import app.controller.ScheduleController;
 import app.model.Course;
+import app.model.Duration;
 import app.model.Schedule;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
@@ -62,6 +71,7 @@ public class SchedView {
             editBtn.setOnAction(event -> {
               Schedule schedule = getTableView().getItems().get(getIndex());
               System.out.println("Edit button for: " + schedule.getId() + " " + schedule.getId());
+              openEditDialog(event, schedule);
             });
 
             delBtn.setOnAction(event -> {
@@ -84,6 +94,30 @@ public class SchedView {
     };
   }
 
+  
+  public static void openEditDialog(ActionEvent event, Schedule schedule){
+    FXMLLoader loader = new FXMLLoader(App.class.getResource("edit-schedule.fxml"));
+
+    try{
+      Dialog<ButtonType> dialog = new Dialog<>();
+      DialogPane dp = loader.load();
+      dialog.setDialogPane(dp);
+      dialog.initModality(Modality.APPLICATION_MODAL);
+      Button btn = (Button) event.getSource();
+      dialog.initOwner(btn.getScene().getWindow());
+      dialog.show();
+
+
+
+
+    } catch (Exception e){
+      
+    }
+
+
+  }
+
+
   public static void openAddDialog(ActionEvent event, Stage stage, FXMLLoader loader){
     System.out.println("JOY TO THE WORLD");
     try{
@@ -92,32 +126,115 @@ public class SchedView {
       dialog.setDialogPane(dp);
       dialog.initModality(Modality.APPLICATION_MODAL);
       dialog.initOwner(stage);
-      dialog.show();
-      // TODO: UPDATE DATA
-      // TextField addSched = (TextField) dp.lookup("#addCourseCode");
-      // TextField addCourseDesc = (TextField) dp.lookup("#addCourseDesc");
-      // Spinner<Integer> addLecUnits = (Spinner<Integer>) dp.lookup("#addLecUnits"); 
-      // Spinner<Integer> addLabUnits = (Spinner<Integer>) dp.lookup("#addLabUnits");
-      // Spinner<Integer> addHPWeek = (Spinner<Integer>) dp.lookup("#addHPWeek");
-      // ComboBox<String> addFaculty = (ComboBox<String>) dp.lookup("#addFaculty");
-      //
-      // dialog.showAndWait().ifPresent((btnType) -> {
-      //   if(btnType ==ButtonType.OK){
-      //     String code = addSched.getText();
-      //     String desc = addCourseDesc.getText();
-      //     int lecUnits = addLecUnits.getValue();
-      //     int labUnits = addLabUnits.getValue();
-      //     String faculty = addFaculty.getValue();
-      //     int facultyId = Integer.parseInt(faculty.strip().replaceAll("^\\D*(\\d+).*", "$1"));
-      //     
-      //     try{
-      //       Course course = new Course(code, desc, lecUnits, labUnits, facultyId);
-      //       System.out.println(course);
-      //     } catch(IllegalArgumentException e) {
-      //
-      //     }
-      //   }
-      // });
+      ComboBox<String> addSchedCourseCode = (ComboBox<String>) dp.lookup("#addSchedCourseCode");
+      ComboBox<String> addSchedDay = (ComboBox<String>) dp.lookup("#addSchedDay");
+      ComboBox<String> addSchedRoomId = (ComboBox<String>) dp.lookup("#addSchedRoomID");
+      TextField addSchedStart = (TextField) dp.lookup("#addSchedStart");
+      TextField addSchedEnd = (TextField) dp.lookup("#addSchedEnd");
+
+      ArrayList<String> courses = new ArrayList<>();
+      for(Course c: CourseControllers.getAllCourse()){
+        courses.add(c.toString());
+      }
+
+      addSchedCourseCode.setValue(courses.getFirst().toString());
+      addSchedCourseCode.getItems().addAll(courses);
+
+      addSchedDay.setValue(Schedule.DAYS.get(1));
+      addSchedDay.getItems().addAll(Schedule.DAYS);
+
+      addSchedRoomId.setValue(Schedule.ROOMS.getFirst());
+      addSchedRoomId.getItems().addAll(Schedule.ROOMS);
+
+      dialog.showAndWait().ifPresent((btnType) -> {
+        if(btnType ==ButtonType.OK){
+          String code = addSchedCourseCode.getValue().split(" ")[0];
+          String day = addSchedDay.getValue();
+          int room = Integer.parseInt(addSchedRoomId.getValue());
+          
+          
+          String rawStart = addSchedStart.getText();
+          String rawEnd = addSchedEnd.getText();
+
+          if(code.isBlank() || day.isBlank() || rawStart.isBlank() || rawEnd.isBlank()){
+            Alert a = new Alert(AlertType.ERROR);
+            a.setContentText("All fields are required");
+            a.show();
+            return;
+          }
+
+          String timeRegex1 = "[0-1]{0,1}\\d{1}:[0-5]{1}\\d{1}";
+          String timeRegex2 = "[2]{1}[0-3]{1}:[0-5]{1}\\d{1}";
+
+          if((!Pattern.matches(timeRegex1, rawStart) && !Pattern.matches(timeRegex2, rawStart))  || (!Pattern.matches(timeRegex1, rawEnd) && !Pattern.matches(timeRegex2, rawEnd))){
+            Alert a = new Alert(AlertType.ERROR);
+            a.setContentText("Invalid time format");
+            a.show();
+            return;
+          }
+
+          String[] start = rawStart.split(":",2);
+          String[] end = rawEnd.split(":",2);
+
+          LocalTime time1 = LocalTime.of(Integer.parseInt(start[0]), Integer.parseInt(start[1]));
+          LocalTime time2 = LocalTime.of(Integer.parseInt(end[0]), Integer.parseInt(end[1]));
+
+          try{
+            Duration dur = new Duration(time1, time2);
+            Schedule schedule = new Schedule(day, dur, code, room);
+            int res = ScheduleController.createSchedule(schedule);
+
+            if (res == 0){
+              Alert a = new Alert(AlertType.INFORMATION);
+              a.setContentText("Schedule successfully added");
+              a.show();
+            } else if(res == 1){
+              Alert a = new Alert(AlertType.ERROR);
+              a.setContentText("Schedule already exist");
+              a.show();
+            } else if(res == 2) {
+              Alert a = new Alert(AlertType.ERROR);
+              a.setContentText("Max hours for course exceeded");
+              a.show();
+            } else if(res == 3) {
+              Alert a = new Alert(AlertType.ERROR);
+              a.setContentText("Conflicting schedule for faculty assigned to course");
+              a.show();
+            } else if(res == 4) {
+              Alert a = new Alert(AlertType.ERROR);
+              a.setContentText("Room already occupied for time provided");
+              a.show();
+            } else if(res == -1){
+              Alert a = new Alert(AlertType.ERROR);
+              a.setContentText("Some error occured. Course not added to database");
+              a.show();
+            }
+            
+
+
+
+          } catch(IllegalArgumentException e) {
+            Alert a = new Alert(AlertType.ERROR);
+            switch (e.getMessage()) {
+              case "End time cannot be before start time":
+                a.setContentText("End time cannot be before start time");
+                a.show();
+                break;
+              case "Start time too early":
+                a.setContentText("Start time too early");
+                a.show();
+                break;
+              case "End time too late":
+                a.setContentText("End time too late");
+                a.show();
+                break;
+              default:
+                System.out.println(e.getMessage());
+            }
+          }
+        }
+      });
+
     } catch(Exception e) {
     }
     

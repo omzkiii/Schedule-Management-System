@@ -41,12 +41,12 @@
                   <Font size="13.0" />
                </font>
             </Label>
-            <ComboBox fx:id="addSchedFacID" prefHeight="26.0" prefWidth="167.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <Label text="Faculty ID" GridPane.rowIndex="5">
+            <!-- <ComboBox fx:id="addSchedFacID" prefHeight="26.0" prefWidth="167.0" GridPane.columnIndex="1" GridPane.rowIndex="5" /> -->
+            <!-- <Label text="Faculty ID" GridPane.rowIndex="5">
                <font>
                   <Font size="13.0" />
                </font>
-            </Label>
+            </Label> -->
             <ComboBox fx:id="addSchedDay" prefHeight="26.0" prefWidth="166.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <ComboBox fx:id="addSchedRoomID" prefHeight="26.0" prefWidth="167.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Label text="Course Code" />

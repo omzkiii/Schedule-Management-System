@@ -155,7 +155,7 @@ public static void setCourseCols(Pane view, TableView<Course> courseTbl ){
           int labUnits = editLabUnits.getValue();
           String faculty = editFaculty.getValue().strip().replaceAll("^\\D*(\\d+).*", "$1");
 
-          if(desc.isEmpty() || (lecUnits == 0 && labUnits == 0) || faculty.isEmpty()){
+          if(desc.isBlank() || (lecUnits == 0 && labUnits == 0) || faculty.isBlank()){
             Alert a = new Alert(AlertType.ERROR);
             a.setContentText("All fields are required");
             a.show();
@@ -253,7 +253,7 @@ public static void setCourseCols(Pane view, TableView<Course> courseTbl ){
           int labUnits = addLabUnits.getValue();
           String faculty = addFaculty.getValue().strip().replaceAll("^\\D*(\\d+).*", "$1");
           
-          if(code.isEmpty() || desc.isEmpty() || (lecUnits == 0 && labUnits == 0) || faculty.isEmpty()){
+          if(code.isBlank() || desc.isBlank() || (lecUnits == 0 && labUnits == 0) || faculty.isBlank()){
             Alert a = new Alert(AlertType.ERROR);
             a.setContentText("All fields are required");
             a.show();

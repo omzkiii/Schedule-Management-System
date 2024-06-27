@@ -47,13 +47,13 @@
                   <Font size="13.0" />
                </font>
             </Label>
-            <ComboBox fx:id="editSchedID" prefHeight="26.0" prefWidth="166.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <ComboBox fx:id="editSchedDay" prefHeight="26.0" prefWidth="166.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <ComboBox fx:id="editRoomID" prefHeight="26.0" prefWidth="167.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <Spinner fx:id="editSchedDuration" prefHeight="26.0" prefWidth="167.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <Label text="Course Code" GridPane.rowIndex="1" />
             <ComboBox fx:id="editCourseCode" prefHeight="26.0" prefWidth="170.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label text="Schedule ID" />
-            <Label text="Ex. ID" GridPane.columnIndex="1">
+            <Label fx:id="editSched" text="Ex. ID" GridPane.columnIndex="1">
                <font>
                   <Font size="13.0" />
                </font>

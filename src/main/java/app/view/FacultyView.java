@@ -147,7 +147,7 @@ public class FacultyView {
 
       dialog.showAndWait().ifPresent((btnType) -> {
         if(btnType ==ButtonType.OK){
-          if (facName.getText().isEmpty() || facLoad.getValue().isEmpty()){
+          if (facName.getText().isBlank() || facLoad.getValue().isBlank()){
             Alert a = new Alert(AlertType.ERROR);
             a.setContentText("All fields are required");
             a.show();
@@ -207,7 +207,7 @@ public class FacultyView {
 
       dialog.showAndWait().ifPresent((btnType) -> {
         if(btnType ==ButtonType.OK){
-          if (addFacId.getText().isEmpty() || addFacName.getText().isEmpty() || addFacLoad.getValue().isEmpty()){
+          if (addFacId.getText().isBlank() || addFacName.getText().isBlank() || addFacLoad.getValue().isBlank()){
             Alert a = new Alert(AlertType.ERROR);
               a.setContentText("All fields are required");
               a.show();
