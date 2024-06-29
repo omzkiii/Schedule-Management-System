@@ -174,7 +174,9 @@ public class AppController {
     FacultyView.setFacCols(view, facultyTbl);
     // FacultyView.loadFacData(view, facultyTbl);
     subPane.setCenter(view);
-    SimulateView.backgroundTask.cancel();
+    if(SimulateView.backgroundTask != null){
+      SimulateView.backgroundTask.cancel();
+    }
   }
 
   public void courseScene(ActionEvent event) {
@@ -183,7 +185,9 @@ public class AppController {
     Pane view = object.getPage("course");
     CourseView.setCourseCols(view, courseTbl);
     subPane.setCenter(view);
-    SimulateView.backgroundTask.cancel();
+    if(SimulateView.backgroundTask != null){
+      SimulateView.backgroundTask.cancel();
+    }
   }
 
   public void scheduleScene(ActionEvent event) {
@@ -192,7 +196,9 @@ public class AppController {
     Pane view = object.getPage("schedules");
     SchedView.setSchedCols(view, schedTbl);
     subPane.setCenter(view);
-    SimulateView.backgroundTask.cancel();
+    if(SimulateView.backgroundTask != null){
+      SimulateView.backgroundTask.cancel();
+    }
   }
 
 

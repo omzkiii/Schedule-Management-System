@@ -64,7 +64,7 @@ public class SimulateView{
       }
     };
     Thread thread = new Thread(backgroundTask);
-    thread.setDaemon(true);  // Mark thread as daemon so it won't prevent application exit
+    // thread.setDaemon(true);
     thread.start();
   }
 
