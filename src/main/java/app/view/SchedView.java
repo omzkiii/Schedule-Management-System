@@ -21,6 +21,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
+import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -77,6 +78,35 @@ public class SchedView {
             delBtn.setOnAction(event -> {
               Schedule schedule = getTableView().getItems().get(getIndex());
               System.out.println("Delete button for: " + schedule.getId() + " " + schedule.getId());
+              Alert a = new Alert(AlertType.CONFIRMATION);
+              a.setContentText("Are you sure you want to delete schedule " + schedule);
+              a.showAndWait().ifPresent((btnType) -> {
+                if(btnType ==ButtonType.OK){
+                  try{
+                    int res = ScheduleController.removeSchedule(schedule);
+        
+                    if (res == 0){
+                      Alert inf = new Alert(AlertType.INFORMATION);
+                      inf.setContentText("Schedule successfully deleted");
+                      inf.show();
+                    } else if(res == 1){
+                      Alert inf = new Alert(AlertType.ERROR);
+                      inf.setContentText("Schedule does not exist");
+                      inf.show();
+                    } else if(res == -1){
+                      Alert inf = new Alert(AlertType.ERROR);
+                      inf.setContentText("Some error occured. Schedule not deleted");
+                      inf.show();
+                    }
+        
+                    
+                  } catch(IllegalArgumentException e) {
+                    System.out.println(e.getMessage());
+                  }
+                  
+                  
+                }
+              });
             });
           }
 
@@ -105,10 +135,126 @@ public class SchedView {
       dialog.initModality(Modality.APPLICATION_MODAL);
       Button btn = (Button) event.getSource();
       dialog.initOwner(btn.getScene().getWindow());
-      dialog.show();
+      Label schedId = (Label) dp.lookup("#editSched");
+      ComboBox<String> schedCourse = (ComboBox<String>) dp.lookup("#editCourseCode");
+      ComboBox<String> schedDay = (ComboBox<String>) dp.lookup("#editSchedDay");
+      ComboBox<String> schedRoom = (ComboBox<String>) dp.lookup("#editRoomID");
+      TextField schedStart = (TextField) dp.lookup("#editSchedStart");
+      TextField schedEnd = (TextField) dp.lookup("#editSchedEnd");
+
+      schedId.setText(String.valueOf(schedule.getId()));
+
+      ArrayList<String> courses = new ArrayList<>();
+      for(Course c: CourseControllers.getAllCourse()){
+        courses.add(c.toString());
+      }
+
+      schedCourse.setValue(CourseControllers.getCourse(schedule.getCourseCode()).toString());
+      schedCourse.getItems().addAll(courses);
+
+      schedDay.setValue(schedule.getDay());
+      schedDay.getItems().addAll(Schedule.DAYS);
+
+      schedRoom.setValue(String.valueOf(schedule.getRoomId()));
+      schedRoom.getItems().addAll(Schedule.ROOMS);
+
+      schedStart.setText(schedule.getDuration().getStart().toString());
+      schedEnd.setText(schedule.getDuration().getEnd().toString());
+      
+      dialog.showAndWait().ifPresent((btnType) -> {
+        if(btnType ==ButtonType.OK){
+          String code = schedCourse.getValue().split(" ")[0];
+          String day = schedDay.getValue();
+          int room = Integer.parseInt(schedRoom.getValue());
+
+          String rawStart = schedStart.getText();
+          String rawEnd = schedEnd.getText();
+
+          if(rawStart.isBlank() || rawEnd.isBlank()){
+            Alert a = new Alert(AlertType.ERROR);
+            a.setContentText("All fields are required");
+            a.show();
+            return;
+          }
+
+          String timeRegex1 = "[0-1]{0,1}\\d{1}:[0-5]{1}\\d{1}";
+          String timeRegex2 = "[2]{1}[0-3]{1}:[0-5]{1}\\d{1}";
+
+          if((!Pattern.matches(timeRegex1, rawStart) && !Pattern.matches(timeRegex2, rawStart))  || (!Pattern.matches(timeRegex1, rawEnd) && !Pattern.matches(timeRegex2, rawEnd))){
+            Alert a = new Alert(AlertType.ERROR);
+            a.setContentText("Invalid time format");
+            a.show();
+            return;
+          }
+
+          String[] start = rawStart.split(":",2);
+          String[] end = rawEnd.split(":",2);
+
+          LocalTime time1 = LocalTime.of(Integer.parseInt(start[0]), Integer.parseInt(start[1]));
+          LocalTime time2 = LocalTime.of(Integer.parseInt(end[0]), Integer.parseInt(end[1]));
+
+          try{
+            Duration dur = new Duration(time1, time2);
+            schedule.setCourseCode(code);
+            schedule.setDay(day);
+            schedule.setRoomId(room);
+            schedule.setDuration(dur);
+
+            int res = ScheduleController.modifySchedule(schedule);
+
+            if (res == 0){
+              Alert a = new Alert(AlertType.INFORMATION);
+              a.setContentText("Schedule successfully modified");
+              a.show();
+            } else if(res == 1){
+              Alert a = new Alert(AlertType.ERROR);
+              a.setContentText("Schedule does not exist");
+              a.show();
+            } else if(res == 2) {
+              Alert a = new Alert(AlertType.ERROR);
+              a.setContentText("Max hours for course exceeded");
+              a.show();
+            } else if(res == 3) {
+              Alert a = new Alert(AlertType.ERROR);
+              a.setContentText("Conflicting schedule for faculty assigned to course");
+              a.show();
+            } else if(res == 4) {
+              Alert a = new Alert(AlertType.ERROR);
+              a.setContentText("Room already occupied for time provided");
+              a.show();
+            } else if(res == -1){
+              Alert a = new Alert(AlertType.ERROR);
+              a.setContentText("Some error occured. Course not added to database");
+              a.show();
+            }
+            
 
 
 
+          } catch(IllegalArgumentException e) {
+            Alert a = new Alert(AlertType.ERROR);
+            switch (e.getMessage()) {
+              case "End time cannot be before start time":
+                a.setContentText("End time cannot be before start time");
+                a.show();
+                break;
+              case "Start time too early":
+                a.setContentText("Start time too early");
+                a.show();
+                break;
+              case "End time too late":
+                a.setContentText("End time too late");
+                a.show();
+                break;
+              default:
+                System.out.println(e.getMessage());
+            }
+          }
+
+
+        }
+      
+      });
 
     } catch (Exception e){
       
