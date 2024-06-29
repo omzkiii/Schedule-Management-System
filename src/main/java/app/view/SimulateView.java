@@ -10,44 +10,62 @@ import app.FxmlLoader;
 import app.controller.ScheduleController;
 import app.model.Schedule;
 import javafx.application.Platform;
+import javafx.concurrent.ScheduledService;
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 
+
+
 public class SimulateView{
-  private static ScheduledExecutorService scheduler;
-  // private static int lastSchedId = ScheduleController.getAllSchedule().getLast().getId();
-  private static int lastSchedId = 0;
+  @FXML 
+  // private static TableView<Schedule> simTbl;
+  public static Task<Void> backgroundTask;
 
-  public static void startDatabaseChecking(TableView<Schedule> simTbl, BorderPane subPane){
-    // FxmlLoader object = new FxmlLoader();
-    // Pane view = object.getPage("simulate");
-    // setSimCols(view, simTbl);
+  private static int lastSchedId = ScheduleController.getAllSchedule().getLast().getId();
 
-    if (scheduler != null && !scheduler.isShutdown()) {
-      scheduler.shutdown();
+  public static void startDatabaseChecking(BorderPane subPane, TableView<Schedule> simTbl){
+    if(backgroundTask != null && backgroundTask.isRunning()){
+      System.out.println("Background Task is Already Running");
+      return;
     }
-    
-    scheduler = Executors.newScheduledThreadPool(1);
-    scheduler.scheduleAtFixedRate(() -> {
-      try {
-        // subPane.setCenter(view);
-        boolean changesDetected = isDatabaseSame();
-        System.out.println("WHO WATCHES THE WATCHMEN?" + Thread.currentThread().getName());
-        if(!changesDetected) {
-          System.out.println("RUNLATER MUST RUN!");
-          updateSimTable();
-          // Platform.runLater(()->{updateSimTable();});
+    backgroundTask = new Task<Void>(){
+      @Override
+      protected Void call() throws Exception {
+        while (!isCancelled()) {
+          try {
+            boolean noChangesDetected = isDatabaseSame();
+            if(!noChangesDetected) {
+              Platform.runLater(() -> {
+                try {
+                  FxmlLoader object = new FxmlLoader();
+                  Pane view = object.getPage("simulate");
+                  // simTbl.refresh();
+                  setSimCols(view, simTbl);
+                  subPane.setCenter(view);
+                  // System.out.println("WHO WATCHES THE WATCHMEN?" + Thread.currentThread().getName());
+
+                } catch (Exception e) {
+                  System.out.println("FIDDLER:" + e);
+                }
+              });
+            }
+            Thread.sleep(1000);
+          } catch (Exception e) {
+          }
         }
-
-      } catch (Exception e) {
-        System.out.println("FIDDLER:" + e);
+        return null;
       }
-    }, 0, 3, TimeUnit.SECONDS);
-
+    };
+    Thread thread = new Thread(backgroundTask);
+    thread.setDaemon(true);  // Mark thread as daemon so it won't prevent application exit
+    thread.start();
   }
 
   private static boolean isDatabaseSame(){
@@ -63,9 +81,9 @@ public class SimulateView{
 
 
   
-  public static void setSimCols(Pane view, TableView<Schedule> simTbl ){
+  public static TableView<Schedule> setSimCols(Pane view, TableView<Schedule> simTbl ){
 
-    AppController.simTbl = (TableView<Schedule>) view.lookup("#simList");
+    simTbl = (TableView<Schedule>) view.lookup("#simList");
     TableColumn<Schedule, String> room =  (TableColumn<Schedule, String>) simTbl.getColumns().get(0);
     TableColumn<Schedule, String> faculty =  (TableColumn<Schedule, String>) simTbl.getColumns().get(1);
     TableColumn<Schedule, String> course = (TableColumn<Schedule, String>) simTbl.getColumns().get(2);
@@ -80,10 +98,10 @@ public class SimulateView{
     // setSimTable(simTbl);
     
     DayOfWeek dayOfWeek = LocalDate.now().getDayOfWeek();
-    ArrayList<Schedule> schedules = ScheduleController.getTodaySchedule(dayOfWeek.toString());
+    ArrayList<Schedule> schedules = ScheduleController.getTodaySchedule("THURSDAY");
     LocalTime timeNow = LocalTime.parse("11:59");
     if (schedules.isEmpty()){
-      return;
+      return simTbl;
     }
     for (Schedule schedule : schedules) {
       LocalTime start = schedule.getDuration().getStart(); 
@@ -96,6 +114,7 @@ public class SimulateView{
       }
     }
     System.out.println("SIMTBL STATUS AFTER setSimCols: " + simTbl==null);
+    return simTbl;
   }
 
   public void setSimTable(TableView<Schedule> simTbl){
@@ -119,9 +138,9 @@ public class SimulateView{
 
   public static void updateSimTable(){
     System.out.println("WUBALLUBADUBDUB");
-    if(AppController.simTbl != null){
-      AppController.simTbl.getItems().clear();
-    }
+    // if(simTbl != null){
+    //   simTbl.getItems().clear();
+    // }
     DayOfWeek dayOfWeek = LocalDate.now().getDayOfWeek();
     ArrayList<Schedule> schedules = ScheduleController.getTodaySchedule(dayOfWeek.toString());
     LocalTime timeNow = LocalTime.parse("11:59");
@@ -132,7 +151,7 @@ public class SimulateView{
       System.out.println(end + " " + end.isAfter(timeNow));
       System.out.println(timeNow);
       if (start.isBefore(timeNow) && end.isAfter(timeNow)) {
-        AppController.simTbl.getItems().add(schedule);
+        // AppController.simTbl.getItems().add(schedule);
       }
     }
   }

@@ -50,7 +50,7 @@ public class AppController {
   private TableView<Schedule> schedTbl;
 
   @FXML
-  public static TableView<Schedule> simTbl;
+  private static TableView<Schedule> simTbl;
 
   public void switchToScene1(ActionEvent event) throws IOException{
     FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("schedule-management.fxml"));
@@ -109,7 +109,42 @@ public class AppController {
   }
 
   public void switchToScene2Schedules(ActionEvent event) throws IOException {
-    // Load the main scene
+
+    LocalTime time1 = LocalTime.of(11, 30);
+    LocalTime time2 = LocalTime.of(12, 30);
+
+    LocalTime time3 = LocalTime.of(11, 30);
+    LocalTime time4 = LocalTime.of(13, 30);
+
+    Duration d1 = new Duration(time1, time2);
+    Duration d2 = new Duration(time3, time4);
+
+    Schedule schedule1 = new Schedule("THURSDAY", d2, "CCS301", 212);
+    Schedule schedule2 = new Schedule("THURSDAY", d1, "CCS311", 300);
+    Schedule schedule3 = new Schedule("THURSDAY", d2, "CCS303", 212);
+
+    System.out.println("SIMULATION!!!!!!!!!!!!!!!!!");
+
+    Thread simulateDatabaseChange = new Thread(() -> {
+      System.out.println("SIMULATION!!!!!!!!!!!!!!!!!");
+      try {
+        while (true) {
+          ScheduleController.createSchedule(schedule1);
+          ScheduleController.createSchedule(schedule2);
+          ScheduleController.createSchedule(schedule3);
+          System.out.println("THIS FEELS LIKE MOLLY!!!!!!!!!!!!!!!!!");
+          Thread.sleep(3000);
+          if(ScheduleController.getAllSchedule().size() > 1){
+            ScheduleController.removeSchedule(ScheduleController.getAllSchedule().getLast());
+          }
+          Thread.sleep(3000);
+        }
+      } catch (Exception e) {
+        System.out.println(e);
+      }
+
+    });
+   simulateDatabaseChange.start();
     FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("simulate-management.fxml"));
     mainPane = fxmlLoader.load();
 
@@ -139,6 +174,7 @@ public class AppController {
     FacultyView.setFacCols(view, facultyTbl);
     // FacultyView.loadFacData(view, facultyTbl);
     subPane.setCenter(view);
+    SimulateView.backgroundTask.cancel();
   }
 
   public void courseScene(ActionEvent event) {
@@ -147,6 +183,7 @@ public class AppController {
     Pane view = object.getPage("course");
     CourseView.setCourseCols(view, courseTbl);
     subPane.setCenter(view);
+    SimulateView.backgroundTask.cancel();
   }
 
   public void scheduleScene(ActionEvent event) {
@@ -155,56 +192,16 @@ public class AppController {
     Pane view = object.getPage("schedules");
     SchedView.setSchedCols(view, schedTbl);
     subPane.setCenter(view);
+    SimulateView.backgroundTask.cancel();
   }
 
 
   public void simulateScene(ActionEvent event) {
-
-    LocalTime time1 = LocalTime.of(11, 30);
-    LocalTime time2 = LocalTime.of(12, 30);
-
-    LocalTime time3 = LocalTime.of(11, 30);
-    LocalTime time4 = LocalTime.of(13, 30);
-
-    Duration d1 = new Duration(time1, time2);
-    Duration d2 = new Duration(time3, time4);
-
-    Schedule schedule1 = new Schedule("THURSDAY", d2, "CCS301", 212);
-    Schedule schedule2 = new Schedule("THURSDAY", d1, "CCS311", 300);
-    Schedule schedule3 = new Schedule("THURSDAY", d2, "CCS303", 212);
-
-    System.out.println("SIMULATION!!!!!!!!!!!!!!!!!");
-
-    Thread simulateDatabaseChange = new Thread(() -> {
-      System.out.println("SIMULATION!!!!!!!!!!!!!!!!!");
-      try {
-        while (true) {
-          ScheduleController.createSchedule(schedule1);
-          ScheduleController.createSchedule(schedule2);
-          ScheduleController.createSchedule(schedule3);
-          System.out.println("THIS FEELS LIKE MOLLY!!!!!!!!!!!!!!!!!");
-          Thread.sleep(3000);
-          ScheduleController.removeSchedule(ScheduleController.getAllSchedule().getLast());
-          Thread.sleep(3000);
-        }
-      } catch (Exception e) {
-        System.out.println(e);
-      }
-
-    });
-
-    
-    // final TableView<Schedule> simTbl = new TableView<Schedule>();
-    // FxmlLoader object = new FxmlLoader();
-    // Pane view = object.getPage("simulate");
-    // SimulateView.setSimCols(view, simTbl);
-    // subPane.setCenter(view);
     FxmlLoader object = new FxmlLoader();
     Pane view = object.getPage("simulate");
-    SimulateView.setSimCols(view, simTbl);
-    SimulateView.startDatabaseChecking(simTbl, subPane);
-    simulateDatabaseChange.start();
     subPane.setCenter(view);
+    // SimulateView.setSimCols(view, simTbl);
+    SimulateView.startDatabaseChecking(subPane, SimulateView.setSimCols(view, simTbl));
   }
 
   @FXML
