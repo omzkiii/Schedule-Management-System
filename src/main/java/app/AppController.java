@@ -49,8 +49,8 @@ public class AppController {
   @FXML
   private TableView<Schedule> schedTbl;
 
-  // @FXML
-  // private TableView<Schedule> simTbl;
+  @FXML
+  public static TableView<Schedule> simTbl;
 
   public void switchToScene1(ActionEvent event) throws IOException{
     FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("schedule-management.fxml"));
@@ -194,33 +194,17 @@ public class AppController {
     });
 
     
-    final TableView<Schedule> simTbl = new TableView<Schedule>();
+    // final TableView<Schedule> simTbl = new TableView<Schedule>();
     // FxmlLoader object = new FxmlLoader();
     // Pane view = object.getPage("simulate");
     // SimulateView.setSimCols(view, simTbl);
     // subPane.setCenter(view);
-   
+    FxmlLoader object = new FxmlLoader();
+    Pane view = object.getPage("simulate");
+    SimulateView.setSimCols(view, simTbl);
     SimulateView.startDatabaseChecking(simTbl, subPane);
     simulateDatabaseChange.start();
-
-    // Platform.runLater(new Runnable() {
-    //   public void run() {
-    //     try {
-    //       while (true) {
-    //         ScheduleController.createSchedule(schedule3);
-    //         System.out.println("THIS FEELS LIKE MOLLY!!!!!!!!!!!!!!!!!");
-    //         simTbl.refresh();
-    //         Thread.sleep(3000);
-    //         ScheduleController.removeSchedule(ScheduleController.getAllSchedule().getLast());
-    //         simTbl.refresh();
-    //         Thread.sleep(3000);
-    //       }
-    //     } catch (Exception e) {
-    //       System.out.println(e);
-    //     }
-    //   }
-    // });
-    //
+    subPane.setCenter(view);
   }
 
   @FXML
