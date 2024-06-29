@@ -1,5 +1,6 @@
 package app.model;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -14,7 +15,11 @@ public class Schedule{
     private String courseCode;
     private int roomId;
     private Faculty faculty;
+    
+    // Class fields
+    private static final int ROOM_COUNT = 45;
     public static final List<String> DAYS = Arrays.asList("SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY");
+    public static final List<String> ROOMS = generateRooms(ROOM_COUNT);
 
 
     /*
@@ -119,6 +124,29 @@ public class Schedule{
     @Override
     public String toString(){
         return String.format("%s, %tR - %tR - %s (Room %d, Faculty: %d)", day, duration.getStart(), duration.getEnd(), courseCode, roomId, facultyId);
+    }
+
+
+    private static ArrayList<String> generateRooms(int n){
+        ArrayList<String> rooms = new ArrayList<>();
+        int floor = 200;
+        int room = 0;
+
+        while(n != 0){
+            if(room > 15) {
+                floor += 100;
+                room = 0;
+
+            }
+
+            int roomNum = floor + room;
+            rooms.add(String.valueOf(roomNum));
+            room++;
+            n--;
+        }
+
+        return rooms;
+
     }
 
 }
