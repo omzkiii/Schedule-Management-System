@@ -33,7 +33,7 @@ public class AppController {
 
   private Stage stage;
   private Scene scene;
-  private Parent root;
+  private Parent mainPane;
 
   @FXML
   private Button addFacultyButton;
@@ -62,7 +62,7 @@ public class AppController {
   public void switchToScene2Faculty(ActionEvent event) throws IOException {
     // Load the main scene
     FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("simulate-management.fxml"));
-    Parent mainPane = fxmlLoader.load();
+    mainPane = fxmlLoader.load();
 
     // Get the current stage and set the scene
     stage = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -88,7 +88,7 @@ public class AppController {
   public void switchToScene2Course(ActionEvent event) throws IOException {
     // Load the main scene
     FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("simulate-management.fxml"));
-    Parent mainPane = fxmlLoader.load();
+    mainPane = fxmlLoader.load();
 
     // Get the current stage and set the scene
     stage = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -111,7 +111,7 @@ public class AppController {
   public void switchToScene2Schedules(ActionEvent event) throws IOException {
     // Load the main scene
     FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("simulate-management.fxml"));
-    Parent mainPane = fxmlLoader.load();
+    mainPane = fxmlLoader.load();
 
     // Get the current stage and set the scene
     stage = (Stage)((Node)event.getSource()).getScene().getWindow();

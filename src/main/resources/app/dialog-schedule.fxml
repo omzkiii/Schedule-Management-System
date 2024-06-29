@@ -4,14 +4,13 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DialogPane?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<DialogPane prefHeight="376.0" prefWidth="353.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.AppController">
+<DialogPane prefHeight="270.0" prefWidth="353.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.AppController">
    <content>
       <GridPane alignment="CENTER" prefHeight="180.0" prefWidth="353.0" vgap="25.0">
          <columnConstraints>
@@ -27,34 +26,38 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Label text="Day" GridPane.rowIndex="2">
+            <Label text="Day" GridPane.rowIndex="1">
                <font>
                   <Font size="13.0" />
                </font>
             </Label>
-            <Label text="Room ID" GridPane.rowIndex="3">
+            <Label text="Room ID" GridPane.rowIndex="2">
                <font>
                   <Font size="13.0" />
                </font>
             </Label>
-            <Label text="Duration" GridPane.rowIndex="4">
+            <Label text="Start" GridPane.rowIndex="3">
                <font>
                   <Font size="13.0" />
                </font>
             </Label>
-            <ComboBox prefHeight="26.0" prefWidth="167.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <Label text="Faculty ID" GridPane.rowIndex="5">
+            <!-- <ComboBox fx:id="addSchedFacID" prefHeight="26.0" prefWidth="167.0" GridPane.columnIndex="1" GridPane.rowIndex="5" /> -->
+            <!-- <Label text="Faculty ID" GridPane.rowIndex="5">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label> -->
+            <ComboBox fx:id="addSchedDay" prefHeight="26.0" prefWidth="166.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <ComboBox fx:id="addSchedRoomID" prefHeight="26.0" prefWidth="167.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label text="Course Code" />
+            <ComboBox fx:id="addSchedCourseCode" prefHeight="26.0" prefWidth="170.0" GridPane.columnIndex="1" />
+            <TextField fx:id="addSchedStart" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="addSchedEnd" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label text="End" GridPane.rowIndex="4">
                <font>
                   <Font size="13.0" />
                </font>
             </Label>
-            <ComboBox prefHeight="26.0" prefWidth="166.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <ComboBox prefHeight="26.0" prefWidth="167.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <Spinner prefHeight="26.0" prefWidth="167.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <Label text="Course Code" GridPane.rowIndex="1" />
-            <ComboBox prefHeight="26.0" prefWidth="170.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label text="Schedule ID" />
-            <TextField GridPane.columnIndex="1" />
          </children>
       </GridPane>
    </content>
