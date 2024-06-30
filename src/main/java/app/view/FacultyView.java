@@ -16,6 +16,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -28,8 +29,9 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 
 public class FacultyView {
+  public static TableView<Faculty> localFacultyTbl;
 
-  public static void setFacCols(Pane view, TableView<Faculty> facultyTbl){
+  public static TableView<Faculty> setFacCols(Pane view, TableView<Faculty> facultyTbl){
     facultyTbl = (TableView<Faculty>) view.lookup("#facList");
     TableColumn<Faculty, Integer> id = (TableColumn<Faculty, Integer>) facultyTbl.getColumns().get(0);
     TableColumn<Faculty, String> name = (TableColumn<Faculty, String>) facultyTbl.getColumns().get(1);
@@ -45,6 +47,8 @@ public class FacultyView {
     for(Faculty faculty: FacultyControllers.getAllFaculty()){
       facultyTbl.getItems().add(faculty);
     }
+    localFacultyTbl = facultyTbl;
+    return facultyTbl;
   }
 
   public static Callback<TableColumn<Faculty, Void>, TableCell<Faculty, Void>> setFacBtn() {
@@ -74,6 +78,7 @@ public class FacultyView {
                     int res = FacultyControllers.removeFaculty(faculty.getId());
         
                     if (res == 0){
+                      updateTable(localFacultyTbl);
                       Alert inf = new Alert(AlertType.INFORMATION);
                       inf.setContentText("Faculty successfully deleted");
                       inf.show();
@@ -113,16 +118,6 @@ public class FacultyView {
       }
     };
   }
-
-
-  public static void loadFacData(TableView<Faculty> facultyTbl){
-    ObservableList<Faculty> data = FXCollections.observableArrayList();
-    for(Faculty f: FacultyControllers.getAllFaculty()){
-      data.add(f);
-    }
-    facultyTbl.getItems().addAll(data);
-  }
-
 
   public static void openEditDialog(ActionEvent event, Faculty faculty){
     FXMLLoader loader = new FXMLLoader(App.class.getResource("edit-faculty.fxml"));
@@ -164,6 +159,7 @@ public class FacultyView {
             int res = FacultyControllers.modifyFaculty(faculty);
 
             if (res == 0){
+              updateTable(localFacultyTbl);
               Alert a = new Alert(AlertType.INFORMATION);
               a.setContentText("Faculty successfully modified");
               a.show();
@@ -224,6 +220,7 @@ public class FacultyView {
             int res = FacultyControllers.createFaculty(fac);
 
             if (res == 0){
+              updateTable(localFacultyTbl);
               Alert a = new Alert(AlertType.INFORMATION);
               a.setContentText("Faculty successfully added");
               a.show();
@@ -246,5 +243,11 @@ public class FacultyView {
     } catch(Exception e) {
     }
     
+  }
+  public static void updateTable(TableView<Faculty> facultyTbl){
+    FxmlLoader object = new FxmlLoader();
+    Pane view = object.getPage("faculty");
+    setFacCols(view, facultyTbl);
+    App.subPane.setCenter(view);
   }
 }

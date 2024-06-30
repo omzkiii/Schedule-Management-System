@@ -3,6 +3,7 @@ package app.view;
 import java.util.ArrayList;
 
 import app.App;
+import app.FxmlLoader;
 import app.controller.CourseControllers;
 import app.controller.FacultyControllers;
 import app.model.Course;
@@ -31,24 +32,26 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 
 public class CourseView {
-public static void setCourseCols(Pane view, TableView<Course> courseTbl ){
+  public static TableView<Course> localCourseTbl;
+
+  public static void setCourseCols(Pane view, TableView<Course> courseTbl ){
     courseTbl = (TableView<Course>) view.lookup("#courseTable");
     TableColumn<Course, String> codeCol = (TableColumn<Course, String>) courseTbl.getColumns().get(0);
     codeCol.setCellValueFactory(new PropertyValueFactory<>("code"));
-    
+
     TableColumn<Course, String> desCol = (TableColumn<Course, String>) courseTbl.getColumns().get(1);
     desCol.setCellValueFactory(new PropertyValueFactory<>("desc"));
-    
+
     TableColumn<Course, String> lecUnitsCol = (TableColumn<Course, String>) courseTbl.getColumns().get(2);
     lecUnitsCol.setCellValueFactory(new PropertyValueFactory<>("lecUnits"));
-    
+
     TableColumn<Course, String> labUnitsCol = (TableColumn<Course, String>) courseTbl.getColumns().get(3);
     labUnitsCol.setCellValueFactory(new PropertyValueFactory<>("labUnits"));
 
 
     TableColumn<Course, String> hpweekCol = (TableColumn<Course, String>) courseTbl.getColumns().get(4);
     hpweekCol.setCellValueFactory(new PropertyValueFactory<>("hrsPerWeek"));
-    
+
     TableColumn<Course, String> facultyCol = (TableColumn<Course, String>) courseTbl.getColumns().get(5);
     facultyCol.setCellValueFactory(new PropertyValueFactory<>("faculty"));
 
@@ -58,6 +61,9 @@ public static void setCourseCols(Pane view, TableView<Course> courseTbl ){
     for (Course course : CourseControllers.getAllCourse()) {
       courseTbl.getItems().add(course);
     }
+    
+    localCourseTbl = courseTbl;
+
   }
 
   private static Callback<TableColumn<Course, Void>, TableCell<Course, Void>> setCourseButton() {
@@ -82,7 +88,7 @@ public static void setCourseCols(Pane view, TableView<Course> courseTbl ){
                 if(btnType ==ButtonType.OK){
                   try{
                     int res = CourseControllers.removeCourse(course);
-        
+
                     if (res == 0){
                       Alert inf = new Alert(AlertType.INFORMATION);
                       inf.setContentText("Course successfully deleted");
@@ -96,13 +102,13 @@ public static void setCourseCols(Pane view, TableView<Course> courseTbl ){
                       inf.setContentText("Some error occured. Course not deleted");
                       inf.show();
                     }
-        
-                    
+
+
                   } catch(IllegalArgumentException e) {
                     System.out.println(e.getMessage());
                   }
-                  
-                  
+
+
                 }
               });
 
@@ -187,6 +193,7 @@ public static void setCourseCols(Pane view, TableView<Course> courseTbl ){
             int res = CourseControllers.modifyCourse(course);
 
             if (res == 0){
+              updateTable(localCourseTbl);
               Alert a = new Alert(AlertType.INFORMATION);
               a.setContentText("Course successfully modified");
               a.show();
@@ -203,7 +210,7 @@ public static void setCourseCols(Pane view, TableView<Course> courseTbl ){
               a.setContentText("Some error occured. Course not modified");
               a.show();
             }
-            
+
           } catch(IllegalArgumentException e) {
             System.out.println(e.getMessage());
           }
@@ -213,12 +220,12 @@ public static void setCourseCols(Pane view, TableView<Course> courseTbl ){
 
         }
       });
-    
+
 
     } catch (Exception e) {
 
     }
-    
+
   }
 
   public static void openAddDialog(ActionEvent event, Stage stage, FXMLLoader loader){
@@ -236,7 +243,7 @@ public static void setCourseCols(Pane view, TableView<Course> courseTbl ){
 
       addLecUnits.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 4));
       addLabUnits.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 3));
-      
+
       ArrayList<String> faculties = new ArrayList<>();
       for(Faculty f: FacultyControllers.getAllFaculty()){
         faculties.add(f.toString());
@@ -252,7 +259,7 @@ public static void setCourseCols(Pane view, TableView<Course> courseTbl ){
           int lecUnits = addLecUnits.getValue();
           int labUnits = addLabUnits.getValue();
           String faculty = addFaculty.getValue().strip().replaceAll("^\\D*(\\d+).*", "$1");
-          
+
           if(code.isBlank() || desc.isBlank() || (lecUnits == 0 && labUnits == 0) || faculty.isBlank()){
             Alert a = new Alert(AlertType.ERROR);
             a.setContentText("All fields are required");
@@ -281,6 +288,7 @@ public static void setCourseCols(Pane view, TableView<Course> courseTbl ){
             int res = CourseControllers.createCourse(course);
 
             if (res == 0){
+              updateTable(localCourseTbl);
               Alert a = new Alert(AlertType.INFORMATION);
               a.setContentText("Course successfully added");
               a.show();
@@ -297,7 +305,7 @@ public static void setCourseCols(Pane view, TableView<Course> courseTbl ){
               a.setContentText("Some error occured. Course not added to database");
               a.show();
             }
-            
+
           } catch(IllegalArgumentException e) {
             System.out.println(e.getMessage());
           }
@@ -306,7 +314,13 @@ public static void setCourseCols(Pane view, TableView<Course> courseTbl ){
       });
     } catch(Exception e) {
     }
-    
+
   }
-  
+  public static void updateTable(TableView<Course> courseTbl){
+    FxmlLoader object = new FxmlLoader();
+    Pane view = object.getPage("course");
+    setCourseCols(view, courseTbl);
+    App.subPane.setCenter(view);
+  }
+
 }
