@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 import app.App;
+import app.FxmlLoader;
 import app.controller.CourseControllers;
 import app.controller.ScheduleController;
 import app.model.Course;
@@ -35,6 +36,7 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 
 public class SchedView {
+  public static TableView<Schedule> localSchedTbl;
   public static void setSchedCols(Pane view, TableView<Schedule> schedTbl){
     schedTbl = (TableView<Schedule>) view.lookup("#schedList");
     TableColumn<Schedule, String> day = (TableColumn<Schedule, String>) schedTbl.getColumns().get(0);
@@ -86,6 +88,7 @@ public class SchedView {
                     int res = ScheduleController.removeSchedule(schedule);
         
                     if (res == 0){
+                      updateTable(localSchedTbl);
                       Alert inf = new Alert(AlertType.INFORMATION);
                       inf.setContentText("Schedule successfully deleted");
                       inf.show();
@@ -203,6 +206,7 @@ public class SchedView {
             int res = ScheduleController.modifySchedule(schedule);
 
             if (res == 0){
+              updateTable(localSchedTbl);
               Alert a = new Alert(AlertType.INFORMATION);
               a.setContentText("Schedule successfully modified");
               a.show();
@@ -265,7 +269,6 @@ public class SchedView {
 
 
   public static void openAddDialog(ActionEvent event, Stage stage, FXMLLoader loader){
-    System.out.println("JOY TO THE WORLD");
     try{
       Dialog<ButtonType> dialog = new Dialog<>();
       DialogPane dp = loader.load();
@@ -331,6 +334,7 @@ public class SchedView {
             int res = ScheduleController.createSchedule(schedule);
 
             if (res == 0){
+              updateTable(localSchedTbl);
               Alert a = new Alert(AlertType.INFORMATION);
               a.setContentText("Schedule successfully added");
               a.show();
@@ -355,10 +359,6 @@ public class SchedView {
               a.setContentText("Some error occured. Course not added to database");
               a.show();
             }
-            
-
-
-
           } catch(IllegalArgumentException e) {
             Alert a = new Alert(AlertType.ERROR);
             switch (e.getMessage()) {
@@ -384,6 +384,12 @@ public class SchedView {
     } catch(Exception e) {
     }
     
+  }
+  public static void updateTable(TableView<Schedule> schedTbl){
+    FxmlLoader object = new FxmlLoader();
+    Pane view = object.getPage("schedules");
+    setSchedCols(view, schedTbl);
+    App.subPane.setCenter(view);
   }
   
 }
