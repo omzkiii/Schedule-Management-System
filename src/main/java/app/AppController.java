@@ -195,9 +195,7 @@ public class AppController {
   @FXML
   public void openAddFacultyDialog(ActionEvent event){
     FXMLLoader loader = new FXMLLoader(getClass().getResource("dialog-faculty.fxml"));
-    FxmlLoader object = new FxmlLoader();
-    Pane view = object.getPage("faculty");
-    FacultyView.openAddDialog(event, stage, loader, FacultyView.setFacCols(view, facultyTbl));
+    FacultyView.openAddDialog(event, stage, loader);
   }
 
   @FXML

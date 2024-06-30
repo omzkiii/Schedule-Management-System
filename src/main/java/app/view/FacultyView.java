@@ -188,7 +188,7 @@ public class FacultyView {
   }
 
 
-  public static void openAddDialog(ActionEvent event, Stage stage, FXMLLoader loader, TableView<Faculty> facultyTbl){
+  public static void openAddDialog(ActionEvent event, Stage stage, FXMLLoader loader){
     try{
       Dialog<ButtonType> dialog = new Dialog<>();
       DialogPane dp = loader.load();
@@ -220,7 +220,7 @@ public class FacultyView {
             int res = FacultyControllers.createFaculty(fac);
 
             if (res == 0){
-              updateTable(facultyTbl);
+              updateTable(localFacultyTbl);
               Alert a = new Alert(AlertType.INFORMATION);
               a.setContentText("Faculty successfully added");
               a.show();
@@ -245,10 +245,9 @@ public class FacultyView {
     
   }
   public static void updateTable(TableView<Faculty> facultyTbl){
-    System.out.println("HELLO");
     FxmlLoader object = new FxmlLoader();
     Pane view = object.getPage("faculty");
-    FacultyView.setFacCols(view, facultyTbl);
+    setFacCols(view, facultyTbl);
     App.subPane.setCenter(view);
   }
 }
