@@ -16,6 +16,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -29,7 +30,7 @@ import javafx.util.Callback;
 
 public class FacultyView {
 
-  public static void setFacCols(Pane view, TableView<Faculty> facultyTbl){
+  public static TableView<Faculty> setFacCols(Pane view, TableView<Faculty> facultyTbl){
     facultyTbl = (TableView<Faculty>) view.lookup("#facList");
     TableColumn<Faculty, Integer> id = (TableColumn<Faculty, Integer>) facultyTbl.getColumns().get(0);
     TableColumn<Faculty, String> name = (TableColumn<Faculty, String>) facultyTbl.getColumns().get(1);
@@ -45,6 +46,7 @@ public class FacultyView {
     for(Faculty faculty: FacultyControllers.getAllFaculty()){
       facultyTbl.getItems().add(faculty);
     }
+    return facultyTbl;
   }
 
   public static Callback<TableColumn<Faculty, Void>, TableCell<Faculty, Void>> setFacBtn() {
@@ -192,7 +194,7 @@ public class FacultyView {
   }
 
 
-  public static void openAddDialog(ActionEvent event, Stage stage, FXMLLoader loader){
+  public static void openAddDialog(ActionEvent event, Stage stage, FXMLLoader loader, TableView<Faculty> facultyTbl){
     try{
       Dialog<ButtonType> dialog = new Dialog<>();
       DialogPane dp = loader.load();
@@ -224,6 +226,7 @@ public class FacultyView {
             int res = FacultyControllers.createFaculty(fac);
 
             if (res == 0){
+              updateTable(facultyTbl);
               Alert a = new Alert(AlertType.INFORMATION);
               a.setContentText("Faculty successfully added");
               a.show();
@@ -246,5 +249,12 @@ public class FacultyView {
     } catch(Exception e) {
     }
     
+  }
+  public static void updateTable(TableView<Faculty> facultyTbl){
+    System.out.println("HELLO");
+    FxmlLoader object = new FxmlLoader();
+    Pane view = object.getPage("faculty");
+    FacultyView.setFacCols(view, facultyTbl);
+    App.subPane.setCenter(view);
   }
 }

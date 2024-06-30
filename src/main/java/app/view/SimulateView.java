@@ -5,6 +5,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+import app.App;
 import app.AppController;
 import app.FxmlLoader;
 import app.controller.ScheduleController;
@@ -30,7 +31,7 @@ public class SimulateView{
 
   private static int lastSchedId = ScheduleController.getAllSchedule().getLast().getId();
 
-  public static void startDatabaseChecking(BorderPane subPane, TableView<Schedule> simTbl){
+  public static void startDatabaseChecking(TableView<Schedule> simTbl){
     if(backgroundTask != null && backgroundTask.isRunning()){
       System.out.println("Background Task is Already Running");
       return;
@@ -46,9 +47,8 @@ public class SimulateView{
                 try {
                   FxmlLoader object = new FxmlLoader();
                   Pane view = object.getPage("simulate");
-                  // simTbl.refresh();
                   setSimCols(view, simTbl);
-                  subPane.setCenter(view);
+                  App.subPane.setCenter(view);
                   // System.out.println("WHO WATCHES THE WATCHMEN?" + Thread.currentThread().getName());
 
                 } catch (Exception e) {

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.ButtonType?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DialogPane?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
@@ -8,9 +9,8 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.control.ComboBox?>
 
-<DialogPane prefHeight="200.0" prefWidth="353.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.AppController">
+<DialogPane prefHeight="170.0" prefWidth="353.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.AppController">
    <content>
       <GridPane alignment="CENTER" prefHeight="286.0" prefWidth="353.0" vgap="25.0">
         <columnConstraints>
@@ -38,9 +38,9 @@
                   <Font size="13.0" />
                </font>
             </Label>
-            <TextField fx:id="addFacId" GridPane.columnIndex="1" text="2410000"/>
-            <TextField fx:id="addFacName" GridPane.columnIndex="1" GridPane.rowIndex="1" text="Leni"/>
-            <ComboBox fx:id="addFacLoad" GridPane.columnIndex="1" GridPane.rowIndex="2" value="30"/>
+            <TextField fx:id="addFacId" promptText="2113143" GridPane.columnIndex="1" />
+            <TextField fx:id="addFacName" promptText="John Doe" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <ComboBox fx:id="addFacLoad" value="30" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
       </GridPane>
    </content>
