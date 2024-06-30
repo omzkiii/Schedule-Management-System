@@ -29,6 +29,7 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 
 public class FacultyView {
+  public static TableView<Faculty> localFacultyTbl;
 
   public static TableView<Faculty> setFacCols(Pane view, TableView<Faculty> facultyTbl){
     facultyTbl = (TableView<Faculty>) view.lookup("#facList");
@@ -46,6 +47,7 @@ public class FacultyView {
     for(Faculty faculty: FacultyControllers.getAllFaculty()){
       facultyTbl.getItems().add(faculty);
     }
+    localFacultyTbl = facultyTbl;
     return facultyTbl;
   }
 
@@ -76,6 +78,7 @@ public class FacultyView {
                     int res = FacultyControllers.removeFaculty(faculty.getId());
         
                     if (res == 0){
+                      updateTable(localFacultyTbl);
                       Alert inf = new Alert(AlertType.INFORMATION);
                       inf.setContentText("Faculty successfully deleted");
                       inf.show();
@@ -115,16 +118,6 @@ public class FacultyView {
       }
     };
   }
-
-
-  public static void loadFacData(TableView<Faculty> facultyTbl){
-    ObservableList<Faculty> data = FXCollections.observableArrayList();
-    for(Faculty f: FacultyControllers.getAllFaculty()){
-      data.add(f);
-    }
-    facultyTbl.getItems().addAll(data);
-  }
-
 
   public static void openEditDialog(ActionEvent event, Faculty faculty){
     FXMLLoader loader = new FXMLLoader(App.class.getResource("edit-faculty.fxml"));
@@ -166,6 +159,7 @@ public class FacultyView {
             int res = FacultyControllers.modifyFaculty(faculty);
 
             if (res == 0){
+              updateTable(localFacultyTbl);
               Alert a = new Alert(AlertType.INFORMATION);
               a.setContentText("Faculty successfully modified");
               a.show();
