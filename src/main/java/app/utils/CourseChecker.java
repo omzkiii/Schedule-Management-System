@@ -39,4 +39,15 @@ public class CourseChecker {
     }
 
 
+    public static Boolean facultyHasCourse(Faculty faculty){
+        ArrayList<Course> courses = CourseControllers.getCourseFor(faculty.getId());
+        
+        if(courses.isEmpty()){
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+
 }
