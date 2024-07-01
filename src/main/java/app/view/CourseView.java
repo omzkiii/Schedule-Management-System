@@ -102,16 +102,11 @@ public class CourseView {
                       inf.setContentText("Some error occured. Course not deleted");
                       inf.show();
                     }
-
-
                   } catch(IllegalArgumentException e) {
                     System.out.println(e.getMessage());
                   }
-
-
                 }
               });
-
             });
           }
 
@@ -214,10 +209,6 @@ public class CourseView {
           } catch(IllegalArgumentException e) {
             System.out.println(e.getMessage());
           }
-
-
-
-
         }
       });
 

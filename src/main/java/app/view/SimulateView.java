@@ -98,8 +98,8 @@ public class SimulateView{
     // setSimTable(simTbl);
     
     DayOfWeek dayOfWeek = LocalDate.now().getDayOfWeek();
-    ArrayList<Schedule> schedules = ScheduleController.getTodaySchedule("THURSDAY");
-    LocalTime timeNow = LocalTime.parse("11:59");
+    ArrayList<Schedule> schedules = ScheduleController.getTodaySchedule(dayOfWeek.toString());
+    LocalTime timeNow = LocalTime.now();
     if (schedules.isEmpty()){
       return simTbl;
     }
@@ -113,14 +113,13 @@ public class SimulateView{
         simTbl.getItems().add(schedule);
       }
     }
-    System.out.println("SIMTBL STATUS AFTER setSimCols: " + simTbl==null);
     return simTbl;
   }
 
   public void setSimTable(TableView<Schedule> simTbl){
     DayOfWeek dayOfWeek = LocalDate.now().getDayOfWeek();
     ArrayList<Schedule> schedules = ScheduleController.getTodaySchedule(dayOfWeek.toString());
-    LocalTime timeNow = LocalTime.parse("11:59");
+    LocalTime timeNow = LocalTime.now();
     if (schedules.isEmpty()){
       return;
     }
@@ -137,13 +136,12 @@ public class SimulateView{
   }
 
   public static void updateSimTable(){
-    System.out.println("WUBALLUBADUBDUB");
     // if(simTbl != null){
     //   simTbl.getItems().clear();
     // }
     DayOfWeek dayOfWeek = LocalDate.now().getDayOfWeek();
     ArrayList<Schedule> schedules = ScheduleController.getTodaySchedule(dayOfWeek.toString());
-    LocalTime timeNow = LocalTime.parse("11:59");
+    LocalTime timeNow = LocalTime.now();
     for (Schedule schedule : schedules) {
       LocalTime start = schedule.getDuration().getStart(); 
       LocalTime end = schedule.getDuration().getEnd(); 
