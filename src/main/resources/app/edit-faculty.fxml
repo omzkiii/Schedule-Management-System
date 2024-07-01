@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<DialogPane prefHeight="170.0" prefWidth="353.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.AppController">
+<DialogPane prefHeight="170.0" prefWidth="353.0" styleClass="label-dialog" stylesheets="@style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.AppController">
    <content>
       <GridPane fx:id="editEmpCode" alignment="CENTER" prefHeight="98.0" prefWidth="221.0" vgap="25.0">
          <columnConstraints>
@@ -23,28 +23,29 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Label text="Employee Code">
+            <Label styleClass="label-dialog" text="Employee Code">
                <font>
                   <Font size="13.0" />
                </font>
             </Label>
-            <Label text="Employee Name" GridPane.rowIndex="1">
+            <Label styleClass="label-dialog" text="Employee Name" GridPane.rowIndex="1">
                <font>
                   <Font size="13.0" />
                </font>
             </Label>
-            <Label text="Max load" GridPane.rowIndex="2">
+            <Label styleClass="label-dialog" text="Max load" GridPane.rowIndex="2">
                <font>
                   <Font size="13.0" />
                </font>
             </Label>
-            <TextField fx:id="editFacName" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-            <ComboBox fx:id="editFacLoad" GridPane.columnIndex="1" GridPane.rowIndex="2" value="30"/>
+            <TextField fx:id="editFacName" styleClass="label-dialog" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <ComboBox fx:id="editFacLoad" styleClass="label-dialog" value="30" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Label fx:id="editFacId" GridPane.columnIndex="1">
                <font>
                   <Font size="13.0" />
                </font>
             </Label>
+            <Label styleClass="label-dialog" text="Ex. emp Code" GridPane.columnIndex="1" />
          </children>
       </GridPane>
    </content>
@@ -53,7 +54,7 @@
       <ButtonType fx:constant="CANCEL" />
    </buttonTypes>
    <header>
-      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="27.0" prefWidth="221.0" text="Edit Faculty">
+      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="27.0" prefWidth="221.0" styleClass="edit-headers" text="Edit Faculty">
          <font>
             <Font size="15.0" />
          </font>

@@ -6,11 +6,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="subPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.AppController">
+<BorderPane fx:id="subPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.AppController">
    <left>
       <VBox alignment="TOP_CENTER" prefHeight="382.0" prefWidth="140.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" onAction="#facultyScene" prefHeight="40.0" prefWidth="110.0" text="Faculty">
+            <Button mnemonicParsing="false" onAction="#facultyScene" prefHeight="40.0" prefWidth="110.0" styleClass="subpanes-buttons" text="Faculty">
                <VBox.margin>
                   <Insets top="20.0" />
                </VBox.margin>
@@ -18,7 +18,7 @@
                   <Font name="Kristen ITC" size="12.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" onAction="#courseScene" prefHeight="40.0" prefWidth="110.0" text="Course">
+            <Button mnemonicParsing="false" onAction="#courseScene" prefHeight="40.0" prefWidth="110.0" styleClass="subpanes-buttons" text="Course">
                <VBox.margin>
                   <Insets top="20.0" />
                </VBox.margin>
@@ -26,7 +26,7 @@
                   <Font name="Kristen ITC" size="12.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" onAction="#scheduleScene" prefHeight="40.0" prefWidth="110.0" text="Schedule">
+            <Button mnemonicParsing="false" onAction="#scheduleScene" prefHeight="40.0" prefWidth="110.0" styleClass="subpanes-buttons" text="Schedule">
                <VBox.margin>
                   <Insets top="20.0" />
                </VBox.margin>
@@ -34,7 +34,7 @@
                   <Font name="Kristen ITC" size="12.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" onAction="#simulateScene" prefHeight="40.0" prefWidth="110.0" text="Simulate">
+            <Button mnemonicParsing="false" onAction="#simulateScene" prefHeight="40.0" prefWidth="110.0" styleClass="subpanes-buttons" text="Simulate">
                <VBox.margin>
                   <Insets top="20.0" />
                </VBox.margin>
@@ -42,7 +42,7 @@
                   <Font name="Kristen ITC" size="12.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" onAction="#switchToScene1" prefHeight="20.0" prefWidth="110.0" text="Exit">
+            <Button mnemonicParsing="false" onAction="#switchToScene1" prefHeight="20.0" prefWidth="110.0" styleClass="subpanes-buttons" text="Exit">
                <VBox.margin>
                   <Insets top="110.0" />
                </VBox.margin>

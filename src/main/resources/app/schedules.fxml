@@ -9,11 +9,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="400.0" prefWidth="460.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.AppController">
+<VBox prefHeight="400.0" prefWidth="460.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.AppController">
    <children>
       <VBox alignment="CENTER" prefHeight="64.0" prefWidth="386.0">
          <children>
-            <Label text="Schedules" textAlignment="CENTER">
+            <Label styleClass="subpane-headers" text="Schedules" textAlignment="CENTER">
                <font>
                   <Font name="Kristen ITC" size="25.0" />
                </font>
@@ -22,7 +22,7 @@
       </VBox>
       <HBox alignment="CENTER_LEFT" prefHeight="38.0" prefWidth="386.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#openAddSchedDialog" prefHeight="26.0" prefWidth="111.0" text="Add Schedule">
+            <Button mnemonicParsing="false" onAction="#openAddSchedDialog" prefHeight="26.0" prefWidth="111.0" styleClass="add-buttons" text="Add Schedule">
                <HBox.margin>
                   <Insets left="10.0" />
                </HBox.margin>
@@ -34,7 +34,7 @@
       </HBox>
       <VBox prefHeight="294.0" prefWidth="460.0">
          <children>
-            <TableView fx:id="schedList" prefHeight="289.0" prefWidth="450.0" stylesheets="@../../java/app/style.css">
+            <TableView fx:id="schedList" prefHeight="289.0" prefWidth="450.0" stylesheets="@style.css">
                <columns>
                   <TableColumn prefWidth="75.0" text="Day" />
                   <TableColumn prefWidth="75.0" text="Time" />

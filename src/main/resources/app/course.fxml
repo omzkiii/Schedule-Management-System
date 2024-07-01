@@ -8,11 +8,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="360.0" prefWidth="631.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.AppController">
+<VBox prefHeight="360.0" prefWidth="631.0" styleClass="label-dialog" stylesheets="@style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.AppController">
    <children>
       <VBox alignment="CENTER" prefHeight="57.0" prefWidth="458.0">
          <children>
-            <Label text="Course" textAlignment="CENTER">
+            <Label styleClass="subpane-headers" text="Course" textAlignment="CENTER">
                <font>
                   <Font name="Kristen ITC" size="25.0" />
                </font>
@@ -21,7 +21,7 @@
       </VBox>
       <VBox prefHeight="0.0" prefWidth="631.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#openAddCourseDialog" prefHeight="30.0" prefWidth="110.0" text="Add Course">
+            <Button mnemonicParsing="false" onAction="#openAddCourseDialog" prefHeight="30.0" prefWidth="110.0" styleClass="add-buttons" text="Add Course">
                <VBox.margin>
                   <Insets left="10.0" />
                </VBox.margin>
@@ -36,7 +36,7 @@
       </VBox>
       <VBox prefHeight="250.0" prefWidth="622.0">
          <children>
-            <TableView fx:id="courseTable" prefHeight="250.0" prefWidth="622.0" stylesheets="@../../java/app/style.css">
+            <TableView fx:id="courseTable" prefHeight="250.0" prefWidth="622.0" stylesheets="@style.css">
                <columns>
                   <TableColumn fx:id="codeColumn" prefWidth="75.0" text="Code" />
                   <TableColumn fx:id="descColumn" prefWidth="75.0" text="Description" />
