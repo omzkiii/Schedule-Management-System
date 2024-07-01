@@ -231,9 +231,6 @@ public class SchedView {
               a.setContentText("Some error occured. Course not added to database");
               a.show();
             }
-            
-
-
 
           } catch(IllegalArgumentException e) {
             Alert a = new Alert(AlertType.ERROR);
