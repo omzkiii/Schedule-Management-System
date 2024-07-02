@@ -39,6 +39,15 @@ public class ScheduleChecker {
 
     }
 
+    public static Boolean courseHasSchedule(String courseCode){
+        ArrayList<Schedule> scheduleMatch = ScheduleController.getCourseSchedule(courseCode);
+        if(scheduleMatch.isEmpty()){
+            return false;
+        } else {
+            return true;
+        }
+    }
+
 
     /*
      * utility method to check if faculty has conflicting schedule with the input schedule

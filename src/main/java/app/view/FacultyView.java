@@ -1,5 +1,7 @@
 package app.view;
 
+import java.util.regex.Pattern;
+
 import app.App;
 import app.FxmlLoader;
 import app.controller.FacultyControllers;
@@ -27,6 +29,8 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+
+import app.utils.CourseChecker;
 
 public class FacultyView {
   public static TableView<Faculty> localFacultyTbl;
@@ -70,6 +74,13 @@ public class FacultyView {
             delBtn.setOnAction(event -> {
               Faculty faculty = getTableView().getItems().get(getIndex());
               System.out.println("Delete button for: " + faculty.getId() + " " + faculty.getName());
+              if(CourseChecker.facultyHasCourse(faculty)){
+                Alert a = new Alert(AlertType.ERROR);
+                a.setContentText("Cannot delete faculty with existing course tagging");
+                a.show();
+                return;
+              }
+
               Alert a = new Alert(AlertType.CONFIRMATION);
               a.setContentText("Are you sure you want to delete faculty " + faculty);
               a.showAndWait().ifPresent((btnType) -> {
@@ -149,6 +160,15 @@ public class FacultyView {
             return;
           }
 
+          String nameRegex = "^[A-Z]{1}[a-z]* [A-Z]{1}[a-z]+";
+
+          if (!Pattern.matches(nameRegex, facName.getText())){
+            Alert a = new Alert(AlertType.ERROR);
+              a.setContentText("Invalid name format");
+              a.show();
+              return;
+          }
+
           String name = facName.getText();
           int load = Integer.parseInt(facLoad.getValue());
 
@@ -206,6 +226,22 @@ public class FacultyView {
           if (addFacId.getText().isBlank() || addFacName.getText().isBlank() || addFacLoad.getValue().isBlank()){
             Alert a = new Alert(AlertType.ERROR);
               a.setContentText("All fields are required");
+              a.show();
+              return;
+          }
+
+          if (addFacId.getText().length() != 7) {
+            Alert a = new Alert(AlertType.ERROR);
+              a.setContentText("Invalid faculty ID format");
+              a.show();
+              return;
+          }
+
+          String nameRegex = "^[A-Z]{1}[a-z]* [A-Z]{1}[a-z]+";
+
+          if (!Pattern.matches(nameRegex, addFacName.getText())){
+            Alert a = new Alert(AlertType.ERROR);
+              a.setContentText("Invalid name format");
               a.show();
               return;
           }
