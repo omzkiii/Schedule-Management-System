@@ -98,8 +98,8 @@ public class SimulateView{
     // setSimTable(simTbl);
     
     DayOfWeek dayOfWeek = LocalDate.now().getDayOfWeek();
-    ArrayList<Schedule> schedules = ScheduleController.getTodaySchedule("THURSDAY");
-    LocalTime timeNow = LocalTime.parse("11:59");
+    ArrayList<Schedule> schedules = ScheduleController.getTodaySchedule(dayOfWeek.toString());
+    LocalTime timeNow = LocalTime.now();
     if (schedules.isEmpty()){
       return simTbl;
     }
@@ -113,46 +113,44 @@ public class SimulateView{
         simTbl.getItems().add(schedule);
       }
     }
-    System.out.println("SIMTBL STATUS AFTER setSimCols: " + simTbl==null);
     return simTbl;
   }
 
-  public void setSimTable(TableView<Schedule> simTbl){
-    DayOfWeek dayOfWeek = LocalDate.now().getDayOfWeek();
-    ArrayList<Schedule> schedules = ScheduleController.getTodaySchedule(dayOfWeek.toString());
-    LocalTime timeNow = LocalTime.parse("11:59");
-    if (schedules.isEmpty()){
-      return;
-    }
-    for (Schedule schedule : schedules) {
-      LocalTime start = schedule.getDuration().getStart(); 
-      LocalTime end = schedule.getDuration().getEnd(); 
-      System.out.println(start + " " + start.isBefore(timeNow));
-      System.out.println(end + " " + end.isAfter(timeNow));
-      System.out.println(timeNow);
-      if (start.isBefore(timeNow) && end.isAfter(timeNow)) {
-        simTbl.getItems().add(schedule);
-      }
-    }
-  }
+  // public void setSimTable(TableView<Schedule> simTbl){
+  //   DayOfWeek dayOfWeek = LocalDate.now().getDayOfWeek();
+  //   ArrayList<Schedule> schedules = ScheduleController.getTodaySchedule(dayOfWeek.toString());
+  //   LocalTime timeNow = LocalTime.now();
+  //   if (schedules.isEmpty()){
+  //     return;
+  //   }
+  //   for (Schedule schedule : schedules) {
+  //     LocalTime start = schedule.getDuration().getStart(); 
+  //     LocalTime end = schedule.getDuration().getEnd(); 
+  //     System.out.println(start + " " + start.isBefore(timeNow));
+  //     System.out.println(end + " " + end.isAfter(timeNow));
+  //     System.out.println(timeNow);
+  //     if (start.isBefore(timeNow) && end.isAfter(timeNow)) {
+  //       simTbl.getItems().add(schedule);
+  //     }
+  //   }
+  // }
 
-  public static void updateSimTable(){
-    System.out.println("WUBALLUBADUBDUB");
-    // if(simTbl != null){
-    //   simTbl.getItems().clear();
-    // }
-    DayOfWeek dayOfWeek = LocalDate.now().getDayOfWeek();
-    ArrayList<Schedule> schedules = ScheduleController.getTodaySchedule(dayOfWeek.toString());
-    LocalTime timeNow = LocalTime.parse("11:59");
-    for (Schedule schedule : schedules) {
-      LocalTime start = schedule.getDuration().getStart(); 
-      LocalTime end = schedule.getDuration().getEnd(); 
-      System.out.println(start + " " + start.isBefore(timeNow));
-      System.out.println(end + " " + end.isAfter(timeNow));
-      System.out.println(timeNow);
-      if (start.isBefore(timeNow) && end.isAfter(timeNow)) {
-        // AppController.simTbl.getItems().add(schedule);
-      }
-    }
-  }
+  // public static void updateSimTable(){
+  //   // if(simTbl != null){
+  //   //   simTbl.getItems().clear();
+  //   // }
+  //   DayOfWeek dayOfWeek = LocalDate.now().getDayOfWeek();
+  //   ArrayList<Schedule> schedules = ScheduleController.getTodaySchedule(dayOfWeek.toString());
+  //   LocalTime timeNow = LocalTime.now();
+  //   for (Schedule schedule : schedules) {
+  //     LocalTime start = schedule.getDuration().getStart(); 
+  //     LocalTime end = schedule.getDuration().getEnd(); 
+  //     System.out.println(start + " " + start.isBefore(timeNow));
+  //     System.out.println(end + " " + end.isAfter(timeNow));
+  //     System.out.println(timeNow);
+  //     if (start.isBefore(timeNow) && end.isAfter(timeNow)) {
+  //       // AppController.simTbl.getItems().add(schedule);
+  //     }
+  //   }
+  // }
 }

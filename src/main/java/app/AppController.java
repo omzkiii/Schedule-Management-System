@@ -16,8 +16,6 @@ import javafx.scene.control.Button;
 import java.awt.*;
 import java.io.IOException;
 import java.time.LocalTime;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
 
 import app.model.Faculty;
 import app.model.Schedule;
@@ -50,18 +48,14 @@ public class AppController {
   @FXML
   private static TableView<Schedule> simTbl;
 
-  FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("simulate-management.fxml"));
-
   public void start(Stage primaryStage) throws IOException{
     FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("schedule-management.fxml"));
-    App.greeting = "BYE BYE!";
     mainPane = fxmlLoader.load();
     scene = new Scene(mainPane, 600, 400);
     stage = primaryStage;
     primaryStage.setTitle("Hello JavaFX");
     primaryStage.setScene(scene);
     primaryStage.show();
-
   }
 
   public void render(ActionEvent event) throws IOException{
@@ -85,7 +79,6 @@ public class AppController {
 
   public void switchToScene2Faculty(ActionEvent event) throws IOException {
     render(event);
-    // Asynchronously load additional components into subPane
     Platform.runLater(new Runnable() {
       public void run() {
         facultyScene(event);
@@ -95,7 +88,6 @@ public class AppController {
 
   public void switchToScene2Course(ActionEvent event) throws IOException {
     render(event);
-    // Asynchronously load additional components into subPane
     Platform.runLater(new Runnable() {
       public void run() {
         courseScene(event);
@@ -104,40 +96,7 @@ public class AppController {
   }
 
   public void switchToScene2Schedules(ActionEvent event) throws IOException {
-    LocalTime time1 = LocalTime.of(11, 30);
-    LocalTime time2 = LocalTime.of(12, 30);
-    LocalTime time3 = LocalTime.of(11, 30);
-    LocalTime time4 = LocalTime.of(13, 30);
-    Duration d1 = new Duration(time1, time2);
-    Duration d2 = new Duration(time3, time4);
-    Schedule schedule1 = new Schedule("THURSDAY", d2, "CCS301", 212);
-    Schedule schedule2 = new Schedule("THURSDAY", d1, "CCS311", 300);
-    Schedule schedule3 = new Schedule("THURSDAY", d2, "CCS303", 212);
-    System.out.println("SIMULATION!!!!!!!!!!!!!!!!!");
-
-    Thread simulateDatabaseChange = new Thread(() -> {
-      System.out.println("SIMULATION!!!!!!!!!!!!!!!!!");
-      try {
-        while (true) {
-          ScheduleController.createSchedule(schedule1);
-          ScheduleController.createSchedule(schedule2);
-          ScheduleController.createSchedule(schedule3);
-          System.out.println("THIS FEELS LIKE MOLLY!!!!!!!!!!!!!!!!!");
-          Thread.sleep(3000);
-          if (ScheduleController.getAllSchedule().size() > 1) {
-            ScheduleController.removeSchedule(ScheduleController.getAllSchedule().getLast());
-          }
-          Thread.sleep(3000);
-        }
-      } catch (Exception e) {
-        System.out.println(e);
-      }
-
-    });
-    simulateDatabaseChange.start();
-    // FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("simulate-management.fxml"));
     render(event);
-    // Asynchronously load additional components into subPane
     Platform.runLater(new Runnable() {
       public void run() {
         scheduleScene(event);
@@ -185,11 +144,6 @@ public class AppController {
 
   @FXML
   private Label welcomeText;
-
-  @FXML
-  protected void onClickButtonTest() {
-    welcomeText.setText("Button_Test_Clicked");
-  }
 
   // Dialog boxes
   @FXML

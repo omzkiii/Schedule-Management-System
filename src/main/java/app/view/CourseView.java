@@ -1,6 +1,7 @@
 package app.view;
 
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 import app.App;
 import app.FxmlLoader;
@@ -30,6 +31,8 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+
+import app.utils.ScheduleChecker;
 
 public class CourseView {
   public static TableView<Course> localCourseTbl;
@@ -82,6 +85,15 @@ public class CourseView {
 
             deleteButton.setOnAction(event -> {
               String course = getTableView().getItems().get(getIndex()).getCode();
+
+              if(ScheduleChecker.courseHasSchedule(course)){
+                Alert a = new Alert(AlertType.ERROR);
+                a.setContentText("Cannot delete course with existing schedule");
+                a.show();
+                return;
+              }
+
+
               Alert a = new Alert(AlertType.CONFIRMATION);
               a.setContentText("Are you sure you want to delete course " + course);
               a.showAndWait().ifPresent((btnType) -> {
@@ -90,6 +102,7 @@ public class CourseView {
                     int res = CourseControllers.removeCourse(course);
 
                     if (res == 0){
+                      updateTable(localCourseTbl);
                       Alert inf = new Alert(AlertType.INFORMATION);
                       inf.setContentText("Course successfully deleted");
                       inf.show();
@@ -102,16 +115,11 @@ public class CourseView {
                       inf.setContentText("Some error occured. Course not deleted");
                       inf.show();
                     }
-
-
                   } catch(IllegalArgumentException e) {
                     System.out.println(e.getMessage());
                   }
-
-
                 }
               });
-
             });
           }
 
@@ -214,10 +222,6 @@ public class CourseView {
           } catch(IllegalArgumentException e) {
             System.out.println(e.getMessage());
           }
-
-
-
-
         }
       });
 
@@ -267,6 +271,16 @@ public class CourseView {
             return;
           }
 
+          String codeRegex = "^[A-Z]{3,4}[0-9]{3}[A-Z]*";
+          
+          if(!Pattern.matches(codeRegex, code)){
+            Alert a = new Alert(AlertType.ERROR);
+            a.setContentText("Invalid course code format");
+            a.show();
+            return;
+          }
+
+
           if(!(5 > lecUnits && lecUnits >= 0 && lecUnits != 1)){
             Alert a = new Alert(AlertType.ERROR);
             a.setContentText("Invalid lecture units. Valid values: 0, 2-4");
@@ -313,6 +327,7 @@ public class CourseView {
         }
       });
     } catch(Exception e) {
+      System.out.println(e.getMessage());
     }
 
   }
