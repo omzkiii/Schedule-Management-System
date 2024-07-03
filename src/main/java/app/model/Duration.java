@@ -3,7 +3,7 @@ package app.model;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 
-public class Duration {
+public class Duration{
     public static final LocalTime EARLIEST_TIME = LocalTime.of(7, 30);
     public static final LocalTime LATEST_TIME = LocalTime.of(21, 00);
     private LocalTime start;

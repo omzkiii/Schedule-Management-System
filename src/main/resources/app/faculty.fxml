@@ -5,10 +5,12 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="400.0" prefWidth="460.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.AppController">
+<VBox prefHeight="700.0" prefWidth="460.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.AppController">
    <children>
       <VBox alignment="CENTER" prefHeight="55.0" prefWidth="458.0">
          <children>
@@ -16,24 +18,38 @@
                   <font>
                       <Font name="Kristen ITC" size="25.0" />
                   </font>
+               <graphic>
+                  <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Images/user.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
               </Label>
          </children>
       </VBox>
       <VBox alignment="CENTER_LEFT" prefHeight="42.0" prefWidth="460.0">
          <children>
-              <Button fx:id="addFacultyButton" mnemonicParsing="false" onAction="#openAddFacultyDialog" prefHeight="30.0" prefWidth="110.0" styleClass="add-buttons" text="Add Faculty">
+              <Button fx:id="addFacultyButton" mnemonicParsing="false" onAction="#openAddFacultyDialog" prefHeight="30.0" prefWidth="125.0" styleClass="button-54" text="Add Faculty">
                <VBox.margin>
                   <Insets left="10.0" />
                </VBox.margin>
                <font>
                   <Font name="Kristen ITC" size="12.0" />
                </font>
+               <graphic>
+                  <ImageView fitHeight="19.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Images/user-add.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Button>
          </children>
       </VBox>
-      <VBox prefHeight="304.0" prefWidth="460.0">
+      <VBox prefHeight="650.0" prefWidth="460.0">
          <children>
-              <TableView fx:id="facList" prefHeight="285.0" prefWidth="450.0" stylesheets="@style.css">
+              <TableView fx:id="facList" prefHeight="650.0" prefWidth="450.0" stylesheets="@style.css">
                   <columns>
                       <TableColumn prefWidth="75.0" text="Employee No." />
       
@@ -54,6 +70,9 @@
                </VBox.margin>
               </TableView>
          </children>
+         <VBox.margin>
+            <Insets top="5.0" />
+         </VBox.margin>
       </VBox>
    </children>
 </VBox>

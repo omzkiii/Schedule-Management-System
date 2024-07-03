@@ -5,10 +5,12 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="360.0" prefWidth="631.0" styleClass="label-dialog" stylesheets="@style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.AppController">
+<VBox prefHeight="700.0" prefWidth="631.0" styleClass="label-dialog" stylesheets="@style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.AppController">
    <children>
       <VBox alignment="CENTER" prefHeight="57.0" prefWidth="458.0">
          <children>
@@ -16,27 +18,41 @@
                <font>
                   <Font name="Kristen ITC" size="25.0" />
                </font>
+               <graphic>
+                  <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Images/book-bookmark.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Label>
          </children>
       </VBox>
       <VBox prefHeight="0.0" prefWidth="631.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#openAddCourseDialog" prefHeight="30.0" prefWidth="110.0" styleClass="add-buttons" text="Add Course">
+            <Button mnemonicParsing="false" onAction="#openAddCourseDialog" prefHeight="27.0" prefWidth="125.0" styleClass="button-54" text="Add Course">
                <VBox.margin>
                   <Insets left="10.0" />
                </VBox.margin>
                <font>
                   <Font name="Kristen ITC" size="12.0" />
                </font>
+               <graphic>
+                  <ImageView fitHeight="19.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Images/book-plus.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Button>
          </children>
          <VBox.margin>
             <Insets bottom="10.0" />
          </VBox.margin>
       </VBox>
-      <VBox prefHeight="250.0" prefWidth="622.0">
+      <VBox prefHeight="650.0" prefWidth="622.0">
          <children>
-            <TableView fx:id="courseTable" prefHeight="250.0" prefWidth="622.0" stylesheets="@style.css">
+            <TableView fx:id="courseTable" prefHeight="650.0" prefWidth="622.0" stylesheets="@style.css">
                <columns>
                   <TableColumn fx:id="codeColumn" prefWidth="75.0" text="Code" />
                   <TableColumn fx:id="descColumn" prefWidth="75.0" text="Description" />

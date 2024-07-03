@@ -5,11 +5,13 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="400.0" prefWidth="460.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.AppController">
+<VBox prefHeight="700.0" prefWidth="460.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.AppController">
    <children>
       <VBox alignment="CENTER" prefHeight="64.0" prefWidth="386.0">
          <children>
@@ -17,24 +19,38 @@
                <font>
                   <Font name="Kristen ITC" size="25.0" />
                </font>
+               <graphic>
+                  <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Images/calendar.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Label>
          </children>
       </VBox>
       <HBox alignment="CENTER_LEFT" prefHeight="38.0" prefWidth="386.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#openAddSchedDialog" prefHeight="26.0" prefWidth="111.0" styleClass="add-buttons" text="Add Schedule">
+            <Button mnemonicParsing="false" onAction="#openAddSchedDialog" prefHeight="27.0" prefWidth="140.0" styleClass="button-54" text="Add Schedule">
                <HBox.margin>
                   <Insets left="10.0" />
                </HBox.margin>
                <font>
                   <Font name="Kristen ITC" size="12.0" />
                </font>
+               <graphic>
+                  <ImageView fitHeight="19.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Images/calendar-plus.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Button>
          </children>
       </HBox>
-      <VBox prefHeight="294.0" prefWidth="460.0">
+      <VBox prefHeight="650.0" prefWidth="460.0">
          <children>
-            <TableView fx:id="schedList" prefHeight="289.0" prefWidth="450.0" stylesheets="@style.css">
+            <TableView fx:id="schedList" prefHeight="650.0" prefWidth="450.0" stylesheets="@style.css">
                <columns>
                   <TableColumn prefWidth="75.0" text="Day" />
                   <TableColumn prefWidth="75.0" text="Time" />
@@ -51,6 +67,9 @@
                </VBox.margin>
             </TableView>
          </children>
+         <VBox.margin>
+            <Insets top="5.0" />
+         </VBox.margin>
       </VBox>
    </children>
 </VBox>

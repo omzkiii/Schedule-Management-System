@@ -21,7 +21,7 @@
             </ImageView>
          </children>
       </VBox>
-      <GridPane>
+      <GridPane prefWidth="599.0">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -46,17 +46,17 @@
                </font></Button>
             <ImageView fitHeight="147.0" fitWidth="164.0" nodeOrientation="INHERIT" pickOnBounds="true" GridPane.halignment="CENTER">
                <image>
-                  <Image url="@../Images/prof.png" />
+                  <Image url="@../Images/id-badge.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER">
                <image>
-                  <Image url="@../Images/course.jpg" />
+                  <Image url="@../Images/e-learning.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER">
                <image>
-                  <Image url="@../Images/schedule.png" />
+                  <Image url="@../Images/calendar-lines-pen.png" />
                </image>
             </ImageView>
          </children>
