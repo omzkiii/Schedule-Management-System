@@ -10,18 +10,18 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<SplitPane dividerPositions="0.3042168674698795" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.AppController">
+<SplitPane dividerPositions="0.3042168674698795" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="400.0" prefWidth="600.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.AppController">
   <items>
       <VBox fx:id="" alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
          <children>
             <ImageView fitHeight="80.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../Images/Facflow.png" />
+                  <Image url="@../Images/facflow1.png" />
                </image>
             </ImageView>
          </children>
       </VBox>
-      <GridPane>
+      <GridPane prefWidth="599.0" styleClass="side">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -32,31 +32,31 @@
           <RowConstraints maxHeight="132.60001220703126" minHeight="10.0" prefHeight="108.60001220703126" valignment="CENTER" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button mnemonicParsing="false" onAction="#switchToScene2Faculty" prefHeight="50.0" prefWidth="140.0" text="Manage Faculty" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+            <Button focusTraversable="false" mnemonicParsing="false" onAction="#switchToScene2Faculty" prefHeight="50.0" prefWidth="140.0" styleClass="button-30" stylesheets="@style.css" text="Manage Faculty" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+               <font>
+                  <Font name="Arial" size="12.0" />
+               </font></Button>
+            <Button focusTraversable="false" mnemonicParsing="false" onAction="#switchToScene2Course" prefHeight="48.0" prefWidth="145.0" styleClass="button-30" stylesheets="@style.css" text="Manage Course" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                <font>
                   <Font name="Kristen ITC" size="12.0" />
                </font></Button>
-            <Button mnemonicParsing="false" onAction="#switchToScene2Course" prefHeight="48.0" prefWidth="145.0" text="Manage Course" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
-               <font>
-                  <Font name="Kristen ITC" size="12.0" />
-               </font></Button>
-            <Button mnemonicParsing="false" onAction="#switchToScene2Schedules" prefHeight="47.0" prefWidth="156.0" text="Manage Schedules" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+            <Button focusTraversable="false" mnemonicParsing="false" onAction="#switchToScene2Schedules" prefHeight="47.0" prefWidth="156.0" styleClass="button-30" stylesheets="@style.css" text="Manage Schedules" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                <font>
                   <Font name="Kristen ITC" size="12.0" />
                </font></Button>
             <ImageView fitHeight="147.0" fitWidth="164.0" nodeOrientation="INHERIT" pickOnBounds="true" GridPane.halignment="CENTER">
                <image>
-                  <Image url="@../Images/prof.png" />
+                  <Image url="@../Images/id-badge.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER">
                <image>
-                  <Image url="@../Images/course.jpg" />
+                  <Image url="@../Images/e-learning.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER">
                <image>
-                  <Image url="@../Images/schedule.png" />
+                  <Image url="@../Images/calendar-lines-pen.png" />
                </image>
             </ImageView>
          </children>

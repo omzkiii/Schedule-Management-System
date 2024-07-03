@@ -4,26 +4,35 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="400.0" prefWidth="460.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.AppController">
+<VBox prefHeight="700.0" prefWidth="460.0" styleClass="add-buttons" stylesheets="@style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.AppController">
    <children>
       <VBox alignment="CENTER" prefHeight="90.0" prefWidth="460.0">
          <children>
-            <Label prefHeight="42.0" prefWidth="110.0" text="Simulate" textAlignment="CENTER">
+            <Label prefHeight="46.0" prefWidth="314.0" styleClass="subpane-headers" text="In-progress Courses" textAlignment="CENTER">
                <font>
                   <Font name="Kristen ITC" size="25.0" />
                </font>
+               <graphic>
+                  <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Images/clock-three.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Label>
          </children>
          <VBox.margin>
             <Insets />
          </VBox.margin>
       </VBox>
-      <VBox prefHeight="303.0" prefWidth="430.0">
+      <VBox prefHeight="650.0" prefWidth="430.0">
          <children>
-            <TableView fx:id="simList" prefHeight="301.0" prefWidth="420.0" stylesheets="@../../java/app/style.css">
+            <TableView fx:id="simList" prefHeight="650.0" prefWidth="420.0" stylesheets="@style.css">
                <columns>
                   <TableColumn prefWidth="75.0" text="Room" />
                   <TableColumn prefWidth="75.0" text="Faculty" />

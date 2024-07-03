@@ -18,7 +18,7 @@ public class Schedule{
     
     // Class fields
     private static final int ROOM_COUNT = 45;
-    public static final List<String> DAYS = Arrays.asList("SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY");
+    public static final List<String> DAYS = Arrays.asList("MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY");
     public static final List<String> ROOMS = generateRooms(ROOM_COUNT);
 
 
