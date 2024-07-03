@@ -119,9 +119,6 @@
     -fx-translate-y: 2;
 }
 
-<!-- HTML !-->
-<button class="button-54" role="button">Button 54</button>
-
 .button-54 {
   font-family: "Open Sans", sans-serif;
   font-size: 16px;

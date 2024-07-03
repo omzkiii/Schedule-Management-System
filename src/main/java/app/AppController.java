@@ -9,6 +9,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableView;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -53,7 +54,9 @@ public class AppController {
     mainPane = fxmlLoader.load();
     scene = new Scene(mainPane, 600, 400);
     stage = primaryStage;
-    primaryStage.setTitle("Hello JavaFX");
+    Image icon = new Image("Images/calendar-lines.png");
+    primaryStage.getIcons().add(icon);
+    primaryStage.setTitle("Scheduling Management System");
     primaryStage.setScene(scene);
     primaryStage.show();
   }

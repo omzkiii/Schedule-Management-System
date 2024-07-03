@@ -12,7 +12,7 @@
    <left>
       <VBox alignment="TOP_CENTER" prefHeight="382.0" prefWidth="140.0" styleClass="side" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" onAction="#facultyScene" prefHeight="40.0" prefWidth="110.0" styleClass="button-30" text="Faculty">
+            <Button focusTraversable="false" mnemonicParsing="false" onAction="#facultyScene" prefHeight="40.0" prefWidth="110.0" styleClass="button-30" text="Faculty">
                <VBox.margin>
                   <Insets top="20.0" />
                </VBox.margin>
@@ -27,7 +27,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button mnemonicParsing="false" onAction="#courseScene" prefHeight="40.0" prefWidth="110.0" styleClass="button-30" text="Course">
+            <Button focusTraversable="false" mnemonicParsing="false" onAction="#courseScene" prefHeight="40.0" prefWidth="110.0" styleClass="button-30" text="Course">
                <VBox.margin>
                   <Insets top="20.0" />
                </VBox.margin>
@@ -42,7 +42,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button mnemonicParsing="false" onAction="#scheduleScene" prefHeight="40.0" prefWidth="110.0" styleClass="button-30" text="Schedule">
+            <Button focusTraversable="false" mnemonicParsing="false" onAction="#scheduleScene" prefHeight="40.0" prefWidth="110.0" styleClass="button-30" text="Schedule">
                <VBox.margin>
                   <Insets top="20.0" />
                </VBox.margin>
@@ -57,7 +57,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button mnemonicParsing="false" onAction="#simulateScene" prefHeight="40.0" prefWidth="110.0" styleClass="button-30" text="In-progress">
+            <Button focusTraversable="false" mnemonicParsing="false" onAction="#simulateScene" prefHeight="40.0" prefWidth="110.0" styleClass="button-30" text="In-progress">
                <VBox.margin>
                   <Insets top="20.0" />
                </VBox.margin>
@@ -75,7 +75,7 @@
                   <Insets right="-10.0" />
                </padding>
             </Button>
-            <Button mnemonicParsing="false" onAction="#switchToScene1" prefHeight="20.0" prefWidth="110.0" styleClass="button-30" text="Exit">
+            <Button focusTraversable="false" mnemonicParsing="false" onAction="#switchToScene1" prefHeight="20.0" prefWidth="110.0" styleClass="button-30" text="Exit">
                <VBox.margin>
                   <Insets top="110.0" />
                </VBox.margin>
