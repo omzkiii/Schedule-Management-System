@@ -13,6 +13,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
+
 import java.awt.*;
 import java.io.IOException;
 import java.time.LocalTime;
@@ -47,6 +49,9 @@ public class AppController {
 
   @FXML
   private static TableView<Schedule> simTbl;
+
+  @FXML
+  private static ListView<String> availList;
 
   public void start(Stage primaryStage) throws IOException{
     FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("schedule-management.fxml"));
@@ -140,7 +145,7 @@ public class AppController {
     FxmlLoader object = new FxmlLoader();
     Pane view = object.getPage("simulate");
     App.subPane.setCenter(view);
-    SimulateView.startDatabaseChecking(SimulateView.setSimCols(view, simTbl));
+    SimulateView.startDatabaseChecking(SimulateView.setSimCols(view, simTbl), SimulateView.setSimList(view, availList));
   }
 
 
