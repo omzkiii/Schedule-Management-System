@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
@@ -30,23 +31,29 @@
             <Insets />
          </VBox.margin>
       </VBox>
-      <VBox prefHeight="650.0" prefWidth="430.0">
+      <VBox alignment="CENTER" prefHeight="650.0" prefWidth="430.0">
          <children>
             <TableView fx:id="simList" prefHeight="650.0" prefWidth="420.0" stylesheets="@style.css">
                <columns>
                   <TableColumn prefWidth="75.0" text="Room" />
                   <TableColumn prefWidth="75.0" text="Faculty" />
                   <TableColumn prefWidth="75.0" text="Section" />
-                  <TableColumn prefWidth="75.0" text="Start" />
-                  <TableColumn prefWidth="75.0" text="End" />
+                  <TableColumn prefWidth="75.0" text="Start - End" />
+                  <TableColumn prefWidth="75.0" text="Day" />
                </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
                <VBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </VBox.margin>
             </TableView>
+            <Label text="Available Faculties" textAlignment="CENTER" />
+            <ListView prefHeight="609.0" prefWidth="460.0" stylesheets="@style.css">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </VBox.margin>
+            </ListView>
          </children>
          <VBox.margin>
             <Insets />
