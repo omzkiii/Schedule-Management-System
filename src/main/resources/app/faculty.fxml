@@ -60,8 +60,8 @@
                   <columns>
                       <TableColumn prefWidth="75.0" text="Employee No." />
       
-                                  <TableColumn prefWidth="75.0" text="Name" />
-                  <TableColumn prefWidth="75.0" text="Current Load" />
+                      <TableColumn prefWidth="75.0" text="Name" />
+                      <TableColumn prefWidth="75.0" text="Current Load" />
       
                                   <TableColumn prefWidth="75.0" text="Max Load" />
       
