@@ -21,6 +21,10 @@ public class Schedule{
     public static final List<String> DAYS = Arrays.asList("MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY");
     public static final List<String> ROOMS = generateRooms(ROOM_COUNT);
 
+    // Available start time
+    public static final List<String> START_TIMES = generateTime(7, 30, "start");
+    public static final List<String> END_TIMES = generateTime(8, 30, "end");
+
 
     /*
      * Constructor for initial schedule creation
@@ -148,5 +152,46 @@ public class Schedule{
         return rooms;
 
     }
+
+    private static ArrayList<String> generateTime(int startHr, int startMin, String type){
+        ArrayList<String> times = new ArrayList<>();
+
+        int lastHr = 0;
+
+        if(type.equals("start")){
+            lastHr = 20;
+        } else {
+            lastHr = 22;
+        }
+        
+        String mins = "";
+
+        while(startHr < lastHr){
+            
+            if (startMin > 59) {
+                startMin = startMin % 60;
+                startHr++;
+            }
+
+            if (startMin == 0){
+                mins = "00";
+            } else {
+                mins = String.valueOf(startMin);
+            }
+
+            String time = String.format("%d:%s", startHr, mins);
+            times.add(time);
+            startMin += 30;
+            
+        }
+
+        if(type.equals("end")){
+            times.removeLast();
+        }
+
+        return times;
+    }
+
+
 
 }
