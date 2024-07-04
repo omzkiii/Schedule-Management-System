@@ -37,7 +37,7 @@
                <columns>
                   <TableColumn prefWidth="75.0" text="Room" />
                   <TableColumn prefWidth="75.0" text="Faculty" />
-                  <TableColumn prefWidth="75.0" text="Section" />
+                  <TableColumn prefWidth="75.0" text="Course-Section" />
                   <TableColumn prefWidth="75.0" text="Start - End" />
                   <TableColumn prefWidth="75.0" text="Day" />
                </columns>
