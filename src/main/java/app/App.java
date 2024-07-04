@@ -27,6 +27,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import app.view.SimulateView;
 
 import java.io.IOException;
 
@@ -35,6 +36,11 @@ public class App extends Application {
   @Override
   public void start(Stage primaryStage) throws IOException {
     AppController app = new AppController();
+    primaryStage.setOnHidden((e) -> {
+      if (SimulateView.backgroundTask != null) {
+        SimulateView.backgroundTask.cancel();
+      }
+    });;
     app.start(primaryStage);
   }
 

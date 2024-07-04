@@ -16,6 +16,7 @@ import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -78,7 +79,13 @@ public class SimulateView{
     }
     return newlastSchedId == lastSchedId;
   }
+  
 
+  // public static ListView<String> setSimList(Pane view, ListView<String> simList){
+
+
+
+  // }
 
   
   public static TableView<Schedule> setSimCols(Pane view, TableView<Schedule> simTbl ){
