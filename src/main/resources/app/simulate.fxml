@@ -37,8 +37,8 @@
                   <TableColumn prefWidth="75.0" text="Room" />
                   <TableColumn prefWidth="75.0" text="Faculty" />
                   <TableColumn prefWidth="75.0" text="Section" />
-                  <TableColumn prefWidth="75.0" text="Start" />
-                  <TableColumn prefWidth="75.0" text="End" />
+                  <TableColumn prefWidth="75.0" text="Start - End" />
+                  <TableColumn prefWidth="75.0" text="Day" />
                </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

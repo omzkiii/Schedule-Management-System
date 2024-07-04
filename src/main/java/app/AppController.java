@@ -144,9 +144,6 @@ public class AppController {
   }
 
 
-  @FXML
-  private Label welcomeText;
-
   // Dialog boxes
   @FXML
   public void openAddFacultyDialog(ActionEvent event){
