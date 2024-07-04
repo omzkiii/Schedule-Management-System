@@ -1,6 +1,7 @@
 package app.controller;
 
 import app.model.Faculty;
+import app.utils.CourseChecker;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -43,18 +44,24 @@ public class FacultyControllers {
      returns the following:
         0 if update success
         1 if employee id does not exist
+        2 if editing max load will result in conflict with existing course tagging
         -1 for other exceptions
      */
     try {
+      Faculty origFac = getFaculty(faculty.getId());
       int rowAffected = Controllers.noresQuery(Queries.updateFaculty(faculty.getId(), faculty.getName(), faculty.getMaxLoad()));
       System.out.println("Updated " + rowAffected + " row/s for employee " + faculty.getId());
       if(rowAffected == 1){
-        return 0;
-
-        //To check if new max load will conflict existing course tagging
         
+        //To check if new max load will conflict existing course tagging
+        float currentLoad = CourseChecker.currentFacLoad(faculty.getId());
 
+        if(currentLoad > faculty.getMaxLoad()){
+          Controllers.noresQuery(Queries.updateFaculty(origFac.getId(), origFac.getName(), origFac.getMaxLoad()));
+          return 2;
+        }
 
+        return 0;
 
       } else if(rowAffected == 0){
         return 1;

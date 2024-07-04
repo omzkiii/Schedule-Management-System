@@ -219,7 +219,7 @@ public class CourseView {
               a.show();
             } else if(res == 4){
               Alert a = new Alert(AlertType.ERROR);
-              a.setContentText("Course has schedule/s that exceeds new hours per week. Modify exixting schedules first");
+              a.setContentText("Course has schedule/s that exceeds new hours per week. Modify exixting schedules first.");
               a.show();
             } else if(res == -1){
               Alert a = new Alert(AlertType.ERROR);
