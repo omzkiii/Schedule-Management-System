@@ -187,6 +187,10 @@ public class FacultyView {
               Alert a = new Alert(AlertType.ERROR);
               a.setContentText("Faculty ID does not exist");
               a.show();
+            } else if(res == 2){
+              Alert a = new Alert(AlertType.ERROR);
+              a.setContentText("Cannot change max load. Check course tagging first.");
+              a.show();
             } else if(res == -1){
               Alert a = new Alert(AlertType.ERROR);
               a.setContentText("Some error occured. Faculty not modified");
