@@ -45,7 +45,7 @@
                   <Font size="13.0" />
                </font>
             </Label>
-            <Label styleClass="label-dialog" text="Ex. emp Code" GridPane.columnIndex="1" />
+            <Label styleClass="label-dialog" text="" GridPane.columnIndex="1" />
          </children>
       </GridPane>
    </content>

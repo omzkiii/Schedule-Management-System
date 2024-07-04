@@ -213,6 +213,14 @@ public class CourseView {
               Alert a = new Alert(AlertType.ERROR);
               a.setContentText("Max load for faculty no. " + faculty + " exceeded");
               a.show();
+            } else if(res == 3){
+              Alert a = new Alert(AlertType.ERROR);
+              a.setContentText("Modifying will result to conflict of schedule for faculty no. " + faculty);
+              a.show();
+            } else if(res == 4){
+              Alert a = new Alert(AlertType.ERROR);
+              a.setContentText("Course has schedule/s that exceeds new hours per week. Modify exixting schedules first");
+              a.show();
             } else if(res == -1){
               Alert a = new Alert(AlertType.ERROR);
               a.setContentText("Some error occured. Course not modified");
