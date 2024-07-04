@@ -5,7 +5,7 @@ import java.time.temporal.ChronoUnit;
 
 public class Duration{
     public static final LocalTime EARLIEST_TIME = LocalTime.of(7, 30);
-    public static final LocalTime LATEST_TIME = LocalTime.of(21, 00);
+    public static final LocalTime LATEST_TIME = LocalTime.of(21, 30);
     private LocalTime start;
     private LocalTime end;
 

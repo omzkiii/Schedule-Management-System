@@ -142,8 +142,8 @@ public class SchedView {
       ComboBox<String> schedCourse = (ComboBox<String>) dp.lookup("#editCourseCode");
       ComboBox<String> schedDay = (ComboBox<String>) dp.lookup("#editSchedDay");
       ComboBox<String> schedRoom = (ComboBox<String>) dp.lookup("#editRoomID");
-      TextField schedStart = (TextField) dp.lookup("#editSchedStart");
-      TextField schedEnd = (TextField) dp.lookup("#editSchedEnd");
+      ComboBox<String> schedStart = (ComboBox<String>) dp.lookup("#editSchedStart");
+      ComboBox<String> schedEnd = (ComboBox<String>) dp.lookup("#editSchedEnd");
 
       schedId.setText(String.valueOf(schedule.getId()));
 
@@ -161,8 +161,11 @@ public class SchedView {
       schedRoom.setValue(String.valueOf(schedule.getRoomId()));
       schedRoom.getItems().addAll(Schedule.ROOMS);
 
-      schedStart.setText(schedule.getDuration().getStart().toString());
-      schedEnd.setText(schedule.getDuration().getEnd().toString());
+      schedStart.setValue(schedule.getDuration().getStart().toString());
+      schedStart.getItems().addAll(Schedule.START_TIMES);
+
+      schedEnd.setValue(schedule.getDuration().getEnd().toString());
+      schedEnd.getItems().addAll(Schedule.END_TIMES);
       
       dialog.showAndWait().ifPresent((btnType) -> {
         if(btnType ==ButtonType.OK){
@@ -170,8 +173,8 @@ public class SchedView {
           String day = schedDay.getValue();
           int room = Integer.parseInt(schedRoom.getValue());
 
-          String rawStart = schedStart.getText();
-          String rawEnd = schedEnd.getText();
+          String rawStart = schedStart.getValue();
+          String rawEnd = schedEnd.getValue();
 
           if(rawStart.isBlank() || rawEnd.isBlank()){
             Alert a = new Alert(AlertType.ERROR);
@@ -275,8 +278,8 @@ public class SchedView {
       ComboBox<String> addSchedCourseCode = (ComboBox<String>) dp.lookup("#addSchedCourseCode");
       ComboBox<String> addSchedDay = (ComboBox<String>) dp.lookup("#addSchedDay");
       ComboBox<String> addSchedRoomId = (ComboBox<String>) dp.lookup("#addSchedRoomID");
-      TextField addSchedStart = (TextField) dp.lookup("#addSchedStart");
-      TextField addSchedEnd = (TextField) dp.lookup("#addSchedEnd");
+      ComboBox<String> addSchedStart = (ComboBox<String>) dp.lookup("#addSchedStart");
+      ComboBox<String> addSchedEnd = (ComboBox<String>) dp.lookup("#addSchedEnd");
 
       ArrayList<String> courses = new ArrayList<>();
       for(Course c: CourseControllers.getAllCourse()){
@@ -292,6 +295,13 @@ public class SchedView {
       addSchedRoomId.setValue(Schedule.ROOMS.getFirst());
       addSchedRoomId.getItems().addAll(Schedule.ROOMS);
 
+      addSchedStart.setValue(Schedule.START_TIMES.getFirst());
+      addSchedStart.getItems().addAll(Schedule.START_TIMES);
+
+      addSchedEnd.setValue(Schedule.END_TIMES.getFirst());
+      addSchedEnd.getItems().addAll(Schedule.END_TIMES);
+
+
       dialog.showAndWait().ifPresent((btnType) -> {
         if(btnType ==ButtonType.OK){
           String code = addSchedCourseCode.getValue().split(" ")[0];
@@ -299,8 +309,8 @@ public class SchedView {
           int room = Integer.parseInt(addSchedRoomId.getValue());
           
           
-          String rawStart = addSchedStart.getText();
-          String rawEnd = addSchedEnd.getText();
+          String rawStart = addSchedStart.getValue();
+          String rawEnd = addSchedEnd.getValue();
 
           if(code.isBlank() || day.isBlank() || rawStart.isBlank() || rawEnd.isBlank()){
             Alert a = new Alert(AlertType.ERROR);

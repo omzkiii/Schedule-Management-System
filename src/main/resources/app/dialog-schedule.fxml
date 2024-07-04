@@ -49,8 +49,8 @@
                   <Font size="13.0" />
                </font>
             </Label>
-            <Spinner fx:id="addSchedStart" prefHeight="26.0" prefWidth="175.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <Spinner fx:id="addSchedEnd" prefHeight="26.0" prefWidth="185.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <ComboBox fx:id="addSchedStart" prefHeight="26.0" prefWidth="170.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <ComboBox fx:id="addSchedEnd" prefHeight="26.0" prefWidth="170.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
          </children>
       </GridPane>
    </content>
