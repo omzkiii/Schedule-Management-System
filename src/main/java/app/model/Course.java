@@ -36,7 +36,6 @@ public class Course {
             throw new IllegalArgumentException("Faculty ID does not exist");
         }
 
-
         this.code = code;
         this.desc = desc;
         this.hrsPerWeek = lecUnits + (labUnits*3);

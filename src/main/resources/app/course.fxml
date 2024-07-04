@@ -14,7 +14,7 @@
    <children>
       <VBox alignment="CENTER" prefHeight="57.0" prefWidth="458.0">
          <children>
-            <Label styleClass="subpane-headers" text="Course" textAlignment="CENTER">
+            <Label styleClass="subpane-headers" text="Course - Section" textAlignment="CENTER">
                <font>
                   <Font name="Kristen ITC" size="25.0" />
                </font>
