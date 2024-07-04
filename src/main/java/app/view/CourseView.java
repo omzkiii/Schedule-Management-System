@@ -279,7 +279,7 @@ public class CourseView {
             return;
           }
 
-          String codeRegex = "^[A-Z]{3,4}[0-9]{3} - [A-Z]{2}[1-3][2]S[1-4]";
+          String codeRegex = "^[A-Z]{3,4}[0-9]{3} - [A-Z]{2}[1-3][3]S[1-4]";
           
           if(!Pattern.matches(codeRegex, code)){
             Alert a = new Alert(AlertType.ERROR);
