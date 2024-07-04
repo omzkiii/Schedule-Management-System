@@ -1,6 +1,5 @@
 package app;
 
-import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -52,11 +51,11 @@ public class AppController {
   public void start(Stage primaryStage) throws IOException{
     FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("schedule-management.fxml"));
     mainPane = fxmlLoader.load();
-    scene = new Scene(mainPane, 600, 400);
+    scene = new Scene(mainPane, 800, 400);
     stage = primaryStage;
     Image icon = new Image("Images/calendar-lines.png");
     primaryStage.getIcons().add(icon);
-    primaryStage.setTitle("Scheduling Management System");
+    primaryStage.setTitle("FACFLOW");
     primaryStage.setScene(scene);
     primaryStage.show();
   }
