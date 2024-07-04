@@ -1,10 +1,14 @@
 package app.view;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 import app.App;
 import app.FxmlLoader;
+import app.controller.CourseControllers;
 import app.controller.FacultyControllers;
+import app.model.Course;
 import app.model.Faculty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -39,18 +43,21 @@ public class FacultyView {
     facultyTbl = (TableView<Faculty>) view.lookup("#facList");
     TableColumn<Faculty, Integer> id = (TableColumn<Faculty, Integer>) facultyTbl.getColumns().get(0);
     TableColumn<Faculty, String> name = (TableColumn<Faculty, String>) facultyTbl.getColumns().get(1);
-    TableColumn<Faculty, Integer> maxLoad = (TableColumn<Faculty, Integer>) facultyTbl.getColumns().get(2);
-    TableColumn<Faculty, Void> actions =  (TableColumn<Faculty, Void>) facultyTbl.getColumns().get(3);
+    TableColumn<Faculty, Integer> currentLoad = (TableColumn<Faculty, Integer>) facultyTbl.getColumns().get(2);
+    TableColumn<Faculty, Integer> maxLoad = (TableColumn<Faculty, Integer>) facultyTbl.getColumns().get(3);
+    TableColumn<Faculty, Void> actions =  (TableColumn<Faculty, Void>) facultyTbl.getColumns().get(4);
 
     id.setCellValueFactory(new PropertyValueFactory<>("id"));
     name.setCellValueFactory(new PropertyValueFactory<>("name"));
+    currentLoad.setCellValueFactory(new PropertyValueFactory<>("currentLoad"));
     maxLoad.setCellValueFactory(new PropertyValueFactory<>("maxLoad"));
     actions.setCellFactory(setFacBtn());
     
-
     for(Faculty faculty: FacultyControllers.getAllFaculty()){
+      faculty.setCurrentLoad(CourseChecker.currentFacLoad(faculty.getId()));
       facultyTbl.getItems().add(faculty);
     }
+
     localFacultyTbl = facultyTbl;
     return facultyTbl;
   }
