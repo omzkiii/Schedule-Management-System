@@ -51,10 +51,10 @@ public class CourseChecker {
 
 
     public static float currentFacLoad(int facId){
-
         ArrayList<Course> courses = CourseControllers.getCourseFor(facId);
-
+    
         float currentLoad = 0;
+    
         for(Course c: courses){
             currentLoad += c.getHrsPerWeek();
         }
