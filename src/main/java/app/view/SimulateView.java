@@ -1,14 +1,18 @@
 package app.view; import java.time.DayOfWeek; import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 import app.App;
 import app.AppController;
 import app.FxmlLoader;
+import app.controller.FacultyControllers;
 import app.controller.ScheduleController;
+import app.model.Faculty;
 import app.model.Schedule;
 import javafx.application.Platform;
 import javafx.concurrent.ScheduledService;
@@ -16,6 +20,7 @@ import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -31,7 +36,7 @@ public class SimulateView{
 
   private static int lastSchedId = ScheduleController.getAllSchedule().getLast().getId();
 
-  public static void startDatabaseChecking(TableView<Schedule> simTbl){
+  public static void startDatabaseChecking(TableView<Schedule> simTbl, ListView<String> availList){
     if(backgroundTask != null && backgroundTask.isRunning()){
       System.out.println("Background Task is Already Running");
       return;
@@ -41,21 +46,23 @@ public class SimulateView{
       protected Void call() throws Exception {
         while (!isCancelled()) {
           try {
-            boolean noChangesDetected = isDatabaseSame();
-            if(!noChangesDetected) {
-              Platform.runLater(() -> {
-                try {
-                  FxmlLoader object = new FxmlLoader();
-                  Pane view = object.getPage("simulate");
-                  setSimCols(view, simTbl);
-                  App.subPane.setCenter(view);
-                  // System.out.println("WHO WATCHES THE WATCHMEN?" + Thread.currentThread().getName());
+            // boolean noChangesDetected = isDatabaseSame();
+            Platform.runLater(() -> {
+              try {
+                FxmlLoader object = new FxmlLoader();
+                Pane view = object.getPage("simulate");
+                setSimList(view, availList);
+                setSimCols(view, simTbl);
+                App.subPane.setCenter(view);
+                // System.out.println("WHO WATCHES THE WATCHMEN?" + Thread.currentThread().getName());
 
-                } catch (Exception e) {
-                  System.out.println("FIDDLER:" + e);
-                }
-              });
-            }
+              } catch (Exception e) {
+                System.out.println("FIDDLER:" + e);
+              }
+            });
+            // if(!noChangesDetected) {
+              
+            // }
             Thread.sleep(1000);
           } catch (Exception e) {
           }
@@ -78,7 +85,37 @@ public class SimulateView{
     }
     return newlastSchedId == lastSchedId;
   }
+  
 
+  public static ListView<String> setSimList(Pane view, ListView<String> availList){
+    availList = (ListView<String>) view.lookup("#availList");
+
+    List<Faculty> faculty = FacultyControllers.getAllFaculty();
+    List<String> facString = faculty.stream().map(Faculty::toString).collect(Collectors.toList());
+    
+    
+    DayOfWeek dayOfWeek = LocalDate.now().getDayOfWeek();
+    ArrayList<Schedule> schedules = ScheduleController.getTodaySchedule(dayOfWeek.toString());
+    LocalTime timeNow = LocalTime.now();
+    if (schedules.isEmpty()){
+      availList.getItems().addAll(facString);  
+      return availList;
+    }
+
+
+    for (Schedule schedule : schedules) {
+      LocalTime start = schedule.getDuration().getStart(); 
+      LocalTime end = schedule.getDuration().getEnd();
+      
+      if (start.isBefore(timeNow) && end.isAfter(timeNow)) {
+        facString.remove(schedule.getFaculty().toString());
+      }
+    }
+
+    availList.getItems().addAll(facString);
+    return availList;
+    
+  }
 
   
   public static TableView<Schedule> setSimCols(Pane view, TableView<Schedule> simTbl ){
