@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ButtonType?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DialogPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<DialogPane prefHeight="240.0" prefWidth="353.0" styleClass="label-dialog" stylesheets="@style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.AppController">
+   <content>
+      <GridPane fx:id="editSchedID" alignment="CENTER" prefHeight="180.0" prefWidth="353.0" styleClass="label-dialog" vgap="25.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints />
+         </rowConstraints>
+         <children>
+            <Label styleClass="label-dialog" text="Day" GridPane.rowIndex="2">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <Label styleClass="label-dialog" text="Room ID" GridPane.rowIndex="3">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <Label styleClass="label-dialog" text="Start" GridPane.rowIndex="4">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <Label styleClass="label-dialog" text="End" GridPane.rowIndex="5">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="editSchedDay" prefHeight="26.0" prefWidth="166.0" styleClass="label-dialog" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <ComboBox fx:id="editRoomID" prefHeight="26.0" prefWidth="167.0" styleClass="label-dialog" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="editSchedStart" promptText="00:00 - 23:59" styleClass="label-dialog" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="editSchedEnd" promptText="00:00  - 23:59" styleClass="label-dialog" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <Label styleClass="label-dialog" text="Course Code" GridPane.rowIndex="1" />
+            <ComboBox fx:id="editCourseCode" prefHeight="26.0" prefWidth="170.0" styleClass="label-dialog" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label styleClass="label-dialog" text="Schedule ID" />
+            <Label fx:id="editSched" styleClass="label-dialog" text="Ex. ID" GridPane.columnIndex="1">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+         </children>
+      </GridPane>
+   </content>
+   <buttonTypes>
+      <ButtonType fx:constant="OK" />
+      <ButtonType fx:constant="CANCEL" />
+   </buttonTypes>
+   <header>
+      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="38.0" prefWidth="353.0" styleClass="edit-headers" text="Edit Schedule">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+   </header>
+</DialogPane>
