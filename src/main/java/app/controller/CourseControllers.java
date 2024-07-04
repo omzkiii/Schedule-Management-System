@@ -7,7 +7,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import app.model.Course;
+import app.model.Schedule;
 import app.utils.CourseChecker;
+import app.utils.ScheduleChecker;
 
 public class CourseControllers {
   public static int createCourse(Course course){
@@ -27,9 +29,9 @@ public class CourseControllers {
     String code = course.getCode();
     String name = course.getDesc();
     int lec = course.getLecUnits();
-    int lab = course .getLabUnits();
+    int lab = course.getLabUnits();
     float hrs = course.getHrsPerWeek();
-    int fac = course. getFacultyId();
+    int fac = course.getFacultyId();
 
 
     try {
@@ -59,6 +61,8 @@ public class CourseControllers {
      * 0 - update success
      * 1 - course code does not exist
      * 2 - faculty max load exceeded
+     * 3 - updating course will result to conflict of schedule for new assigned faculty
+     * 4 - schedules for course exceed allowed hrs per week 
      * -1 - other exception
      */
 
@@ -70,14 +74,41 @@ public class CourseControllers {
     String code = course.getCode();
     String name = course.getDesc();
     int lec = course.getLecUnits();
-    int lab = course .getLabUnits();
+    int lab = course.getLabUnits();
     float hrs = course.getHrsPerWeek();
-    int fac = course. getFacultyId();
+    int fac = course.getFacultyId();
+
 
     try {
+      Course origCourse = getCourse(code);
       int rowAffected = Controllers.noresQuery(Queries.updateCourse(code, name, lec, lab, hrs, fac));
       System.out.println("Updated " + rowAffected + " row/s for course " + code);
+
       if(rowAffected == 1){
+
+        // To modify schedule associated to the course
+        if (ScheduleChecker.courseHasSchedule(code)){
+          ArrayList<Schedule> schedules = ScheduleController.getCourseSchedule(code);
+          for(Schedule sched: schedules){
+            
+            sched.setCourseCode(code);
+
+            int modSchedRes = ScheduleController.modifySchedule(sched);
+            switch (modSchedRes) {
+              case 0:
+                break;
+              case 1:
+                return -1;
+              case 2:
+                Controllers.noresQuery(Queries.updateCourse(code, origCourse.getDesc(), origCourse.getLecUnits(), origCourse.getLabUnits(), origCourse.getHrsPerWeek(), origCourse.getFacultyId()));
+                return 4;
+              case 3:
+                Controllers.noresQuery(Queries.updateCourse(code, origCourse.getDesc(), origCourse.getLecUnits(), origCourse.getLabUnits(), origCourse.getHrsPerWeek(), origCourse.getFacultyId()));
+                return 3;
+            }
+          }          
+        }
+          
         return 0;
       } else if(rowAffected == 0){
         return 1;

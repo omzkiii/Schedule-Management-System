@@ -50,6 +50,12 @@ public class FacultyControllers {
       System.out.println("Updated " + rowAffected + " row/s for employee " + faculty.getId());
       if(rowAffected == 1){
         return 0;
+
+        //To check if new max load will conflict existing course tagging
+        
+
+
+
       } else if(rowAffected == 0){
         return 1;
       } else {
