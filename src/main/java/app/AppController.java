@@ -71,6 +71,8 @@ public class AppController {
     mainPane = fxmlLoader.load();
     stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
     scene = new Scene(mainPane);
+    stage.setMinHeight(600);
+    stage.setMinWidth(1400);
     stage.setScene(scene);
     stage.show();
     App.subPane = (BorderPane) mainPane.lookup("#subPane");
@@ -78,6 +80,10 @@ public class AppController {
 
   public void switchToScene1(ActionEvent event) throws IOException {
     stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+    stage.setHeight(500);
+    stage.setWidth(800);
+    stage.setMinHeight(500);
+    stage.setMinWidth(800);
     start(stage);
     if (SimulateView.backgroundTask != null) {
       SimulateView.backgroundTask.cancel();
