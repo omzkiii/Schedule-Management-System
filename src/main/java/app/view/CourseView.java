@@ -1,6 +1,7 @@
 package app.view;
 
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 import java.util.regex.Pattern;
 
 import app.App;
@@ -37,6 +38,7 @@ import app.utils.ScheduleChecker;
 public class CourseView {
   public static TableView<Course> localCourseTbl;
 
+  @SuppressWarnings("unchecked")
   public static void setCourseCols(Pane view, TableView<Course> courseTbl ){
     courseTbl = (TableView<Course>) view.lookup("#courseTable");
     TableColumn<Course, String> codeCol = (TableColumn<Course, String>) courseTbl.getColumns().get(0);
@@ -133,6 +135,7 @@ public class CourseView {
     };
   }
 
+  @SuppressWarnings("unchecked")
   public static void openEditDialog(ActionEvent event, Course course){
     FXMLLoader loader = new FXMLLoader(App.class.getResource("edit-course.fxml"));
 
@@ -240,6 +243,7 @@ public class CourseView {
 
   }
 
+  @SuppressWarnings("unchecked")
   public static void openAddDialog(ActionEvent event, Stage stage, FXMLLoader loader){
     try{
       Dialog<ButtonType> dialog = new Dialog<>();
@@ -279,7 +283,7 @@ public class CourseView {
             return;
           }
 
-          String codeRegex = "^[A-Z]{3,4}[0-9]{3}[A-Z]{0,1} - [A-Z]{2}[1-4][1-3]S[1-9]";
+          String codeRegex = "^[A-Z]{3,4}[0-9]{3}[A-Z]{0,1} - [A-Z]{2,3}[1-4][1-3]S[1-9]";
           
           if(!Pattern.matches(codeRegex, code)){
             Alert a = new Alert(AlertType.ERROR);
@@ -330,10 +334,20 @@ public class CourseView {
 
           } catch(IllegalArgumentException e) {
             System.out.println(e.getMessage());
+          } catch(NoSuchElementException e) {
+            Alert a = new Alert(AlertType.ERROR);
+            a.setContentText("No faculty available to assign");
+            a.show();
+          } catch(Exception e) {
+            System.out.println(e.getMessage());
           }
 
         }
       });
+    } catch(NoSuchElementException e) {
+      Alert a = new Alert(AlertType.ERROR);
+      a.setContentText("No faculty available to assign");
+      a.show();
     } catch(Exception e) {
       System.out.println(e.getMessage());
     }

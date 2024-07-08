@@ -15,9 +15,7 @@ import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 
-import java.awt.*;
 import java.io.IOException;
-import java.time.LocalTime;
 
 import app.model.Faculty;
 import app.model.Schedule;
@@ -26,8 +24,6 @@ import app.view.FacultyView;
 import app.view.SchedView;
 import app.view.SimulateView;
 import app.model.Course;
-import app.model.Duration;
-import app.controller.ScheduleController;
 
 public class AppController {
 
