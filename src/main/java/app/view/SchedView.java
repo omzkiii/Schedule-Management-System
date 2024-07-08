@@ -304,7 +304,8 @@ public class SchedView {
 
       dialog.showAndWait().ifPresent((btnType) -> {
         if(btnType ==ButtonType.OK){
-          String code = addSchedCourseCode.getValue().split(" ")[0];
+          String code = addSchedCourseCode.getValue().split(":")[0];
+          System.out.println(code);
           String day = addSchedDay.getValue();
           int room = Integer.parseInt(addSchedRoomId.getValue());
           
