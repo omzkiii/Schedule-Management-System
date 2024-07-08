@@ -63,7 +63,7 @@
                <columns>
                   <TableColumn fx:id="codeColumn" prefWidth="75.0" text="Code" />
                   <TableColumn fx:id="descColumn" prefWidth="75.0" text="Description" />
-                  <TableColumn fx:id="lecUnitsColumn" prefWidth="75.0" text="Lecutre Units" />
+                  <TableColumn fx:id="lecUnitsColumn" prefWidth="75.0" text="Lecture Units" />
                   <TableColumn fx:id="labUnitsColumn" prefWidth="75.0" text="Laboratory Units" />
                   <TableColumn fx:id="hrsPerWeekColumn" prefWidth="75.0" text="Hours per Week" />
                   <TableColumn fx:id="facultyColumn" prefWidth="75.0" text="Assigned Faculty" />

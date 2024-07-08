@@ -2,6 +2,7 @@ package app.view;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 import java.util.regex.Pattern;
 
 import app.App;
@@ -11,8 +12,6 @@ import app.controller.ScheduleController;
 import app.model.Course;
 import app.model.Duration;
 import app.model.Schedule;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
@@ -23,11 +22,9 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
-import javafx.scene.control.Spinner;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -35,6 +32,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
+@SuppressWarnings("unchecked")
 public class SchedView {
   public static TableView<Schedule> localSchedTbl;
   public static void setSchedCols(Pane view, TableView<Schedule> schedTbl){
@@ -385,11 +383,22 @@ public class SchedView {
               default:
                 System.out.println(e.getMessage());
             }
+          } catch(NoSuchElementException e) {
+            Alert a = new Alert(AlertType.ERROR);
+            a.setContentText("No courses/faculty available to schedule");
+            a.show();
+          } catch(Exception e) {
+            System.out.println(e.getMessage());
           }
         }
       });
 
+    } catch(NoSuchElementException e) {
+      Alert a = new Alert(AlertType.ERROR);
+      a.setContentText("No courses/faculty available to schedule");
+      a.show();
     } catch(Exception e) {
+      System.out.println(e.getMessage());
     }
     
   }

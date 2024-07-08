@@ -1,7 +1,5 @@
 package app.model;
 
-import app.utils.CourseChecker;
-
 public class Faculty{
   // Full time - 8 hrs per day: 6 hrs for classes, 2 hrs for admin (6*5days)
   // Part time - 4 hrs per day: 3 hrs for classes, 1 hr for admin (3*5days)

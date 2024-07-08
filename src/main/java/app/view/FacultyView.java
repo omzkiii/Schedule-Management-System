@@ -1,17 +1,11 @@
 package app.view;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 import app.App;
 import app.FxmlLoader;
-import app.controller.CourseControllers;
 import app.controller.FacultyControllers;
-import app.model.Course;
 import app.model.Faculty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
@@ -22,7 +16,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
-import javafx.scene.control.Tab;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -36,6 +29,7 @@ import javafx.util.Callback;
 
 import app.utils.CourseChecker;
 
+@SuppressWarnings("unchecked")
 public class FacultyView {
   public static TableView<Faculty> localFacultyTbl;
 

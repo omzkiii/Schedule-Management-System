@@ -2,33 +2,25 @@ package app.view; import java.time.DayOfWeek; import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 import app.App;
-import app.AppController;
 import app.FxmlLoader;
 import app.controller.FacultyControllers;
 import app.controller.ScheduleController;
 import app.model.Faculty;
 import app.model.Schedule;
 import javafx.application.Platform;
-import javafx.concurrent.ScheduledService;
-import javafx.concurrent.Service;
 import javafx.concurrent.Task;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 
 
-
+@SuppressWarnings("unchecked")
 public class SimulateView{
   @FXML 
   // private static TableView<Schedule> simTbl;
@@ -75,6 +67,7 @@ public class SimulateView{
     thread.start();
   }
 
+  @SuppressWarnings("unused")
   private static boolean isDatabaseSame(){
     int newlastSchedId = ScheduleController.getAllSchedule().getLast().getId();
     if (newlastSchedId == lastSchedId) {
