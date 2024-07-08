@@ -119,7 +119,7 @@ public class Course {
 
     @Override
     public String toString(){
-        return String.format("%s - %s", code, desc);
+        return String.format("%s: %s", code, desc);
     }
 
 }
